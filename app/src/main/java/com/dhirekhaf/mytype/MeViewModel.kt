@@ -1,4 +1,4 @@
-// File: app/src/main/java/com/dhirekhaf/mytype/MeViewModel.kt
+// Lokasi: app/src/main/java/com/dhirekhaf/mytype/MeViewModel.kt
 
 package com.dhirekhaf.mytype
 
@@ -18,16 +18,16 @@ class MeViewModel(private val userDataRepository: UserDataRepository) : ViewMode
     val userData: StateFlow<UserData> = userDataRepository.userData.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
-        // [PERUBAHAN] Nilai awal sekarang mencakup semua properti
-        initialValue = UserData("", "", null, emptyMap(), false, "", "", emptyList())
+        // PERBAIKAN: Nilai awal sekarang cocok dengan definisi UserData
+        initialValue = UserData("", "", null, emptyMap(), false, "", "", emptySet(), emptySet())
     )
 
-    // [PERUBAHAN] Fungsi saveNameAndImage diganti dengan saveUserProfile
     fun saveUserProfile(
         name: String,
         email: String,
         bio: String,
         hobbies: List<String>,
+        // PERBAIKAN: Parameter imageUri adalah Uri?, bukan String?
         imageUri: Uri?
     ) {
         viewModelScope.launch {
@@ -46,9 +46,15 @@ class MeViewModel(private val userDataRepository: UserDataRepository) : ViewMode
             userDataRepository.resetMbtiTest()
         }
     }
+
+    fun toggleFavoriteRelation(type1: String, type2: String) {
+        val key = listOf(type1, type2).sorted().joinToString("-")
+        viewModelScope.launch {
+            userDataRepository.toggleFavoriteRelation(key)
+        }
+    }
 }
 
-// Factory tidak perlu diubah
 class MeViewModelFactory(private val userDataRepository: UserDataRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MeViewModel::class.java)) {

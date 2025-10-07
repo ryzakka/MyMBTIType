@@ -1,4 +1,5 @@
 // File: app/src/main/java/com/dhirekhaf/mytype/PersonalityTestScreen.kt
+// [KODE LENGKAP - PERBAIKAN CARA MENYIMPAN SKOR]
 
 package com.dhirekhaf.mytype
 
@@ -83,7 +84,6 @@ fun PersonalityTestScreen(
                     .padding(paddingValues),
                 contentAlignment = Alignment.Center
             ) {
-                // --- [PERBAIKAN LOGIKA WHEN] ---
                 when {
                     uiState.isLoading -> CircularProgressIndicator(color = primaryColor)
 
@@ -95,8 +95,9 @@ fun PersonalityTestScreen(
                     )
 
                     uiState.testResult != null -> {
+                        // [PERBAIKAN] Simpan skor saat hasil pertama kali muncul
                         LaunchedEffect(uiState.testResult) {
-                            val scores = viewModel.getFinalScores()
+                            val scores = viewModel.getFinalScoresForSaving()
                             if (scores != null) {
                                 meViewModel.saveMbtiResult(uiState.testResult!!, scores)
                             }
@@ -104,7 +105,6 @@ fun PersonalityTestScreen(
                         TestResultView(result = uiState.testResult!!, onFinish = onTestComplete)
                     }
 
-                    // Kondisi eksplisit untuk menampilkan pertanyaan
                     !uiState.isLoading && uiState.currentQuestionGroup.isNotEmpty() -> {
                         QuestionGroupView(
                             uiState = uiState,
@@ -186,18 +186,6 @@ fun QuestionGroupView(
     }
 }
 
-// File: app/src/main/java/com/dhirekhaf/mytype/PersonalityTestScreen.kt
-
-// ... (kode lain di atasnya tidak perlu diubah)
-
-// File: app/src/main/java/com/dhirekhaf/mytype/PersonalityTestScreen.kt
-
-// ... (kode lain di atasnya tidak perlu diubah)
-
-// File: app/src/main/java/com/dhirekhaf/mytype/PersonalityTestScreen.kt
-
-// ... (kode lain di atasnya tidak perlu diubah)
-
 @Composable
 fun QuestionCard(
     question: Question,
@@ -212,24 +200,18 @@ fun QuestionCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-
-            // --- [PERUBAIKAN UTAMA DI SINI] ---
-            // 1. Bungkus Soal dan Ikon dalam satu Row
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically // Pastikan vertikal sejajar
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                // Teks Pertanyaan Utama
                 Text(
                     text = question.question_text,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.weight(1f) // Isi ruang yang tersedia
+                    modifier = Modifier.weight(1f)
                 )
-
-                // Tombol Bantuan '?' di sebelah kanan
                 if (!question.explanation.isNullOrBlank()) {
-                    Spacer(modifier = Modifier.width(8.dp)) // Beri sedikit jarak
+                    Spacer(modifier = Modifier.width(8.dp))
                     IconButton(onClick = { isExpanded = !isExpanded }, modifier = Modifier.size(24.dp)) {
                         Icon(
                             imageVector = Icons.Default.HelpOutline,
@@ -239,9 +221,6 @@ fun QuestionCard(
                     }
                 }
             }
-            // --- AKHIR PERUBAIKAN ---
-
-            // 2. Dropdown Penjelasan tetap di bawah Row
             if (!question.explanation.isNullOrBlank()) {
                 AnimatedVisibility(visible = isExpanded) {
                     Text(
@@ -250,7 +229,7 @@ fun QuestionCard(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 8.dp) // Jarak dari soal
+                            .padding(top = 8.dp)
                             .background(Color.Gray.copy(alpha = 0.1f), RoundedCornerShape(8.dp))
                             .padding(12.dp),
                         textAlign = TextAlign.Center
@@ -260,7 +239,6 @@ fun QuestionCard(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // 3. Opsi Jawaban (tidak berubah)
             question.options.forEach { option ->
                 val isSelected = selectedOptionId == option.option_id
                 val backgroundColor by animateColorAsState(
@@ -294,16 +272,6 @@ fun QuestionCard(
     }
 }
 
-// ... (Sisa kode di file ini seperti TestResultView, QuestionGroupView, dll. tidak perlu diubah)
-
-
-// ... (Sisa kode di file ini seperti TestResultView, QuestionGroupView, dll. tidak perlu diubah)
-
-
-// ... (Sisa kode di file ini tidak perlu diubah)
-
-
-// TestResultView tidak berubah
 @Composable
 fun TestResultView(result: String, onFinish: () -> Unit) {
     Card(

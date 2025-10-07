@@ -1,6 +1,6 @@
 // File: app/build.gradle.kts
-import java.util.Properties
-import java.io.FileInputStream
+
+// Tidak perlu lagi mengimpor 'java.util.Properties' dan 'java.io.FileInputStream'
 
 plugins {
     alias(libs.plugins.android.application)
@@ -8,13 +8,8 @@ plugins {
     alias(libs.plugins.compose.compiler)
 }
 
-// +++ KODE UNTUK MEMBACA FILE local.properties +++
-// Tambahkan bagian ini persis di atas blok 'android'
-val localProperties = Properties()
-val localPropertiesFile = rootProject.file("local.properties")
-if (localPropertiesFile.exists()) {
-    localProperties.load(FileInputStream(localPropertiesFile))
-}
+// Bagian untuk membaca local.properties sudah dihapus seluruhnya karena tidak diperlukan.
+
 android {
     namespace = "com.dhirekhaf.mytype"
     compileSdk = 36
@@ -23,35 +18,28 @@ android {
         applicationId = "com.dhirekhaf.mytype"
         minSdk = 26
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
 
-        buildConfigField(
-            type = "String",
-            name = "API_AUTH_TOKEN",
-            // HAPUS TANDA KUTIP YANG DI-ESCAPE (\"...\") DARI SINI
-            value = localProperties.getProperty("API_AUTH_TOKEN", "DEFAULT_DUMMY_TOKEN")
-        )
-        // +++ AKHIR BAGIAN BARU +++
+        // Baris 'buildConfigField' untuk API_AUTH_TOKEN sudah dihapus dari sini.
     }
 
     buildTypes {
         release {
-            // [UBAH INI] dari isMinifyEnabled = false menjadi true
             isMinifyEnabled = true
-
-            // [TAMBAHKAN INI] untuk menghapus sumber daya yang tidak digunakan
             isShrinkResources = true
 
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            // Disarankan untuk membuat signing config release Anda sendiri,
+            // tetapi untuk saat ini menggunakan debug sudah cukup untuk build.
             signingConfig = signingConfigs.getByName("debug")
         }
     }
@@ -65,8 +53,10 @@ android {
     }
     buildFeatures {
         compose = true
-        // +++ KODE UNTUK MENGAKTIFKAN BUILDCONFIG +++
-        buildConfig = true // Baris ini sangat penting
+        // Tetap aktifkan 'buildConfig' jika Anda punya BuildConfig field lain di masa depan.
+        // Jika tidak ada sama sekali, ini bisa dihapus bersama dengan blok buildFeatures.
+        // Untuk saat ini, biarkan saja agar aman.
+        buildConfig = true
     }
     packaging {
         resources {
@@ -75,13 +65,10 @@ android {
     }
 }
 
-// Dependensi Anda tidak perlu diubah, tetap sama seperti sebelumnya
 dependencies {
     // --- Core & Material Design ---
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.constraintlayout)
 
     // --- Jetpack Compose ---
     implementation(platform(libs.androidx.compose.bom))
@@ -90,8 +77,10 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended")
+    implementation("androidx.compose.animation:animation") // Untuk animasi
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.1.1")
 
-    // --- Coil ---
+    // --- Coil (Image Loading) ---
     implementation("io.coil-kt:coil-compose:2.7.0")
 
     // --- Navigasi ---
@@ -102,12 +91,26 @@ dependencies {
     implementation(libs.androidx.activity.ktx)
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.4")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.4")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.9.4")
+    implementation("dev.shreyaspatil:capturable:1.0.3")
+// --- MENJADI SEPERTI INI ---
+
 
     // --- Data Persistence ---
     implementation("androidx.datastore:datastore-preferences:1.1.7")
 
     // --- Paging 3 ---
     implementation("androidx.paging:paging-compose:3.3.6")
+
+    // --- Accompanist Libraries ---
+    implementation("com.google.accompanist:accompanist-flowlayout:0.36.0")
+    implementation("com.google.accompanist:accompanist-placeholder-material:0.36.0")
+
+    // --- Networking (Tidak digunakan, tapi ada di dependensi Anda) ---
+    implementation("com.squareup.retrofit2:retrofit:3.0.0")
+    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:5.2.0")
+    implementation("com.google.code.gson:gson:2.13.2")
 
     // --- Testing ---
     testImplementation(libs.junit)
@@ -119,25 +122,6 @@ dependencies {
     // --- Debugging ---
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-
-    // --- Networking (Retrofit & OkHttp) ---
-    // Menggunakan versi yang lebih stabil untuk menghindari konflik
-    implementation("com.squareup.retrofit2:retrofit:3.0.0")
-    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:5.1.0")
-    // Tambahkan ini jika belum ada, biasanya diletakkan bersama dependensi lain
-    implementation("com.google.code.gson:gson:2.13.2") // Versi terbaru dan stabil
-    implementation("androidx.compose.ui:ui")
-
-        // ... dependensi lain
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.9.4") // <-- TAMBAHKAN BARIS INI
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.4")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.4")
-    // ... dependensi lain
-
-    implementation("androidx.compose.material3:material3")
-    implementation("com.google.accompanist:accompanist-flowlayout:0.36.0") // Atau versi lebih baru yang kompatibel
-    implementation("androidx.compose.animation:animation")
 
 
 }

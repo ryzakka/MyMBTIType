@@ -117,6 +117,12 @@ fun AppNavigation(
         }
 
         composable(
+            route = "share_preview"
+        ) {
+            SharePreviewScreen(navController = navController)
+        }
+
+        composable(
             route = "personality_detail/{typeId}/{themeColorHex}",
             arguments = listOf(
                 navArgument("typeId") { type = NavType.StringType },
@@ -175,5 +181,25 @@ fun AppNavigation(
                 }
             )
         }
+
+        composable(
+            route = "relationship_detail/{type1}/{type2}",
+            arguments = listOf(
+                navArgument("type1") { type = NavType.StringType },
+                navArgument("type2") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val type1 = backStackEntry.arguments?.getString("type1")
+            val type2 = backStackEntry.arguments?.getString("type2")
+
+            if (type1 != null && type2 != null) {
+                RelationshipDetailScreen(
+                    type1 = type1,
+                    type2 = type2,
+                    navController = navController
+                )
+            }
+        }
+
     }
 }

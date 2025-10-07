@@ -1,3 +1,5 @@
+// File: settings.gradle.kts
+
 pluginManagement {
     repositories {
         google()
@@ -11,9 +13,12 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        // Repositori JitPack untuk library seperti 'capturable'
+        maven {
+            url = uri("https://jitpack.io")
+        }
     }
 }
 
-// Ganti nama proyek menjadi "MyType" agar konsisten
 rootProject.name = "MyType"
 include(":app")

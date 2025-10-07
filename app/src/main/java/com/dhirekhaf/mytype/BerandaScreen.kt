@@ -15,10 +15,8 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-// --- [PERBAIKAN] HAPUS IMPORT YANG TIDAK DIGUNAKAN DAN SALAH ---
-// import androidx.compose.material.icons.Icons (ini akan diganti dengan import yang lebih spesifik)
-import androidx.compose.material.icons.Icons // <-- Import ini tetap dibutuhkan untuk mengakses sub-paket
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight // <-- [PERBAIKAN] IMPORT YANG BENAR UNTUK IKON PANAH
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.getValue
@@ -51,13 +49,15 @@ import com.dhirekhaf.mytype.data.mbtiQuotes
 import kotlinx.coroutines.delay
 import kotlin.random.Random
 
-// --- Struktur Data Tema tidak berubah ---
+// --- BAGIAN 1: STRUKTUR DATA & TEMA ---
+// Mendefinisikan properti visual untuk setiap grup kepribadian.
 data class PersonalityTheme(
     @DrawableRes val background: Int,
     val particleColor: Color,
     val gemColors: List<Color>
 )
 
+// Memetakan setiap grup kepribadian ke tema visualnya.
 val personalityThemes = mapOf(
     "Analyst" to PersonalityTheme(R.drawable.latarbodyungu, Color(0xFFD0BCFF), listOf(Color(0xFF623A86), Color(0xFFD0BCFF))),
     "Diplomat" to PersonalityTheme(R.drawable.latarbodyhijau, Color(0xFFC3F3D0), listOf(Color(0xFF2E6B4F), Color(0xFFC3F3D0))),
@@ -66,6 +66,7 @@ val personalityThemes = mapOf(
     "Default" to PersonalityTheme(R.drawable.latarponihijau, Color.White, listOf(Color.White, Color.Gray))
 )
 
+// Fungsi utilitas untuk mendapatkan tema visual berdasarkan tipe MBTI.
 fun getThemeForMbti(mbtiType: String): PersonalityTheme {
     val group = when (mbtiType) {
         "INTJ", "INTP", "ENTJ", "ENTP" -> "Analyst"
@@ -77,10 +78,15 @@ fun getThemeForMbti(mbtiType: String): PersonalityTheme {
     return personalityThemes[group]!!
 }
 
+
+// --- BAGIAN 2: GAYA TEKS (TEXT STYLES) ---
+// Mendefinisikan gaya teks yang akan digunakan di layar ini agar konsisten.
 private val BerandaGayaSapaan = TextStyle(fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color.White)
 private val BerandaGayaKutipan = TextStyle(fontSize = 20.sp, textAlign = TextAlign.Center, lineHeight = 30.sp, color = Color.White.copy(0.9f))
 private val MbtiConstellationStyle = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.White)
 
+
+// --- BAGIAN 3: COMPOSABLE UTAMA ---
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BerandaScreen(
@@ -89,11 +95,12 @@ fun BerandaScreen(
     onNavigate: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    // Mengambil data pengguna dari ViewModel.
     val context = LocalContext.current
     val meViewModel: MeViewModel = viewModel(factory = MeViewModelFactory(UserDataRepository(context)))
-
     val userData by meViewModel.userData.collectAsState()
 
+    // State untuk mengontrol dialog konfirmasi "Retake Test".
     var showConfirmDialog by remember { mutableStateOf(false) }
     if (showConfirmDialog) {
         ConfirmRetakeTestDialog(
@@ -106,6 +113,7 @@ fun BerandaScreen(
         )
     }
 
+    // State untuk mengontrol bottom sheet yang menampilkan detail dimensi.
     val sheetState = rememberModalBottomSheetState()
     var selectedDimension by remember { mutableStateOf<Pair<Char, String>?>(null) }
 
@@ -118,6 +126,7 @@ fun BerandaScreen(
         }
     }
 
+    // Struktur utama layar menggunakan Box untuk menumpuk elemen.
     Box(modifier = modifier.fillMaxSize()) {
         BerandaHeaderElegan(
             userData = userData,
@@ -142,6 +151,8 @@ fun BerandaScreen(
     }
 }
 
+
+// --- BAGIAN 4: HEADER UTAMA LAYAR BERANDA ---
 @Composable
 private fun BerandaHeaderElegan(
     modifier: Modifier = Modifier,
@@ -150,12 +161,14 @@ private fun BerandaHeaderElegan(
 ) {
     val (name, mbtiType, imageUri) = userData
     val displayName = if (name.isNotBlank()) name else "Beautiful Human!"
+    // State untuk kutipan, akan berubah jika tipe MBTI berubah atau di-tap.
     var currentQuote by remember(mbtiType) {
         mutableStateOf(
             (mbtiQuotes[mbtiType]?.random() ?: generalQuotes.random())
         )
     }
 
+    // State dan LaunchedEffect untuk mengatur animasi fade-in.
     var showStaticHeader by remember { mutableStateOf(false) }
     var showDynamicContent by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) {
@@ -165,61 +178,41 @@ private fun BerandaHeaderElegan(
         showDynamicContent = true
     }
 
-    val headerAlpha by animateFloatAsState(
-        targetValue = if (showStaticHeader) 1f else 0f,
-        animationSpec = tween(800),
-        label = "h_alpha"
-    )
-    val contentAlpha by animateFloatAsState(
-        targetValue = if (showDynamicContent) 1f else 0f,
-        animationSpec = tween(1000, 200),
-        label = "c_alpha"
-    )
-    val contentOffsetY by animateDpAsState(
-        targetValue = if (showDynamicContent) 0.dp else 20.dp,
-        animationSpec = tween(1000, 200),
-        label = "c_offset"
-    )
+    // State animasi untuk alpha (transparansi) dan offset (posisi).
+    val headerAlpha by animateFloatAsState(targetValue = if (showStaticHeader) 1f else 0f, animationSpec = tween(800), label = "h_alpha")
+    val contentAlpha by animateFloatAsState(targetValue = if (showDynamicContent) 1f else 0f, animationSpec = tween(1000, 200), label = "c_alpha")
+    val contentOffsetY by animateDpAsState(targetValue = if (showDynamicContent) 0.dp else 20.dp, animationSpec = tween(1000, 200), label = "c_offset")
+
+    // Animasi "Ken Burns" (zoom perlahan) untuk gambar latar.
     val infiniteTransition = rememberInfiniteTransition("inf_trans")
     val scale by infiniteTransition.animateFloat(1.0f, 1.1f, infiniteRepeatable(tween(20000, easing = LinearEasing), RepeatMode.Reverse), "ken_burns")
+
+    // Mendapatkan tema visual berdasarkan tipe MBTI pengguna.
     val theme = getThemeForMbti(mbtiType)
 
-    Box(modifier
-        .fillMaxSize()
-        .clip(RoundedCornerShape(0.dp))) {
+    Box(modifier.fillMaxSize().clip(RoundedCornerShape(0.dp))) {
+        // Latar belakang dengan partikel dan gradien.
         Box(Modifier.fillMaxSize()) {
             Crossfade(theme.background, animationSpec = tween(1500), label = "bg_crossfade") { imageRes ->
-                Image(painterResource(imageRes), null, contentScale = ContentScale.Crop, modifier = Modifier
-                    .fillMaxSize()
-                    .scale(scale))
+                Image(painterResource(imageRes), null, contentScale = ContentScale.Crop, modifier = Modifier.fillMaxSize().scale(scale))
             }
             FloatingParticles(theme.particleColor)
-            Box(Modifier
-                .fillMaxSize()
-                .background(
-                    Brush.verticalGradient(
-                        listOf(
-                            Color.Black.copy(0.6f),
-                            Color.Transparent,
-                            Color.Black.copy(0.8f)
-                        )
-                    )
-                ))
+            Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color.Black.copy(0.6f), Color.Transparent, Color.Black.copy(0.8f)))))
 
+            // Area untuk menampilkan kutipan yang bisa di-tap.
             Box(
                 Modifier
                     .fillMaxSize()
                     .padding(bottom = 220.dp, start = 48.dp, end = 48.dp)
                     .graphicsLayer { alpha = contentAlpha; translationY = contentOffsetY.toPx() }
-                    .pointerInput(Unit) { detectTapGestures(onTap = { currentQuote =
-                        (mbtiQuotes[mbtiType]?.random() ?: generalQuotes.random())
-                    })
-                    },
+                    .pointerInput(Unit) { detectTapGestures(onTap = { currentQuote = (mbtiQuotes[mbtiType]?.random() ?: generalQuotes.random()) }) },
                 contentAlignment = Alignment.Center
             ) {
                 Crossfade(currentQuote, animationSpec = tween(500), label = "quote_crossfade") { quoteText -> Text("\"$quoteText\"", style = BerandaGayaKutipan) }
             }
         }
+
+        // Baris atas yang berisi sapaan "Hi, Nama" dan gambar profil.
         Row(
             Modifier
                 .fillMaxWidth()
@@ -239,11 +232,12 @@ private fun BerandaHeaderElegan(
                     .clickable(onClick = onProfileClick),
                 contentScale = ContentScale.Crop
             )
-
         }
     }
 }
 
+
+// --- BAGIAN 5: PANGGUNG CERITA (AREA BAWAH) ---
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun StoryStage(
@@ -253,8 +247,11 @@ fun StoryStage(
     onRetakeTest: () -> Unit,
     onGemstoneClick: (Char, String) -> Unit
 ) {
+    // Mengecek apakah pengguna sudah pernah tes atau belum.
     val hasTakenTest = mbtiType.isNotEmpty()
     var stageVisible by remember { mutableStateOf(false) }
+
+    // Animasi slide-in dari bawah saat pertama kali muncul.
     LaunchedEffect(Unit) {
         delay(800)
         stageVisible = true
@@ -262,278 +259,162 @@ fun StoryStage(
 
     AnimatedVisibility(
         visible = stageVisible,
-        enter = slideInVertically(
-            animationSpec = spring(
-                dampingRatio = Spring.DampingRatioLowBouncy,
-                stiffness = Spring.StiffnessVeryLow
-            ),
-            initialOffsetY = { it }
-        ) + fadeIn(tween(1000)),
+        enter = slideInVertically(animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy, stiffness = Spring.StiffnessVeryLow), initialOffsetY = { it }) + fadeIn(tween(1000)),
         modifier = modifier.fillMaxWidth()
     ) {
+        // Box ini adalah container utama untuk area bawah.
         Box(
             contentAlignment = Alignment.BottomCenter,
-            modifier = Modifier.padding(bottom = 80.dp) // Jarak agar tidak tertutup NavBar
+            // Padding bawah diatur untuk memberi ruang pada BottomNavBar.
+            modifier = Modifier.padding(bottom = 160.dp)
         ) {
-            // --- PANGGUNG MODERN ---
+            // Latar belakang semi-transparan untuk panggung.
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(150.dp)
                     .clip(RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp))
-                    .background(
-                        Brush.verticalGradient(
-                            colors = listOf(
-                                Color.White.copy(alpha = 0.1f),
-                                Color.White.copy(alpha = 0.05f),
-                                Color.Transparent
-                            )
-                        )
-                    )
-                    .border(
-                        width = 1.dp,
-                        brush = Brush.verticalGradient(
-                            colors = listOf(
-                                Color.White.copy(alpha = 0.3f),
-                                Color.Transparent
-                            )
-                        ),
-                        shape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp)
-                    )
+                    .background(Brush.verticalGradient(colors = listOf(Color.White.copy(alpha = 0.1f), Color.White.copy(alpha = 0.05f), Color.Transparent)))
+                    .border(width = 1.dp, brush = Brush.verticalGradient(colors = listOf(Color.White.copy(alpha = 0.3f), Color.Transparent)), shape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp))
             )
 
+            // AnimatedContent untuk beralih antara tampilan "Take Test" dan "Constellation".
             AnimatedContent(
                 targetState = hasTakenTest,
-                transitionSpec = {
-                    fadeIn(tween(1000, 1000)) togetherWith fadeOut(tween(500))
-                },
-                modifier = Modifier.padding(bottom = 16.dp),
-                label = "StoryStageContent"
+                transitionSpec = { fadeIn(tween(1000, 500)) togetherWith fadeOut(tween(500)) },
+                label = "stage_content"
             ) { hasTestResult ->
                 if (hasTestResult) {
-                    AfterTestView(mbtiType = mbtiType, onGemstoneClick = onGemstoneClick, onRetakeTest = onRetakeTest)
+                    MbtiConstellation(mbtiType = mbtiType, onGemstoneClick = onGemstoneClick, onRetakeTest = onRetakeTest)
                 } else {
-                    BeforeTestView(onTakeTestClick = onTakeTestClick)
+                    TakeTestPrompt(onTakeTestClick = onTakeTestClick)
                 }
             }
         }
     }
 }
 
-@Composable
-fun BeforeTestView(onTakeTestClick: () -> Unit) {
-    var contentVisible by remember { mutableStateOf(false) }
-    LaunchedEffect(Unit) {
-        delay(200) // Sedikit delay agar animasi panggung utama selesai
-        contentVisible = true
-    }
 
-    // Gunakan Box agar kita bisa menumpuk elemen dengan bebas
+// --- BAGIAN 6: TAMPILAN KONSTELASI MBTI ---
+@Composable
+fun MbtiConstellation(
+    mbtiType: String,
+    onGemstoneClick: (Char, String) -> Unit,
+    onRetakeTest: () -> Unit
+) {
+    val theme = getThemeForMbti(mbtiType)
+    val dimensions = listOf(mbtiType[0] to "Mind", mbtiType[1] to "Energy", mbtiType[2] to "Nature", mbtiType[3] to "Tactics")
+
+    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(bottom = 16.dp)) {
+        Text(text = mbtiType, style = MbtiConstellationStyle, color = theme.particleColor)
+        Spacer(modifier = Modifier.height(16.dp))
+        Row(horizontalArrangement = Arrangement.spacedBy(24.dp, Alignment.CenterHorizontally), verticalAlignment = Alignment.CenterVertically) {
+            dimensions.forEach { (char, explanation) ->
+                Gemstone(label = char, colors = theme.gemColors, onClick = { onGemstoneClick(char, explanation) })
+            }
+        }
+        Spacer(modifier = Modifier.height(24.dp))
+        Text("Retake Test", color = Color.White.copy(alpha = 0.7f), fontSize = 12.sp, modifier = Modifier.clickable(onClick = onRetakeTest))
+    }
+}
+
+
+// --- BAGIAN 7: TAMPILAN AJAKAN UNTUK TES ---
+@Composable
+private fun TakeTestPrompt(onTakeTestClick: () -> Unit) {
+    Column(modifier = Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+        Text("What's your type?", style = MaterialTheme.typography.titleLarge, color = Color.White)
+        Spacer(Modifier.height(8.dp))
+        Text("Take our test to discover your personality type and get personalized insights.", textAlign = TextAlign.Center, color = Color.White.copy(alpha = 0.8f))
+        Spacer(Modifier.height(24.dp))
+        Button(onClick = onTakeTestClick, shape = CircleShape, colors = ButtonDefaults.buttonColors(containerColor = Color.White), contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("Take the Test", color = Color.Black, fontWeight = FontWeight.Bold)
+                Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null, tint = Color.Black)
+            }
+        }
+    }
+}
+
+
+// --- BAGIAN 8: ELEMEN VISUAL (BATU PERMATA & PARTIKEL) ---
+@Composable
+fun Gemstone(label: Char, colors: List<Color>, onClick: () -> Unit) {
+    // Animasi cahaya berkelip dan skala membesar/mengecil.
+    val infiniteTransition = rememberInfiniteTransition(label = "gem_glow")
+    val alpha by infiniteTransition.animateFloat(initialValue = 0.5f, targetValue = 1.0f, animationSpec = infiniteRepeatable(animation = tween(durationMillis = 2000 + Random.nextInt(1000), easing = LinearEasing), repeatMode = RepeatMode.Reverse), label = "gem_alpha")
+    val scale by infiniteTransition.animateFloat(initialValue = 0.95f, targetValue = 1.05f, animationSpec = infiniteRepeatable(animation = tween(durationMillis = 3000 + Random.nextInt(1000), easing = FastOutSlowInEasing), repeatMode = RepeatMode.Reverse), label = "gem_scale")
+
     Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .height(140.dp), // Sesuaikan tinggi Box agar pas
+            .size(60.dp)
+            .scale(scale)
+            .alpha(alpha)
+            .clip(RoundedCornerShape(30))
+            .background(Brush.radialGradient(colors))
+            .border(1.dp, Color.White.copy(alpha = 0.5f), RoundedCornerShape(30))
+            .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
     ) {
-        // --- PERUBAHAN UTAMA DI SINI ---
-        // Tombol yang didesain ulang, diletakkan di tengah Box
-        AnimatedVisibility(
-            visible = contentVisible,
-            enter = scaleIn(animationSpec = tween(700, delayMillis = 200), initialScale = 0.8f) +
-                    fadeIn(animationSpec = tween(700, delayMillis = 200))
-        ) {
-            Button(
-                onClick = onTakeTestClick,
-                shape = RoundedCornerShape(50), // Bentuk pil yang modern
-                modifier = Modifier
-                    .width(IntrinsicSize.Max) // Lebar tombol menyesuaikan kontennya
-                    .height(60.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Transparent // Container transparan agar gradien terlihat
-                ),
-                contentPadding = PaddingValues(), // Hapus padding default
-                elevation = ButtonDefaults.buttonElevation(
-                    defaultElevation = 8.dp,
-                    pressedElevation = 4.dp
-                )
-            ) {
-                // Latar belakang gradien untuk tombol
-                Box(
-                    modifier = Modifier
-                        .background(
-                            Brush.horizontalGradient(
-                                colors = listOf(Color(0xFF623A86), Color(0xFF8A65A8))
-                            )
-                        )
-                        .padding(horizontal = 32.dp, vertical = 16.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        Text(
-                            "Mulai Perjalananmu",
-                            style = TextStyle(
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White
-                            )
-                        )
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight, // <-- [PERBAIKAN] Menggunakan path yang benar
-                            contentDescription = null,
-                            tint = Color.White
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun AfterTestView(mbtiType: String, onGemstoneClick: (Char, String) -> Unit, onRetakeTest: () -> Unit) {
-    val dimensionDetails = mapOf(
-        'E' to "Extraversion: Anda mendapatkan energi dari interaksi sosial.", 'I' to "Introversion: Anda mendapatkan energi dari waktu menyendiri.",
-        'S' to "Sensing: Anda fokus pada fakta dan kenyataan.", 'N' to "Intuition: Anda fokus pada pola dan kemungkinan.",
-        'T' to "Thinking: Anda membuat keputusan berdasarkan logika.", 'F' to "Feeling: Anda membuat keputusan berdasarkan nilai dan perasaan.",
-        'J' to "Judging: Anda lebih menyukai kehidupan yang terstruktur.", 'P' to "Perceiving: Anda lebih menyukai kehidupan yang spontan."
-    )
-    val theme = getThemeForMbti(mbtiType)
-
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        MbtiTypeConstellation(mbtiType = mbtiType)
-        Spacer(Modifier.height(16.dp))
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(24.dp)
-        ) {
-            mbtiType.forEachIndexed { index, char ->
-                val (dimension, explanation) = dimensionDetails.entries.find { it.key == char }!!
-                Gemstone(
-                    color = theme.gemColors[0],
-                    glowColor = theme.gemColors[1],
-                    label = char.toString(),
-                    delay = index * 200,
-                    onClick = { onGemstoneClick(dimension, explanation) }
-                )
-            }
-        }
-        TextButton(onClick = onRetakeTest, modifier = Modifier.padding(top = 8.dp)) {
-            Text("Ulangi Tes", color = Color.White.copy(0.7f), fontSize = 12.sp)
-        }
-    }
-}
-
-@Composable
-fun MbtiTypeConstellation(mbtiType: String) {
-    var visible by remember { mutableStateOf(false) }
-    LaunchedEffect(mbtiType) {
-        delay(500)
-        visible = true
-    }
-    AnimatedVisibility(visible, enter = fadeIn(tween(1000, 500))) {
-        // --- TEKS MODERN DENGAN SHADOW ---
-        Text(
-            text = mbtiType,
-            style = MbtiConstellationStyle,
-            modifier = Modifier.graphicsLayer {
-                shadowElevation = 8.dp.toPx()
-            }
-        )
-    }
-}
-
-@Composable
-fun Gemstone(color: Color, glowColor: Color, label: String, delay: Int, onClick: () -> Unit) {
-    var visible by remember { mutableStateOf(false) }
-    LaunchedEffect(Unit) {
-        delay(delay.toLong() + 500)
-        visible = true
-    }
-    val scale by animateFloatAsState(
-        targetValue = if (visible) 1f else 0f,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessLow
-        ),
-        label = "gem_scale"
-    )
-
-    // --- PERMATA MODERN (LINGKARAN BERSINAR) ---
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .graphicsLayer { scaleX = scale; scaleY = scale }
-            .clickable(onClick = onClick)
-            .size(50.dp) // Beri ukuran yang pasti
-    ) {
-        // Latar belakang cahaya (glow) yang halus
-        Box(
-            modifier = Modifier
-                .matchParentSize()
-                .background(
-                    brush = Brush.radialGradient(
-                        colors = listOf(glowColor.copy(alpha = 0.5f), Color.Transparent)
-                    ),
-                    shape = CircleShape
-                )
-        )
-
-        // Lingkaran utama
-        Box(
-            modifier = Modifier
-                .matchParentSize()
-                .clip(CircleShape)
-                .background(color.copy(alpha = 0.8f))
-                .border(1.dp, glowColor, CircleShape)
-        )
-
-        // Teks label di tengah
-        Text(label, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp)
-    }
-}
-
-@Composable
-fun DimensionDetailSheet(dimension: Pair<Char, String>) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(32.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(dimension.second.substringBefore(':'), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
-        Spacer(Modifier.height(4.dp))
-        Text("(${dimension.first})", style = MaterialTheme.typography.titleMedium, color = Color.Gray)
-        Spacer(Modifier.height(16.dp))
-        Text(dimension.second.substringAfter(':').trim(), style = MaterialTheme.typography.bodyLarge, textAlign = TextAlign.Center)
+        Text(text = label.toString(), color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold)
     }
 }
 
 @Composable
 fun FloatingParticles(particleColor: Color) {
-    val particles = remember { List(50) { Particle(Random.nextFloat(), Random.nextFloat(), Random.nextFloat() * 0.00005f + 0.00002f, Random.nextFloat() * 1.5f + 0.5f, Random.nextFloat() * 0.5f + 0.2f) } }
-    val infiniteTransition = rememberInfiniteTransition("particle_trans")
-    val progress by infiniteTransition.animateFloat(0f, 1f, infiniteRepeatable(tween(20000, easing = LinearEasing), RepeatMode.Restart), "particle_prog")
+    // Menggambar partikel-partikel kecil yang bergerak ke atas secara acak.
+    val particles = remember { List(30) { Particle() } }
+    val infiniteTransition = rememberInfiniteTransition(label = "particle_transition")
+    val animationTime by infiniteTransition.animateFloat(initialValue = 0f, targetValue = 1f, animationSpec = infiniteRepeatable(tween(20000, easing = LinearEasing), RepeatMode.Restart), label = "particles_time")
     val density = LocalDensity.current.density
-    Canvas(Modifier.fillMaxSize()) {
+
+    Canvas(modifier = Modifier.fillMaxSize()) {
         particles.forEach { particle ->
-            val currentY = (particle.y - progress * particle.speed * size.height / density) % 1f
-            drawCircle(particleColor, particle.size * density, androidx.compose.ui.geometry.Offset(particle.x * size.width, currentY * size.height), particle.alpha)
+            val currentY = size.height * (1f - ((animationTime + particle.startTime) % 1f))
+            drawCircle(color = particleColor, radius = particle.size * density, center = androidx.compose.ui.geometry.Offset(particle.startX * size.width, currentY), alpha = particle.alpha)
         }
     }
 }
 
-data class Particle(val x: Float, val y: Float, val speed: Float, val size: Float, val alpha: Float)
+// Data class untuk menyimpan properti setiap partikel.
+data class Particle(
+    val startX: Float = Random.nextFloat(),
+    val startTime: Float = Random.nextFloat(),
+    val size: Float = Random.nextFloat() * 2f + 1f,
+    val alpha: Float = Random.nextFloat() * 0.5f + 0.2f
+)
 
+
+// --- BAGIAN 9: DIALOG & BOTTOM SHEET ---
 @Composable
-private fun ConfirmRetakeTestDialog(onConfirm: () -> Unit, onDismiss: () -> Unit) {
+fun ConfirmRetakeTestDialog(onConfirm: () -> Unit, onDismiss: () -> Unit) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Ulangi Perjalanan?", fontWeight = FontWeight.Bold) },
-        text = { Text("Apakah Anda yakin? Hasil sebelumnya akan dihapus dan Anda akan memulai tes dari awal.") },
-        confirmButton = { TextButton(onClick = onConfirm, colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.primary)) { Text("Ya, Ulangi", fontWeight = FontWeight.Bold) } },
-        dismissButton = { TextButton(onClick = onDismiss, colors = ButtonDefaults.textButtonColors(contentColor = Color.Gray)) { Text("Batal") } },
-        shape = RoundedCornerShape(20.dp)
+        title = { Text("Retake Test?") },
+        text = { Text("Your previous result will be overwritten. Are you sure?") },
+        confirmButton = { Button(onClick = onConfirm, colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)) { Text("Confirm") } },
+        dismissButton = { TextButton(onClick = onDismiss) { Text("Cancel") } }
     )
+}
+
+@Composable
+fun DimensionDetailSheet(dimension: Pair<Char, String>) {
+    val (char, title) = dimension
+    val explanation = when(char) {
+        'E' -> "Extraversion: Mendapatkan energi dari interaksi sosial dan dunia luar."
+        'I' -> "Introversion: Mendapatkan energi dari refleksi diri dan dunia internal."
+        'S' -> "Sensing: Fokus pada fakta konkret, detail, dan pengalaman saat ini."
+        'N' -> "Intuition: Fokus pada pola, kemungkinan, dan makna di balik informasi."
+        'T' -> "Thinking: Membuat keputusan berdasarkan logika, objektivitas, dan analisis."
+        'F' -> "Feeling: Membuat keputusan berdasarkan nilai-nilai pribadi, empati, dan harmoni."
+        'J' -> "Judging: Lebih suka kehidupan yang terstruktur, terencana, dan terorganisir."
+        'P' -> "Perceiving: Lebih suka kehidupan yang fleksibel, spontan, dan terbuka pada pilihan."
+        else -> "Dimensi tidak diketahui."
+    }
+
+    Column(modifier = Modifier.fillMaxWidth().padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(text = title, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(text = explanation, style = MaterialTheme.typography.bodyLarge, textAlign = TextAlign.Center)
+    }
 }

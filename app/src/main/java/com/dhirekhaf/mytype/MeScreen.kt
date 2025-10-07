@@ -1,5 +1,3 @@
-// File: app/src/main/java/com/dhirekhaf/mytype/MeScreen.kt
-
 package com.dhirekhaf.mytype
 
 import android.content.Intent
@@ -53,13 +51,11 @@ import com.dhirekhaf.mytype.data.UserData
 import com.dhirekhaf.mytype.data.UserDataRepository
 import com.google.accompanist.flowlayout.FlowRow
 
-// --- GAYA & KONSTANTA ---
 private val MeGayaNamaProfil = TextStyle(fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color.White)
 private val MeGayaTipeProfil = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Normal, color = Color.White.copy(alpha = 0.8f))
 private val MeGayaJudulKartu = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Normal, color = Color.Gray)
 private val MeGayaIsiKartu = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xff3f414e))
 
-// --- SCREEN UTAMA ---
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun MeScreen(
@@ -139,7 +135,6 @@ fun MeScreen(
     }
 }
 
-// --- TAMPILAN PROFIL PENGGUNA ---
 @Composable
 fun UserProfileDashboard(
     userData: UserData,
@@ -179,7 +174,6 @@ fun UserProfileDashboard(
     }
 }
 
-// --- KONTEN HASIL TES ---
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ResultDashboard(
@@ -203,7 +197,6 @@ fun ResultDashboard(
             InfoCard(label = "Group", value = groupData.groupTitle, modifier = Modifier.weight(1f))
         }
 
-        // Tampilkan bagian hobi jika tidak kosong
         if (userData.hobbies.isNotEmpty()) {
             HobbiesSection(hobbies = userData.hobbies)
         }
@@ -220,7 +213,6 @@ fun ResultDashboard(
     }
 }
 
-// --- HEADER PROFIL ---
 @Composable
 private fun ProfileHeader(
     userData: UserData,
@@ -289,7 +281,6 @@ private fun ProfileHeader(
     }
 }
 
-// --- BAGAN SKOR DIMENSI ---
 @Composable
 fun DimensionChart(scores: Map<Char, Int>, theme: GroupTheme, mbtiType: String, modifier: Modifier = Modifier) {
     Card(
@@ -307,7 +298,6 @@ fun DimensionChart(scores: Map<Char, Int>, theme: GroupTheme, mbtiType: String, 
     }
 }
 
-// --- DIMENSION BAR ---
 @Composable
 private fun DimensionBar(
     title: String,
@@ -336,6 +326,7 @@ private fun DimensionBar(
 
     val primaryColor = theme.primaryColor
     val secondaryColor = theme.secondaryColor
+
     val dominantLeft = mbtiType.contains(leftTrait)
 
     Column {
@@ -378,7 +369,6 @@ private fun DimensionBar(
     }
 }
 
-// --- [COMPOSABLE BARU] UNTUK MENAMPILKAN HOBI ---
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
 private fun HobbiesSection(hobbies: List<String>) {
@@ -396,10 +386,8 @@ private fun HobbiesSection(hobbies: List<String>) {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 hobbies.forEach { hobby ->
-                    // --- [PERBAIKAN] ---
-                    // Menggunakan SuggestionChip dan BorderStroke secara langsung
                     SuggestionChip(
-                        onClick = { /* Tidak ada aksi */ },
+                        onClick = { },
                         label = { Text(hobby) },
                         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                     )
@@ -409,7 +397,6 @@ private fun HobbiesSection(hobbies: List<String>) {
     }
 }
 
-// --- KARTU INFO KECIL ---
 @Composable
 private fun InfoCard(label: String, value: String, modifier: Modifier = Modifier) {
     Card(
@@ -425,7 +412,6 @@ private fun InfoCard(label: String, value: String, modifier: Modifier = Modifier
     }
 }
 
-// --- KARTU NAVIGASI DETAIL ---
 @Composable
 private fun DetailNavCard(
     title: String,
@@ -460,11 +446,12 @@ private fun DetailNavCard(
     }
 }
 
-// --- KARTU JIKA BELUM TES ---
 @Composable
 fun NoTestResultCard(onTakeTestClick: () -> Unit) {
     Card(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(2.dp)
     ) {
@@ -480,10 +467,22 @@ fun NoTestResultCard(onTakeTestClick: () -> Unit) {
     }
 }
 
-// --- FORMULIR EDIT PROFIL ---
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-fun EditProfileScreen(name: String, email: String, bio: String, hobbies: List<String>, imageUri: Uri?, onNameChange: (String) -> Unit, onEmailChange: (String) -> Unit, onBioChange: (String) -> Unit, onHobbyToggle: (String) -> Unit, onImageClick: () -> Unit, onSave: () -> Unit, onCancel: () -> Unit) {
+fun EditProfileScreen(
+    name: String,
+    email: String,
+    bio: String,
+    hobbies: List<String>,
+    imageUri: Uri?,
+    onNameChange: (String) -> Unit,
+    onEmailChange: (String) -> Unit,
+    onBioChange: (String) -> Unit,
+    onHobbyToggle: (String) -> Unit,
+    onImageClick: () -> Unit,
+    onSave: () -> Unit,
+    onCancel: () -> Unit
+) {
     val allHobbies = listOf("Reading", "Gaming", "Music", "Movies", "Sports", "Cooking", "Traveling", "Art")
     Scaffold(
         topBar = {
@@ -497,12 +496,35 @@ fun EditProfileScreen(name: String, email: String, bio: String, hobbies: List<St
         containerColor = Color(0xFFF2F3F7)
     ) { paddingValues ->
         Column(
-            modifier = Modifier.fillMaxSize().padding(paddingValues).verticalScroll(rememberScrollState()).padding(16.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .verticalScroll(rememberScrollState())
+                .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box(contentAlignment = Alignment.BottomEnd) {
-                AsyncImage(model = imageUri ?: R.drawable.sidikjari, contentDescription = "Profile Picture", modifier = Modifier.size(120.dp).clip(CircleShape).background(Color.LightGray).clickable(onClick = onImageClick), contentScale = ContentScale.Crop, placeholder = painterResource(id = R.drawable.sidikjari))
-                Icon(Icons.Default.Edit, "Edit Image", tint = Color.White, modifier = Modifier.size(36.dp).clip(CircleShape).background(MaterialTheme.colorScheme.primary).padding(8.dp))
+                AsyncImage(
+                    model = imageUri ?: R.drawable.sidikjari,
+                    contentDescription = "Profile Picture",
+                    modifier = Modifier
+                        .size(120.dp)
+                        .clip(CircleShape)
+                        .background(Color.LightGray)
+                        .clickable(onClick = onImageClick),
+                    contentScale = ContentScale.Crop,
+                    placeholder = painterResource(id = R.drawable.sidikjari)
+                )
+                Icon(
+                    Icons.Default.Edit,
+                    "Edit Image",
+                    tint = Color.White,
+                    modifier = Modifier
+                        .size(36.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.primary)
+                        .padding(8.dp)
+                )
             }
             Spacer(modifier = Modifier.height(24.dp))
             Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp), colors = CardDefaults.cardColors(containerColor = Color.White)) {
@@ -511,7 +533,9 @@ fun EditProfileScreen(name: String, email: String, bio: String, hobbies: List<St
                     Spacer(modifier = Modifier.height(16.dp))
                     OutlinedTextField(value = email, onValueChange = onEmailChange, label = { Text("Email Address") }, modifier = Modifier.fillMaxWidth(), singleLine = true, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email, imeAction = ImeAction.Next))
                     Spacer(modifier = Modifier.height(16.dp))
-                    OutlinedTextField(value = bio, onValueChange = onBioChange, label = { Text("Short Bio") }, modifier = Modifier.fillMaxWidth().height(120.dp), maxLines = 4)
+                    OutlinedTextField(value = bio, onValueChange = onBioChange, label = { Text("Short Bio") }, modifier = Modifier
+                        .fillMaxWidth()
+                        .height(120.dp), maxLines = 4)
                 }
             }
             Spacer(modifier = Modifier.height(24.dp))
@@ -522,7 +546,12 @@ fun EditProfileScreen(name: String, email: String, bio: String, hobbies: List<St
                     FlowRow(mainAxisSpacing = 8.dp, crossAxisSpacing = 8.dp, modifier = Modifier.fillMaxWidth()) {
                         allHobbies.forEach { hobby ->
                             val isSelected = hobbies.contains(hobby)
-                            FilterChip(selected = isSelected, onClick = { onHobbyToggle(hobby) }, label = { Text(hobby) }, leadingIcon = if (isSelected) { { Icon(Icons.Default.Check, "Selected", modifier = Modifier.size(FilterChipDefaults.IconSize)) } } else { null })
+                            FilterChip(
+                                selected = isSelected,
+                                onClick = { onHobbyToggle(hobby) },
+                                label = { Text(hobby) },
+                                leadingIcon = if (isSelected) { { Icon(Icons.Default.Check, "Selected", modifier = Modifier.size(FilterChipDefaults.IconSize)) } } else { null }
+                            )
                         }
                     }
                 }

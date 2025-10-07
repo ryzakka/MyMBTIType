@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 
-// 1. Data class untuk merepresentasikan setiap item di NavBar
 data class BottomNavItem(
     val title: String,
     val selectedIcon: ImageVector,
@@ -22,14 +21,12 @@ data class BottomNavItem(
     val route: String
 )
 
-// 2. Composable untuk Bottom Navigation Bar yang modern
 @Composable
 fun ModernBottomNavBar(
     currentRoute: String?,
     onNavigate: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    // Daftar item navigasi
     val items = listOf(
         BottomNavItem(
             title = "Home",
@@ -53,15 +50,15 @@ fun ModernBottomNavBar(
 
     NavigationBar(
         modifier = modifier,
-        containerColor = Color.White, // Warna latar NavBar
-        contentColor = Color(0xff3f414e) // Warna default untuk konten
+        containerColor = Color.White,
+        contentColor = Color(0xff3f414e)
     ) {
         items.forEach { item ->
             val isSelected = currentRoute == item.route
             NavigationBarItem(
                 selected = isSelected,
                 onClick = {
-                    if (!isSelected) { // Hanya navigasi jika belum terpilih
+                    if (!isSelected) {
                         onNavigate(item.route)
                     }
                 },
@@ -73,21 +70,19 @@ fun ModernBottomNavBar(
                     )
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = Color(0xff47AD82), // Warna ikon saat terpilih
-                    selectedTextColor = Color(0xff47AD82), // Warna teks saat terpilih
-                    indicatorColor = Color(0xff47AD82).copy(alpha = 0.1f), // Warna latar belakang indikator
-                    unselectedIconColor = Color.Gray, // Warna ikon saat tidak terpilih
-                    unselectedTextColor = Color.Gray // Warna teks saat tidak terpilih
+                    selectedIconColor = Color(0xff47AD82),
+                    selectedTextColor = Color(0xff47AD82),
+                    indicatorColor = Color(0xff47AD82).copy(alpha = 0.1f),
+                    unselectedIconColor = Color.Gray,
+                    unselectedTextColor = Color.Gray
                 )
             )
         }
     }
 }
 
-// 3. Preview untuk melihat hasilnya
 @Preview
 @Composable
 private fun ModernBottomNavBarPreview() {
-    // Contoh saat berada di rute "personalities"
     ModernBottomNavBar(currentRoute = "personalities", onNavigate = {})
 }

@@ -1,9 +1,14 @@
-// File: app/src/main/java/com/dhirekhaf/mytype/HiThereScreen.kt
 package com.dhirekhaf.mytype
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -20,18 +25,16 @@ fun HiThereScreen(
     onNavigateToHome: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    // Navigasi otomatis setelah beberapa detik
     LaunchedEffect(key1 = true) {
-        delay(2000) // Tunda selama 2 detik
+        delay(2000)
         onNavigateToHome()
     }
 
     Box(
         modifier = modifier
             .fillMaxSize()
-            .clickable(onClick = onNavigateToHome) // Bisa di-klik untuk mempercepat
+            .clickable(onClick = onNavigateToHome)
     ) {
-        // Gambar latar belakang yang di-blur
         Image(
             painter = painterResource(id = R.drawable.image46),
             contentDescription = "Blurred Background",
@@ -41,7 +44,6 @@ fun HiThereScreen(
                 .blur(radius = 50.dp)
         )
 
-        // Konten utama di tengah
         Column(
             modifier = Modifier.align(Alignment.Center),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -51,19 +53,18 @@ fun HiThereScreen(
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = "Logo",
                 modifier = Modifier
-                    .fillMaxWidth(0.7f) // Mengisi 70% lebar layar
-                    .aspectRatio(1f) // Menjaga rasio 1:1
+                    .fillMaxWidth(0.7f)
+                    .aspectRatio(1f)
             )
         }
 
-        // Gambar dekorasi kupu-kupu di bagian bawah
         Image(
             painter = painterResource(id = R.drawable.welcomekupu),
             contentDescription = "Decoration",
             contentScale = ContentScale.Fit,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .fillMaxWidth(0.9f) // Mengisi 90% lebar layar
+                .fillMaxWidth(0.9f)
                 .padding(bottom = 50.dp)
         )
     }

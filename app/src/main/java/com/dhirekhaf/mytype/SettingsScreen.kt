@@ -1,17 +1,34 @@
-// File: app/src/main/java/com/dhirekhaf/mytype/SettingsScreen.kt
-
 package com.dhirekhaf.mytype
 
 import android.widget.Toast
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material.icons.automirrored.filled.Logout
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,7 +41,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.dhirekhaf.mytype.data.UserDataRepository
-import com.dhirekhaf.mytype.ui.theme.MyTypeTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -56,7 +72,6 @@ fun SettingsScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Grup Akun
             SettingsGroup(title = "ACCOUNT") {
                 SettingsItem(
                     icon = Icons.Default.Person,
@@ -71,12 +86,11 @@ fun SettingsScreen(
                     onClick = {
                         meViewModel.resetMbtiTest()
                         Toast.makeText(context, "Personality test has been reset.", Toast.LENGTH_SHORT).show()
-                        navController.popBackStack() // Kembali ke laman profil setelah reset
+                        navController.popBackStack()
                     }
                 )
             }
 
-            // Grup Aplikasi
             SettingsGroup(title = "APPLICATION") {
                 SettingsItem(
                     icon = Icons.Default.Delete,
@@ -86,26 +100,6 @@ fun SettingsScreen(
                         Toast.makeText(context, "Cache cleared (simulation).", Toast.LENGTH_SHORT).show()
                     }
                 )
-            }
-
-            // Tombol Logout
-            Spacer(modifier = Modifier.weight(1f))
-            Button(
-                onClick = {
-                    Toast.makeText(context, "Logout clicked (simulation).", Toast.LENGTH_SHORT).show()
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(52.dp),
-                shape = RoundedCornerShape(16.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.errorContainer,
-                    contentColor = MaterialTheme.colorScheme.onErrorContainer
-                )
-            ) {
-                Icon(Icons.AutoMirrored.Filled.Logout, contentDescription = null, modifier = Modifier.size(ButtonDefaults.IconSize))
-                Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
-                Text("Logout", fontWeight = FontWeight.Bold)
             }
         }
     }
@@ -121,7 +115,7 @@ private fun SettingsGroup(title: String, content: @Composable ColumnScope.() -> 
             modifier = Modifier.padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
         )
         Card(
-            shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+            shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
             elevation = CardDefaults.cardElevation(0.dp)
         ) {

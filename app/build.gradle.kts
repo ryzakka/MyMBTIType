@@ -15,8 +15,6 @@ val localPropertiesFile = rootProject.file("local.properties")
 if (localPropertiesFile.exists()) {
     localProperties.load(FileInputStream(localPropertiesFile))
 }
-// +++ AKHIR BAGIAN BARU +++
-
 android {
     namespace = "com.dhirekhaf.mytype"
     compileSdk = 36
@@ -138,5 +136,8 @@ dependencies {
     // ... dependensi lain
 
     implementation("androidx.compose.material3:material3")
+    implementation("com.google.accompanist:accompanist-flowlayout:0.36.0") // Atau versi lebih baru yang kompatibel
+    implementation("androidx.compose.animation:animation")
+
 
 }

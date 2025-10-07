@@ -20,9 +20,16 @@ import androidx.core.view.WindowCompat
 
 // Skema warna default untuk mode terang (Light Mode)
 private val LightColorScheme = lightColorScheme(
-    primary = Color(0xff735283), // Ungu primer Anda
-    secondary = Color(0xFF3B7A57), // Hijau sebagai sekunder
-    tertiary = Color(0xFF4682B4) // Biru sebagai tersier
+    primary = Color(0xff735283),       // Ungu primer Anda
+    secondary = Color(0xFF3B7A57),     // Hijau sebagai sekunder
+    tertiary = Color(0xFF4682B4),      // Biru sebagai tersier
+
+    // --- [PERBAIKAN] Tambahkan warna-warna ini untuk FilterChip ---
+    primaryContainer = Color(0xFFEADDFF),      // Warna kontainer saat primary aktif
+    onPrimaryContainer = Color(0xFF28005A),    // Warna teks/ikon di atas primaryContainer
+    secondaryContainer = Color(0xFFD9E7D8),    // Warna kontainer untuk secondary
+    onSecondaryContainer = Color(0xFF161F1A),  // Warna teks/ikon di atas secondaryContainer
+    // --- AKHIR PERBAIKAN ---
 
     /* Anda bisa menyesuaikan warna lain jika diperlukan
     background = Color(0xFFFFFBFE),

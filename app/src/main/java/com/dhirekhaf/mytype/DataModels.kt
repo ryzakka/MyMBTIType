@@ -6,11 +6,13 @@ import com.google.gson.annotations.SerializedName
 
 /**
  * Mewakili satu pertanyaan dalam tes kepribadian.
+ * Pastikan nama di @SerializedName cocok persis dengan field di questions.json
  */
 data class Question(
     @SerializedName("id")
     val id: String,
 
+    // [PERBAIKAN] Pastikan ini 'question', bukan 'question_text'
     @SerializedName("question")
     val question_text: String,
 
@@ -23,20 +25,21 @@ data class Question(
 
 /**
  * Mewakili satu pilihan jawaban.
+ * Ini adalah perbaikan paling penting.
  */
 data class QuestionOption(
-    // Field JSON "option_id" dipetakan ke properti 'option_id'
-    @SerializedName("option_id") // <--- PERIKSA KEMBALI, INI SUDAH BENAR
+    // [PERBAIKAN KRUSIAL] Nama field di JSON adalah "option_id", bukan "id_option"
+    @SerializedName("option_id")
     val option_id: String,
 
-    // --- PERBAIKAN KRITIS DAN FINAL DI SINI ---
-    // Field JSON "option_text" harus dipetakan ke properti 'option_text'
-    @SerializedName("option_text") // <--- INI KESALAHAN FATAL SAYA SEBELUMNYA
+    // [PERBAIKAN KRUSIAL] Nama field di JSON adalah "option_text", bukan "text" atau lainnya
+    @SerializedName("option_text")
     val option_text: String,
 
     @SerializedName("dimension")
     val dimension: String,
 
+    // 'direction' tidak lagi digunakan di logika baru, tapi kita biarkan agar tidak error saat parsing
     @SerializedName("direction")
     val direction: Int
 )

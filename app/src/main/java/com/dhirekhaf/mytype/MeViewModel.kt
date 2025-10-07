@@ -18,17 +18,22 @@ class MeViewModel(private val userDataRepository: UserDataRepository) : ViewMode
     val userData: StateFlow<UserData> = userDataRepository.userData.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
-        initialValue = UserData("", "", null, emptyMap())
+        // [PERUBAHAN] Nilai awal sekarang mencakup semua properti
+        initialValue = UserData("", "", null, emptyMap(), false, "", "", emptyList())
     )
 
-    // --- PERBAIKAN DI SINI ---
-    fun saveNameAndImage(name: String, imageUri: Uri?) {
+    // [PERUBAHAN] Fungsi saveNameAndImage diganti dengan saveUserProfile
+    fun saveUserProfile(
+        name: String,
+        email: String,
+        bio: String,
+        hobbies: List<String>,
+        imageUri: Uri?
+    ) {
         viewModelScope.launch {
-            // Panggil satu fungsi yang benar dari repository
-            userDataRepository.saveNameAndImage(name, imageUri)
+            userDataRepository.saveUserProfile(name, email, bio, hobbies, imageUri)
         }
     }
-    // --- AKHIR PERBAIKAN ---
 
     fun saveMbtiResult(mbtiType: String, scores: Map<Char, Int>) {
         viewModelScope.launch {
@@ -38,32 +43,12 @@ class MeViewModel(private val userDataRepository: UserDataRepository) : ViewMode
 
     fun resetMbtiTest() {
         viewModelScope.launch {
-            // Kita gunakan fungsi yang ada di repository
             userDataRepository.resetMbtiTest()
         }
     }
-
-    fun recalculateScores(mbtiType: String): Map<Char, Int> {
-        val scores = mutableMapOf<Char, Int>()
-        // Jumlah soal per dimensi sekarang 8, karena total 32 soal untuk 4 dimensi
-        val questionsPerDimension = 8
-
-        mbtiType.forEach { char ->
-            when (char) {
-                'E' -> { scores['E'] = questionsPerDimension; scores['I'] = 0 }
-                'I' -> { scores['I'] = questionsPerDimension; scores['E'] = 0 }
-                'S' -> { scores['S'] = questionsPerDimension; scores['N'] = 0 }
-                'N' -> { scores['N'] = questionsPerDimension; scores['S'] = 0 }
-                'T' -> { scores['T'] = questionsPerDimension; scores['F'] = 0 }
-                'F' -> { scores['F'] = questionsPerDimension; scores['T'] = 0 }
-                'J' -> { scores['J'] = questionsPerDimension; scores['P'] = 0 }
-                'P' -> { scores['P'] = questionsPerDimension; scores['J'] = 0 }
-            }
-        }
-        return scores
-    }
 }
 
+// Factory tidak perlu diubah
 class MeViewModelFactory(private val userDataRepository: UserDataRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MeViewModel::class.java)) {

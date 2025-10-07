@@ -9,13 +9,19 @@ import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.dhirekhaf.mytype.data.UserData
+import com.dhirekhaf.mytype.data.UserDataRepository
 import com.dhirekhaf.mytype.ui.theme.MyTypeTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,11 +31,38 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyTypeTheme {
                 SharedTransitionLayout {
+                    // Rute awal sekarang ke "welcome"
                     AppNavigation(
                         sharedTransitionScope = this,
                         startDestination = "welcome"
                     )
                 }
+            }
+        }
+    }
+}
+
+/**
+ * Composable ini berfungsi sebagai gerbang logika tanpa UI untuk
+ * memeriksa apakah pengguna baru atau bukan.
+ */
+@Composable
+fun SplashScreenGate(onNavigate: (route: String, popUpTo: String) -> Unit) {
+    val context = LocalContext.current
+    val meViewModel: MeViewModel = viewModel(factory = MeViewModelFactory(UserDataRepository(context)))
+    val userData by meViewModel.userData.collectAsState()
+
+    // LaunchedEffect akan berjalan sekali untuk memeriksa data
+    LaunchedEffect(userData) {
+        // Pastikan kita tidak membuat keputusan berdasarkan nilai awal yang belum dimuat
+        if (userData.isDataLoaded) {
+            // [LOGIKA BARU] Periksa apakah nama pengguna kosong.
+            if (userData.name.isEmpty()) {
+                // Jika kosong, paksa ke halaman edit profil.
+                onNavigate("me_edit", "splash_gate")
+            } else {
+                // Jika sudah ada, lanjutkan ke beranda.
+                onNavigate("beranda", "splash_gate")
             }
         }
     }
@@ -45,6 +78,7 @@ fun AppNavigation(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
+    // Fungsi navigasi umum untuk Bottom Nav Bar
     val onNavigate: (String) -> Unit = { route ->
         navController.navigate(route) {
             popUpTo(navController.graph.startDestinationId) {
@@ -59,19 +93,26 @@ fun AppNavigation(
         navController = navController,
         startDestination = startDestination
     ) {
+
         composable(route = "welcome") {
             WelcomeScreen(
-                // [PERUBAHAN 1] Arahkan langsung ke "beranda"
                 onGetInTouchClick = {
-                    navController.navigate("beranda") {
+                    // Setelah sidik jari diketuk, pergi ke gerbang pemeriksaan
+                    navController.navigate("splash_gate") {
                         popUpTo("welcome") { inclusive = true }
                     }
                 }
             )
         }
 
-        // [PERUBAHAN 2] Hapus composable untuk "hi_there" karena sudah tidak digunakan
-        // composable(route = "hi_there") { ... }
+        // [RUTE BARU] Gerbang pemeriksaan data pengguna
+        composable(route = "splash_gate") {
+            SplashScreenGate { destination, popUpToRoute ->
+                navController.navigate(destination) {
+                    popUpTo(popUpToRoute) { inclusive = true }
+                }
+            }
+        }
 
         composable(route = "beranda") {
             BerandaScreen(
@@ -123,12 +164,13 @@ fun AppNavigation(
             )
         }
 
+        // [RUTE PENTING] Halaman edit profil, sekarang bisa diakses dari gerbang
         composable(route = "me_edit") {
             MeScreen(
                 navController = navController,
-                currentRoute = "me",
+                currentRoute = "me", // Tetap 'me' agar bottom nav tidak tampil
                 onNavigate = onNavigate,
-                startInEditMode = true
+                startInEditMode = true // Langsung masuk mode edit
             )
         }
 
@@ -142,7 +184,16 @@ fun AppNavigation(
         }
 
         composable(route = "personality_test") {
-            PersonalityTestScreen(navController = navController)
+            PersonalityTestScreen(
+                navController = navController,
+                // Setelah tes selesai, arahkan ke profil ("me")
+                onTestComplete = {
+                    navController.navigate("me") {
+                        // Hapus riwayat navigasi sampai ke beranda agar tidak bisa kembali ke tes
+                        popUpTo("beranda")
+                    }
+                }
+            )
         }
     }
 }

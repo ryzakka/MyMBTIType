@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,14 +25,12 @@ data class PersonalityTestUiState(
     val progressText: String = "",
     val testResult: String? = null,
     val error: String? = null,
-    val userAnswers: Map<String, QuestionOption> = emptyMap()
+    val userAnswers: Map<String, String> = emptyMap()
 )
 
 class PersonalityTestViewModel(application: Application) : AndroidViewModel(application) {
 
-    // --- PERUBAHAN DI SINI ---
-    private val QUESTIONS_PER_GROUP = 8 // Total 32 soal / 4 grup
-    // --- AKHIR PERUBAHAN ---
+    private val QUESTIONS_PER_GROUP = 5
 
     private val _uiState = MutableStateFlow(PersonalityTestUiState())
     val uiState: StateFlow<PersonalityTestUiState> = _uiState.asStateFlow()
@@ -47,23 +46,25 @@ class PersonalityTestViewModel(application: Application) : AndroidViewModel(appl
             try {
                 val inputStream = getApplication<Application>().assets.open("questions.json")
                 val reader = InputStreamReader(inputStream)
-                val questions = Gson().fromJson(reader, Array<Question>::class.java).toList()
-                // --- PERUBAHAN DI SINI ---
-                // Perhitungan total grup sekarang otomatis berdasarkan konstanta
+                val questionListType = object : TypeToken<List<Question>>() {}.type
+                val questions: List<Question> = Gson().fromJson(reader, questionListType)
+
+                if (questions.isEmpty()) {
+                    throw Exception("questions.json is empty or could not be parsed.")
+                }
+
                 val totalGroups = (questions.size + QUESTIONS_PER_GROUP - 1) / QUESTIONS_PER_GROUP
 
                 _uiState.update {
                     it.copy(
                         isLoading = false,
                         allQuestions = questions,
-                        // Ambil grup pertama sejumlah QUESTIONS_PER_GROUP
                         currentQuestionGroup = questions.take(QUESTIONS_PER_GROUP),
                         totalGroups = totalGroups,
-                        progress = 1f / totalGroups, // Progress awal
+                        progress = 1f / totalGroups,
                         progressText = "1 of $totalGroups"
                     )
                 }
-                // --- AKHIR PERUBAHAN ---
             } catch (e: Exception) {
                 _uiState.update {
                     it.copy(isLoading = false, error = "Failed to load questions: ${e.message}")
@@ -72,27 +73,26 @@ class PersonalityTestViewModel(application: Application) : AndroidViewModel(appl
         }
     }
 
-    fun answerQuestion(questionId: String, selectedOption: QuestionOption) {
+    fun answerQuestion(questionId: String, optionId: String) {
         _uiState.update { currentState ->
             val newAnswers = currentState.userAnswers.toMutableMap()
-            newAnswers[questionId] = selectedOption
+            newAnswers[questionId] = optionId
             currentState.copy(userAnswers = newAnswers)
         }
     }
 
     fun nextGroup() {
-        // --- PERUBAHAN DI SINI ---
         val currentIndex = _uiState.value.currentGroupIndex
-        val questionsPerGroup = QUESTIONS_PER_GROUP // Gunakan konstanta
+        val totalQuestions = _uiState.value.allQuestions.size
 
-        if ((currentIndex + 1) * questionsPerGroup >= _uiState.value.allQuestions.size) {
+        if ((currentIndex + 1) * QUESTIONS_PER_GROUP >= totalQuestions) {
             calculateResult()
         } else {
             val nextIndex = currentIndex + 1
-            val nextGroup = _uiState.value.allQuestions.subList(
-                nextIndex * questionsPerGroup,
-                ((nextIndex + 1) * questionsPerGroup).coerceAtMost(_uiState.value.allQuestions.size)
-            )
+            val nextGroupStartIndex = nextIndex * QUESTIONS_PER_GROUP
+            val nextGroupEndIndex = (nextGroupStartIndex + QUESTIONS_PER_GROUP).coerceAtMost(totalQuestions)
+            val nextGroup = _uiState.value.allQuestions.subList(nextGroupStartIndex, nextGroupEndIndex)
+
             _uiState.update {
                 it.copy(
                     currentQuestionGroup = nextGroup,
@@ -102,7 +102,6 @@ class PersonalityTestViewModel(application: Application) : AndroidViewModel(appl
                 )
             }
         }
-        // --- AKHIR PERUBAHAN ---
     }
 
     private fun calculateResult() {
@@ -111,14 +110,22 @@ class PersonalityTestViewModel(application: Application) : AndroidViewModel(appl
             'T' to 0, 'F' to 0, 'J' to 0, 'P' to 0
         )
 
-        _uiState.value.userAnswers.values.forEach { option ->
-            when (option.dimension) {
-                "EI" -> if (option.direction > 0) scores['E'] = scores.getOrDefault('E', 0) + 1 else scores['I'] = scores.getOrDefault('I', 0) + 1
-                "SN" -> if (option.direction > 0) scores['S'] = scores.getOrDefault('S', 0) + 1 else scores['N'] = scores.getOrDefault('N', 0) + 1
-                "TF" -> if (option.direction > 0) scores['T'] = scores.getOrDefault('T', 0) + 1 else scores['F'] = scores.getOrDefault('F', 0) + 1
-                "JP" -> if (option.direction > 0) scores['J'] = scores.getOrDefault('J', 0) + 1 else scores['P'] = scores.getOrDefault('P', 0) + 1
+        // --- [PERBAIKAN FINAL] Menggunakan logika perhitungan ANDA dengan benar ---
+        _uiState.value.userAnswers.forEach { (questionId, selectedOptionId) ->
+            val question = _uiState.value.allQuestions.find { it.id == questionId }
+            val selectedOption = question?.options?.find { it.option_id == selectedOptionId }
+
+            if (selectedOption != null) {
+                // Implementasi persis seperti yang Anda berikan, menggunakan getOrDefault
+                when (selectedOption.dimension) {
+                    "EI" -> if (selectedOption.direction > 0) scores['E'] = scores.getOrDefault('E', 0) + 1 else scores['I'] = scores.getOrDefault('I', 0) + 1
+                    "SN" -> if (selectedOption.direction > 0) scores['S'] = scores.getOrDefault('S', 0) + 1 else scores['N'] = scores.getOrDefault('N', 0) + 1
+                    "TF" -> if (selectedOption.direction > 0) scores['T'] = scores.getOrDefault('T', 0) + 1 else scores['F'] = scores.getOrDefault('F', 0) + 1
+                    "JP" -> if (selectedOption.direction > 0) scores['J'] = scores.getOrDefault('J', 0) + 1 else scores['P'] = scores.getOrDefault('P', 0) + 1
+                }
             }
         }
+        // --- AKHIR PERBAIKAN ---
 
         val ei = if (scores.getOrDefault('E', 0) >= scores.getOrDefault('I', 0)) 'E' else 'I'
         val sn = if (scores.getOrDefault('S', 0) >= scores.getOrDefault('N', 0)) 'S' else 'N'
@@ -127,7 +134,7 @@ class PersonalityTestViewModel(application: Application) : AndroidViewModel(appl
         val mbtiResult = "$ei$sn$tf$jp"
 
         finalScores.value = scores
-        _uiState.update { it.copy(testResult = mbtiResult) }
+        _uiState.update { it.copy(testResult = mbtiResult, isLoading = false) }
     }
 
     fun getFinalScores(): Map<Char, Int>? {

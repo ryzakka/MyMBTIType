@@ -1,0 +1,290 @@
+[
+  {
+    "id": "q1",
+    "question": "Setelah seharian berinteraksi dengan banyak orang, Anda merasa perlu waktu menyendiri untuk mengisi ulang energi.",
+    "explanation": "Ini mengukur bagaimana Anda mendapatkan energi. Introvert (I) mengisi ulang energi melalui waktu sendiri, sedangkan Ekstrovert (E) melalui interaksi sosial.",
+    "options": [
+      { "option_id": "1a", "option_text": "Setuju", "dimension": "EI", "direction": -1 },
+      { "option_id": "1b", "option_text": "Tidak Setuju", "dimension": "EI", "direction": 1 }
+    ]
+  },
+  {
+    "id": "q2",
+    "question": "Anda lebih tertarik pada fakta konkret dan detail yang jelas daripada teori dan konsep abstrak.",
+    "explanation": "Ini mengukur bagaimana Anda memproses informasi. Sensing (S) fokus pada apa yang nyata dan konkret, sementara Intuition (N) fokus pada pola dan kemungkinan.",
+    "options": [
+      { "option_id": "2a", "option_text": "Setuju", "dimension": "SN", "direction": 1 },
+      { "option_id": "2b", "option_text": "Tidak Setuju", "dimension": "SN", "direction": -1 }
+    ]
+  },
+  {
+    "id": "q3",
+    "question": "Saat mengambil keputusan penting, Anda lebih mengutamakan logika dan objektivitas daripada perasaan dan dampak emosional pada orang lain.",
+    "explanation": "Ini mengukur bagaimana Anda membuat keputusan. Thinking (T) memprioritaskan kriteria objektif, sementara Feeling (F) memprioritaskan harmoni dan nilai-nilai pribadi.",
+    "options": [
+      { "option_id": "3a", "option_text": "Setuju", "dimension": "TF", "direction": 1 },
+      { "option_id": "3b", "option_text": "Tidak Setuju", "dimension": "TF", "direction": -1 }
+    ]
+  },
+  {
+    "id": "q4",
+    "question": "Anda lebih suka memiliki jadwal yang terencana dan deadline yang jelas daripada bekerja dengan fleksibilitas tanpa batas.",
+    "explanation": "Ini mengukur bagaimana Anda menjalani hidup. Judging (J) menyukai struktur dan kepastian, sementara Perceiving (P) menyukai spontanitas dan pilihan yang terbuka.",
+    "options": [
+      { "option_id": "4a", "option_text": "Setuju", "dimension": "JP", "direction": 1 },
+      { "option_id": "4b", "option_text": "Tidak Setuju", "dimension": "JP", "direction": -1 }
+    ]
+  },
+  {
+    "id": "q5",
+    "question": "Anda sering merasa lebih hidup dan bersemangat saat berada di tengah keramaian atau acara sosial.",
+    "explanation": "Ekstrovert (E) mendapatkan energi dari lingkungan eksternal dan interaksi, sementara Introvert (I) bisa merasa terkuras energinya dalam situasi seperti ini.",
+    "options": [
+      { "option_id": "5a", "option_text": "Setuju", "dimension": "EI", "direction": 1 },
+      { "option_id": "5b", "option_text": "Tidak Setuju", "dimension": "EI", "direction": -1 }
+    ]
+  },
+  {
+    "id": "q6",
+    "question": "Anda cenderung memikirkan 'gambaran besar' dan implikasi di masa depan saat dihadapkan pada suatu masalah.",
+    "explanation": "Intuition (N) secara alami mencari makna dan hubungan yang lebih dalam, melampaui apa yang terlihat saat ini, berbeda dengan Sensing (S) yang lebih fokus pada detail saat ini.",
+    "options": [
+      { "option_id": "6a", "option_text": "Setuju", "dimension": "SN", "direction": -1 },
+      { "option_id": "6b", "option_text": "Tidak Setuju", "dimension": "SN", "direction": 1 }
+    ]
+  },
+  {
+    "id": "q7",
+    "question": "Anda merasa penting untuk memberikan kritik yang jujur dan langsung, meskipun itu mungkin menyakiti perasaan seseorang.",
+    "explanation": "Preferensi Thinking (T) menghargai kebenaran dan efisiensi di atas keharmonisan sosial, sedangkan Feeling (F) akan lebih berhati-hati untuk menjaga perasaan orang lain.",
+    "options": [
+      { "option_id": "7a", "option_text": "Setuju", "dimension": "TF", "direction": 1 },
+      { "option_id": "7b", "option_text": "Tidak Setuju", "dimension": "TF", "direction": -1 }
+    ]
+  },
+  {
+    "id": "q8",
+    "question": "Anda sering menunda pekerjaan hingga mendekati batas waktu karena Anda merasa lebih produktif di bawah tekanan.",
+    "explanation": "Ciri khas Perceiving (P) adalah bekerja dalam ledakan energi dan tetap terbuka pada pilihan, berbeda dengan Judging (J) yang lebih suka menyelesaikan pekerjaan jauh-jauh hari.",
+    "options": [
+      { "option_id": "8a", "option_text": "Setuju", "dimension": "JP", "direction": -1 },
+      { "option_id": "8b", "option_text": "Tidak Setuju", "dimension": "JP", "direction": 1 }
+    ]
+  },
+  {
+    "id": "q9",
+    "question": "Dalam percakapan, Anda lebih suka mendengarkan daripada menjadi pusat perhatian.",
+    "explanation": "Introvert (I) cenderung lebih reflektif dan memproses secara internal, membuat mereka menjadi pendengar yang baik, sementara Ekstrovert (E) lebih cenderung untuk berbicara dan berbagi.",
+    "options": [
+      { "option_id": "9a", "option_text": "Setuju", "dimension": "EI", "direction": -1 },
+      { "option_id": "9b", "option_text": "Tidak Setuju", "dimension": "EI", "direction": 1 }
+    ]
+  },
+  {
+    "id": "q10",
+    "question": "Saat mempelajari sesuatu yang baru, Anda lebih suka mengikuti instruksi langkah-demi-langkah yang praktis.",
+    "explanation": "Sensing (S) lebih nyaman dengan informasi yang konkret dan terstruktur, sementara Intuition (N) mungkin lebih suka bereksperimen dan menemukan cara mereka sendiri.",
+    "options": [
+      { "option_id": "10a", "option_text": "Setuju", "dimension": "SN", "direction": 1 },
+      { "option_id": "10b", "option_text": "Tidak Setuju", "dimension": "SN", "direction": -1 }
+    ]
+  },
+  {
+    "id": "q11",
+    "question": "Perasaan simpati dan empati terhadap orang lain sering kali memengaruhi pilihan Anda.",
+    "explanation": "Kecenderungan Feeling (F) adalah mempertimbangkan bagaimana keputusan akan memengaruhi orang lain dan menjaga keharmonisan, yang menjadi prioritas utama mereka.",
+    "options": [
+      { "option_id": "11a", "option_text": "Setuju", "dimension": "TF", "direction": -1 },
+      { "option_id": "11b", "option_text": "Tidak Setuju", "dimension": "TF", "direction": 1 }
+    ]
+  },
+  {
+    "id": "q12",
+    "question": "Anda merasa puas setelah menyelesaikan semua tugas dalam 'to-do list' Anda.",
+    "explanation": "Bagi tipe Judging (J), menyelesaikan tugas memberikan rasa kontrol dan pencapaian. Tipe Perceiving (P) mungkin tidak terlalu terikat pada daftar tugas yang kaku.",
+    "options": [
+      { "option_id": "12a", "option_text": "Setuju", "dimension": "JP", "direction": 1 },
+      { "option_id": "12b", "option_text": "Tidak Setuju", "dimension": "JP", "direction": -1 }
+    ]
+  },
+  {
+    "id": "q13",
+    "question": "Anda mudah memulai percakapan dengan orang asing.",
+    "explanation": "Ekstrovert (E) sering kali merasa nyaman dan terstimulasi oleh interaksi sosial baru, sementara Introvert (I) mungkin merasa lebih canggung atau ragu-ragu.",
+    "options": [
+      { "option_id": "13a", "option_text": "Setuju", "dimension": "EI", "direction": 1 },
+      { "option_id": "13b", "option_text": "Tidak Setuju", "dimension": "EI", "direction": -1 }
+    ]
+  },
+  {
+    "id": "q14",
+    "question": "Anda lebih percaya pada pengalaman pribadi Anda daripada ide-ide teoritis dari buku.",
+    "explanation": "Sensing (S) sangat menghargai data yang diperoleh melalui panca indera dan pengalaman langsung, sementara Intuition (N) lebih terbuka pada konsep dan teori abstrak.",
+    "options": [
+      { "option_id": "14a", "option_text": "Setuju", "dimension": "SN", "direction": 1 },
+      { "option_id": "14b", "option_text": "Tidak Setuju", "dimension": "SN", "direction": -1 }
+    ]
+  },
+  {
+    "id": "q15",
+    "question": "Menjaga keharmonisan dalam sebuah kelompok lebih penting bagi Anda daripada memenangkan argumen.",
+    "explanation": "Ini adalah ciri khas preferensi Feeling (F), yang berusaha untuk menciptakan lingkungan yang positif dan suportif, terkadang dengan mengorbankan kebenaran yang 'brutal'.",
+    "options": [
+      { "option_id": "15a", "option_text": "Setuju", "dimension": "TF", "direction": -1 },
+      { "option_id": "15b", "option_text": "Tidak Setuju", "dimension": "TF", "direction": 1 }
+    ]
+  },
+  {
+    "id": "q16",
+    "question": "Anda lebih suka menjaga opsi Anda tetap terbuka daripada membuat keputusan akhir terlalu cepat.",
+    "explanation": "Perceiving (P) menghargai fleksibilitas dan kemampuan untuk beradaptasi. Mereka mungkin merasa terkekang oleh keputusan yang terlalu final, berbeda dengan Judging (J) yang mencari kepastian.",
+    "options": [
+      { "option_id": "16a", "option_text": "Setuju", "dimension": "JP", "direction": -1 },
+      { "option_id": "16b", "option_text": "Tidak Setuju", "dimension": "JP", "direction": 1 }
+    ]
+  },
+  {
+    "id": "q17",
+    "question": "Anda biasanya membutuhkan waktu untuk merenung sebelum memberikan tanggapan atau opini.",
+    "explanation": "Ini adalah proses internalisasi yang umum bagi Introvert (I). Mereka memproses informasi secara mendalam sebelum menyuarakannya.",
+    "options": [
+      { "option_id": "17a", "option_text": "Setuju", "dimension": "EI", "direction": -1 },
+      { "option_id": "17b", "option_text": "Tidak Setuju", "dimension": "EI", "direction": 1 }
+    ]
+  },
+  {
+    "id": "q18",
+    "question": "Anda sering memperhatikan detail-detail kecil yang dilewatkan oleh orang lain.",
+    "explanation": "Kecenderungan Sensing (S) membuat seseorang sangat peka terhadap detail lingkungan dan informasi sensorik yang spesifik.",
+    "options": [
+      { "option_id": "18a", "option_text": "Setuju", "dimension": "SN", "direction": 1 },
+      { "option_id": "18b", "option_text": "Tidak Setuju", "dimension": "SN", "direction": -1 }
+    ]
+  },
+  {
+    "id": "q19",
+    "question": "Anda lebih mudah terpengaruh oleh cerita yang menyentuh emosi daripada argumen yang penuh data.",
+    "explanation": "Orang dengan preferensi Feeling (F) secara alami terhubung dengan narasi yang beresonansi secara emosional dan manusiawi.",
+    "options": [
+      { "option_id": "19a", "option_text": "Setuju", "dimension": "TF", "direction": -1 },
+      { "option_id": "19b", "option_text": "Tidak Setuju", "dimension": "TF", "direction": 1 }
+    ]
+  },
+  {
+    "id": "q20",
+    "question": "Anda merasa lebih nyaman saat segala sesuatunya sudah diputuskan dan ditetapkan.",
+    "explanation": "Judging (J) mencari 'closure' atau penutupan. Ketidakpastian bisa membuat mereka merasa stres, sehingga mereka lebih suka membuat rencana dan menaatinya.",
+    "options": [
+      { "option_id": "20a", "option_text": "Setuju", "dimension": "JP", "direction": 1 },
+      { "option_id": "20b", "option_text": "Tidak Setuju", "dimension": "JP", "direction": -1 }
+    ]
+  },
+  {
+    "id": "q21",
+    "question": "Di lingkungan kerja, Anda aktif berpartisipasi dalam rapat dan diskusi kelompok.",
+    "explanation": "Ekstrovert (E) sering kali memproses pemikiran mereka dengan cara berbicara ('think out loud') dan merasa nyaman dalam dinamika kelompok.",
+    "options": [
+      { "option_id": "21a", "option_text": "Setuju", "dimension": "EI", "direction": 1 },
+      { "option_id": "21b", "option_text": "Tidak Setuju", "dimension": "EI", "direction": -1 }
+    ]
+  },
+  {
+    "id": "q22",
+    "question": "Anda sering membaca yang tersirat dan mencari makna tersembunyi dalam sebuah percakapan.",
+    "explanation": "Intuition (N) secara alami tertarik pada apa yang tidak dikatakan secara eksplisit, mencari pola dan motivasi di balik kata-kata.",
+    "options": [
+      { "option_id": "22a", "option_text": "Setuju", "dimension": "SN", "direction": -1 },
+      { "option_id": "22b", "option_text": "Tidak Setuju", "dimension": "SN", "direction": 1 }
+    ]
+  },
+  {
+    "id": "q23",
+    "question": "Anda percaya bahwa konsistensi dan aturan yang adil harus diterapkan pada semua orang tanpa kecuali.",
+    "explanation": "Ini mencerminkan prinsip keadilan universal yang dipegang oleh preferensi Thinking (T). Mereka percaya sistem yang logis adalah yang paling adil.",
+    "options": [
+      { "option_id": "23a", "option_text": "Setuju", "dimension": "TF", "direction": 1 },
+      { "option_id": "23b", "option_text": "Tidak Setuju", "dimension": "TF", "direction": -1 }
+    ]
+  },
+  {
+    "id": "q24",
+    "question": "Rencana liburan Anda cenderung spontan dan diputuskan pada menit-menit terakhir.",
+    "explanation": "Perceiving (P) menikmati kebebasan dan kegembiraan dari spontanitas, membiarkan momen membawa mereka ke petualangan tak terduga.",
+    "options": [
+      { "option_id": "24a", "option_text": "Setuju", "dimension": "JP", "direction": -1 },
+      { "option_id": "24b", "option_text": "Tidak Setuju", "dimension": "JP", "direction": 1 }
+    ]
+  },
+  {
+    "id": "q25",
+    "question": "Anda memiliki lingkaran pertemanan yang luas dan mengenal banyak orang.",
+    "explanation": "Ekstrovert (E) cenderung mengumpulkan banyak koneksi sosial, sementara Introvert (I) lebih memilih hubungan yang lebih dalam dengan beberapa orang saja.",
+    "options": [
+      { "option_id": "25a", "option_text": "Setuju", "dimension": "EI", "direction": 1 },
+      { "option_id": "25b", "option_text": "Tidak Setuju", "dimension": "EI", "direction": -1 }
+    ]
+  },
+  {
+    "id": "q26",
+    "question": "Anda lebih suka fokus pada kenyataan saat ini daripada berfantasi tentang masa depan.",
+    "explanation": "Ini adalah orientasi 'di sini dan saat ini' dari Sensing (S). Mereka lebih membumi pada realitas yang dapat mereka lihat dan sentuh.",
+    "options": [
+      { "option_id": "26a", "option_text": "Setuju", "dimension": "SN", "direction": 1 },
+      { "option_id": "26b", "option_text": "Tidak Setuju", "dimension": "SN", "direction": -1 }
+    ]
+  },
+  {
+    "id": "q27",
+    "question": "Saat teman Anda sedih, Anda lebih cenderung menawarkan solusi praktis daripada dukungan emosional.",
+    "explanation": "Preferensi Thinking (T) menunjukkan kepedulian dengan cara memecahkan masalah. Mereka ingin 'memperbaiki' situasi, sementara Feeling (F) akan fokus pada validasi perasaan teman mereka.",
+    "options": [
+      { "option_id": "27a", "option_text": "Setuju", "dimension": "TF", "direction": 1 },
+      { "option_id": "27b", "option_text": "Tidak Setuju", "dimension": "TF", "direction": -1 }
+    ]
+  },
+  {
+    "id": "q28",
+    "question": "Anda merasa tidak nyaman jika tidak mengetahui apa yang akan terjadi selanjutnya.",
+    "explanation": "Kebutuhan akan prediktabilitas dan struktur adalah inti dari preferensi Judging (J). Mereka menggunakan perencanaan untuk mengelola kecemasan akan ketidakpastian.",
+    "options": [
+      { "option_id": "28a", "option_text": "Setuju", "dimension": "JP", "direction": 1 },
+      { "option_id": "28b", "option_text": "Tidak Setuju", "dimension": "JP", "direction": -1 }
+    ]
+  },
+  {
+    "id": "q29",
+    "question": "Anda lebih memilih untuk berkomunikasi melalui tulisan (email, chat) daripada berbicara langsung di telepon.",
+    "explanation": "Introvert (I) sering merasa lebih nyaman dengan komunikasi tertulis karena memberi mereka waktu untuk berpikir dan menyusun kata-kata dengan hati-hati.",
+    "options": [
+      { "option_id": "29a", "option_text": "Setuju", "dimension": "EI", "direction": -1 },
+      { "option_id": "29b", "option_text": "Tidak Setuju", "dimension": "EI", "direction": 1 }
+    ]
+  },
+  {
+    "id": "q30",
+    "question": "Anda sering menggunakan metafora dan analogi saat menjelaskan sesuatu.",
+    "explanation": "Ini adalah cara komunikasi yang umum bagi Intuition (N), yang secara alami menghubungkan berbagai konsep abstrak untuk menciptakan pemahaman.",
+    "options": [
+      { "option_id": "30a", "option_text": "Setuju", "dimension": "SN", "direction": -1 },
+      { "option_id": "30b", "option_text": "Tidak Setuju", "dimension": "SN", "direction": 1 }
+    ]
+  },
+  {
+    "id": "q31",
+    "question": "Anda sulit untuk membuat keputusan yang dapat berdampak negatif pada orang yang Anda sayangi.",
+    "explanation": "Bagi tipe Feeling (F), konsekuensi interpersonal dari sebuah keputusan sering kali sama pentingnya, atau bahkan lebih penting, daripada hasil yang logis.",
+    "options": [
+      { "option_id": "31a", "option_text": "Setuju", "dimension": "TF", "direction": -1 },
+      { "option_id": "31b", "option_text": "Tidak Setuju", "dimension": "TF", "direction": 1 }
+    ]
+  },
+  {
+    "id": "q32",
+    "question": "Anda lebih menikmati prosesnya daripada hasilnya.",
+    "explanation": "Perceiving (P) menemukan kegembiraan dalam eksplorasi dan proses penemuan. Bagi mereka, perjalanan itu sendiri sering kali lebih berharga daripada tujuan akhir yang telah ditetapkan.",
+    "options": [
+      { "option_id": "32a", "option_text": "Setuju", "dimension": "JP", "direction": -1 },
+      { "option_id": "32b", "option_text": "Tidak Setuju", "dimension": "JP", "direction": 1 }
+    ]
+  }
+]

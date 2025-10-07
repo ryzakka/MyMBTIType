@@ -4,11 +4,6 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
     }
-    plugins {
-        id("com.android.application") version "8.9.1"
-        id("org.jetbrains.kotlin.android") version "2.0.0"
-        id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
-    }
 }
 
 dependencyResolutionManagement {
@@ -19,5 +14,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MyApp"
+// Ganti nama proyek menjadi "MyType" agar konsisten
+rootProject.name = "MyType"
 include(":app")

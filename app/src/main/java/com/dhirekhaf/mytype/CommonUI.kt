@@ -66,7 +66,7 @@ fun getThemeForMbti(mbtiType: String): PersonalityTheme {
 
 // --- BAGIAN 2: KOMPONEN VISUAL BERSAMA ---
 
-data class Particle(
+data class FloatingParticle(
     val startX: Float = Random.nextFloat(),
     val startTime: Float = Random.nextFloat(),
     val size: Float = Random.nextFloat() * 2f + 1f,
@@ -75,7 +75,7 @@ data class Particle(
 
 @Composable
 fun FloatingParticles(particleColor: Color) {
-    val particles = remember { List(30) { Particle() } }
+    val particles = remember { List(30) { FloatingParticle() } }
     val infiniteTransition = rememberInfiniteTransition(label = "particle_transition")
     val animationTime by infiniteTransition.animateFloat(
         initialValue = 0f,

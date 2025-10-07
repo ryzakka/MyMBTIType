@@ -1,5 +1,5 @@
 // Lokasi: app/src/main/java/com/dhirekhaf/mytype/BerandaScreen.kt
-// [KODE FINAL v5.1 - Perbaikan Posisi Tombol "Retake Test"]
+// [BERSIH & STABIL] - Menggunakan Image Background dan FloatingParticles dari CommonUI.kt
 
 package com.dhirekhaf.mytype
 
@@ -44,12 +44,12 @@ import com.dhirekhaf.mytype.data.generalQuotes
 import com.dhirekhaf.mytype.data.mbtiQuotes
 import com.dhirekhaf.mytype.ui.theme.MyTypeTheme
 import kotlinx.coroutines.delay
-import kotlin.random.Random
+
 
 // --- GAYA TEKS ---
 private val BerandaGayaSapaan = TextStyle(fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color.White)
 private val BerandaGayaKutipan = TextStyle(fontSize = 20.sp, textAlign = TextAlign.Center, lineHeight = 30.sp, color = Color.White.copy(0.9f))
-private val MbtiConstellationStyle = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.White)
+private val MbtiConstellationStyle = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Bold) // Warna diatur di Composable
 
 // --- COMPOSABLE UTAMA ---
 @OptIn(ExperimentalMaterial3Api::class)
@@ -105,7 +105,6 @@ fun BerandaScreen(
             onRetakeTest = { showConfirmDialog = true }
         )
 
-        // Ini adalah Navbar asli Anda dari CommonUI.kt
         ModernBottomNavBar(
             currentRoute = currentRoute,
             onNavigate = onNavigate,
@@ -146,10 +145,12 @@ private fun BerandaHeaderElegan(
     onProfileClick: () -> Unit
 ) {
     val displayName = if (userData.name.isNotBlank()) userData.name else "Beautiful Human!"
+    val theme = getThemeForMbti(userData.mbtiType)
 
     var currentQuote by remember(userData.mbtiType) {
         mutableStateOf((mbtiQuotes[userData.mbtiType]?.random() ?: generalQuotes.random()))
     }
+
     var showStaticHeader by remember { mutableStateOf(false) }
     var showDynamicContent by remember { mutableStateOf(false) }
 
@@ -163,28 +164,38 @@ private fun BerandaHeaderElegan(
     val headerAlpha by animateFloatAsState(targetValue = if (showStaticHeader) 1f else 0f, animationSpec = tween(800), label = "h_alpha")
     val contentAlpha by animateFloatAsState(targetValue = if (showDynamicContent) 1f else 0f, animationSpec = tween(1000, 200), label = "c_alpha")
     val contentOffsetY by animateDpAsState(targetValue = if (showDynamicContent) 0.dp else 20.dp, animationSpec = tween(1000, 200), label = "c_offset")
-    val infiniteTransition = rememberInfiniteTransition("inf_trans")
-    val scale by infiniteTransition.animateFloat(1.0f, 1.1f, infiniteRepeatable(tween(20000, easing = LinearEasing), RepeatMode.Reverse), "ken_burns")
-    val theme = getThemeForMbti(userData.mbtiType)
+    val infiniteTransition = rememberInfiniteTransition(label = "ken_burns_beranda")
+    val scale by infiniteTransition.animateFloat(1f, 1.1f, infiniteRepeatable(tween(20000, easing = LinearEasing), RepeatMode.Reverse), "scale_beranda")
 
-    Box(modifier.fillMaxSize().clip(RoundedCornerShape(0.dp))) {
-        Box(Modifier.fillMaxSize()) {
-            Crossfade(theme.background, animationSpec = tween(1500), label = "bg_crossfade") { imageRes ->
-                Image(painterResource(imageRes), null, contentScale = ContentScale.Crop, modifier = Modifier.fillMaxSize().scale(scale))
-            }
-            FloatingParticles(theme.particleColor)
-            Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color.Black.copy(0.6f), Color.Transparent, Color.Black.copy(0.8f)))))
-            Box(
-                Modifier
-                    .fillMaxSize()
-                    .padding(bottom = 220.dp, start = 48.dp, end = 48.dp)
-                    .graphicsLayer { alpha = contentAlpha; translationY = contentOffsetY.toPx() }
-                    .pointerInput(Unit) { detectTapGestures(onTap = { currentQuote = (mbtiQuotes[userData.mbtiType]?.random() ?: generalQuotes.random()) }) },
-                contentAlignment = Alignment.Center
-            ) {
-                Crossfade(currentQuote, animationSpec = tween(500), label = "quote_crossfade") { quoteText -> Text("\"$quoteText\"", style = BerandaGayaKutipan) }
-            }
+    // [KEMBALI KE STABIL] Box dengan Image, FloatingParticles, dan Gradient
+    Box(modifier.fillMaxSize()) {
+        Image(
+            painter = painterResource(id = theme.background),
+            contentDescription = "Latar Belakang",
+            modifier = Modifier.fillMaxSize().scale(scale),
+            contentScale = ContentScale.Crop
+        )
+
+        // Ini memanggil FloatingParticles dari CommonUI.kt
+        FloatingParticles(particleColor = theme.particleColor)
+
+        Box(modifier = Modifier.fillMaxSize().background(
+            Brush.verticalGradient(listOf(Color.Black.copy(0.4f), Color.Transparent, Color.Black.copy(0.7f)))
+        ))
+
+        // Tampilkan Kutipan
+        Box(
+            Modifier
+                .fillMaxSize()
+                .padding(bottom = 220.dp, start = 48.dp, end = 48.dp)
+                .graphicsLayer { alpha = contentAlpha; translationY = contentOffsetY.toPx() }
+                .pointerInput(Unit) { detectTapGestures(onTap = { currentQuote = (mbtiQuotes[userData.mbtiType]?.random() ?: generalQuotes.random()) }) },
+            contentAlignment = Alignment.Center
+        ) {
+            Crossfade(currentQuote, animationSpec = tween(500), label = "quote_crossfade") { quoteText -> Text("\"$quoteText\"", style = BerandaGayaKutipan) }
         }
+
+        // Tampilkan Header (Nama & Foto Profil)
         Row(
             Modifier
                 .fillMaxWidth()
@@ -233,8 +244,7 @@ fun StoryStage(
     ) {
         Box(
             contentAlignment = Alignment.BottomCenter,
-            // [PERBAIKAN UTAMA] Padding dinaikkan menjadi 120.dp
-            modifier = Modifier.padding(bottom = 150.dp)
+            modifier = Modifier.padding(bottom = 120.dp)
         ) {
             Box(
                 modifier = Modifier
@@ -292,6 +302,7 @@ fun MbtiConstellation(
     }
 }
 
+
 @Composable
 private fun TakeTestPrompt(onTakeTestClick: () -> Unit) {
     Column(
@@ -308,3 +319,4 @@ private fun TakeTestPrompt(onTakeTestClick: () -> Unit) {
         }
     }
 }
+

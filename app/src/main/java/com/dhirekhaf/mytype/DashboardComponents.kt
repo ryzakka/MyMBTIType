@@ -31,6 +31,9 @@ import androidx.compose.ui.unit.sp
 import com.dhirekhaf.mytype.data.UserData
 import com.google.accompanist.flowlayout.FlowRow
 
+
+
+
 @Composable
 fun ResultDashboard(
     userData: UserData,
@@ -47,6 +50,9 @@ fun ResultDashboard(
         InfoBox("Julukan", personalityData.title, Icons.Default.Info, theme, Modifier.weight(1f))
         InfoBox("Kelompok", groupData.groupTitle, Icons.Default.Shield, theme, Modifier.weight(1f))
     }
+
+    AuraCard(scores = userData.dimensionScores, theme = theme)
+
     DimensionChart(mbtiType = userData.mbtiType, scores = userData.dimensionScores, theme = theme)
     DynamicLearnMoreButton(theme = theme) {
         // [PERBAIKAN] Langsung gunakan properti hexColor yang sudah aman dari GroupTheme.

@@ -1,5 +1,5 @@
 // File: app/src/main/java/com/dhirekhaf/mytype/PersonalityTestScreen.kt
-// [KODE LENGKAP - PERBAIKAN CARA MENYIMPAN SKOR]
+// [PERBAIKAN] Menambahkan gulir otomatis ke atas saat grup pertanyaan berganti.
 
 package com.dhirekhaf.mytype
 
@@ -10,8 +10,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+// [PERBAIKAN] Impor yang dibutuhkan untuk state LazyColumn
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -34,8 +37,11 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.dhirekhaf.mytype.data.UserDataRepository
+// [PERBAIKAN] Impor yang dibutuhkan untuk coroutine
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
-// Konstanta dan gaya
+// Konstanta dan gaya (tidak berubah)
 private val primaryColor = Color(0xff735283)
 private val backgroundColorStart = Color(0xFFF8F5FA)
 private val backgroundColorEnd = Color(0xFFEEEAF2)
@@ -95,7 +101,6 @@ fun PersonalityTestScreen(
                     )
 
                     uiState.testResult != null -> {
-                        // [PERBAIKAN] Simpan skor saat hasil pertama kali muncul
                         LaunchedEffect(uiState.testResult) {
                             val scores = viewModel.getFinalScoresForSaving()
                             if (scores != null) {
@@ -131,6 +136,17 @@ fun QuestionGroupView(
     )
     val allQuestionsAnswered = uiState.currentQuestionGroup.all { uiState.userAnswers.containsKey(it.id) }
 
+    // [PERBAIKAN 1] Buat state untuk LazyColumn dan CoroutineScope
+    val lazyListState: LazyListState = rememberLazyListState()
+    val coroutineScope: CoroutineScope = rememberCoroutineScope()
+
+    // [PERBAIKAN 2] Gunakan LaunchedEffect untuk menggulir ke atas saat grup pertanyaan berubah.
+    // Kita menggunakan `uiState.progressText` sebagai 'key' karena nilainya unik untuk setiap grup.
+    LaunchedEffect(key1 = uiState.progressText) {
+        // Gulir ke item paling atas (indeks 0) dengan animasi.
+        lazyListState.animateScrollToItem(0)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -154,7 +170,11 @@ fun QuestionGroupView(
         Spacer(modifier = Modifier.height(16.dp))
 
         // Daftar Pertanyaan
-        LazyColumn(modifier = Modifier.weight(1f)) {
+        // [PERBAIKAN 3] Sambungkan `lazyListState` ke `LazyColumn`.
+        LazyColumn(
+            modifier = Modifier.weight(1f),
+            state = lazyListState
+        ) {
             items(uiState.currentQuestionGroup, key = { it.id }) { question ->
                 QuestionCard(
                     question = question,
@@ -169,6 +189,7 @@ fun QuestionGroupView(
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // Tombol "Next" tidak perlu diubah, karena logika gulir sudah ditangani oleh LaunchedEffect
         Button(
             onClick = onNextClicked,
             enabled = allQuestionsAnswered,
@@ -186,6 +207,7 @@ fun QuestionGroupView(
     }
 }
 
+// ... (QuestionCard dan TestResultView tidak perlu diubah) ...
 @Composable
 fun QuestionCard(
     question: Question,

@@ -1,5 +1,5 @@
 // File: app/src/main/java/com/dhirekhaf/mytype/SharePreviewScreen.kt
-// [KODE FINAL v10.0 - GRID 3x3 SIMETRIS & STABIL]
+// [PERBAIKAN] Menambahkan verticalScroll agar tombol tidak terdorong keluar layar.
 
 package com.dhirekhaf.mytype
 
@@ -10,7 +10,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState // <-- IMPORT BARU
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll // <-- IMPORT BARU
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Share
@@ -76,11 +78,13 @@ fun SharePreviewScreen(navController: NavController) {
             )
         )
     ) { paddingValues ->
+        // [PERBAIKAN UTAMA] Menambahkan modifier verticalScroll pada Column
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(horizontal = 24.dp),
+                .padding(horizontal = 24.dp)
+                .verticalScroll(rememberScrollState()), // <-- INI DIA PERBAIKANNYA
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
@@ -124,6 +128,7 @@ fun SharePreviewScreen(navController: NavController) {
                 }
             }
 
+            // Bagian tombol ini sekarang akan terlihat dengan menggulir layar
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -152,6 +157,11 @@ fun SharePreviewScreen(navController: NavController) {
         }
     }
 }
+
+
+// --- SISA KODE (BingoShareCard, BingoHeader, BingoGrid, dll.) TIDAK PERLU DIUBAH ---
+// Salin dan tempel bagian ini dari kode Anda yang sudah ada jika diperlukan,
+// karena isinya tidak berubah.
 
 @Composable
 private fun BingoShareCard(
@@ -217,29 +227,22 @@ private fun BingoHeader(personalityInfo: PersonalityInfo, userData: com.dhirekha
     }
 }
 
-// --- [REVISI TOTAL] Grid 3x3 yang Dijamin Simetris ---
 @Composable
 private fun BingoGrid(traits: List<BingoTrait>, gridColor: Color, textColor: Color) {
-    // 1. Ambil 9 item pertama, atau kurang jika tidak cukup.
     val gridItems = traits.take(9).toMutableList()
-
-    // 2. Jika item kurang dari 9, isi sisanya dengan item kosong agar simetris.
     while (gridItems.size < 9) {
-        gridItems.add(BingoTrait("", 1)) // Item kosong
+        gridItems.add(BingoTrait("", 1))
     }
 
-    // 3. Buat grid menggunakan Column dan Row, dengan chunked(3) yang simpel.
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .aspectRatio(1f) // Buat area grid menjadi persegi sempurna
-            .border(1.dp, gridColor) // Satu border untuk luar
+            .aspectRatio(1f)
+            .border(1.dp, gridColor)
     ) {
-        // 4. `chunked(3)` akan secara otomatis membuat 3 baris, masing-masing berisi 3 item.
         gridItems.chunked(3).forEach { rowItems ->
             Row(Modifier.weight(1f)) {
                 rowItems.forEach { trait ->
-                    // 5. Setiap sel mendapat weight 1f, membagi lebar secara merata.
                     Box(
                         modifier = Modifier
                             .weight(1f)
@@ -254,13 +257,12 @@ private fun BingoGrid(traits: List<BingoTrait>, gridColor: Color, textColor: Col
     }
 }
 
-// [MODIFIKASI KECIL] - Modifier tidak lagi dibutuhkan sebagai parameter
 @Composable
 private fun BingoCell(text: String, textColor: Color) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(4.dp), // Padding di dalam border
+            .padding(4.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -274,8 +276,6 @@ private fun BingoCell(text: String, textColor: Color) {
     }
 }
 
-
-// --- FUNGSI HELPER (Tidak Berubah) ---
 private fun shareBitmap(context: Context, bitmap: Bitmap) {
     val imagePath = File(context.cacheDir, "images")
     var file: File? = null
@@ -296,7 +296,6 @@ private fun shareBitmap(context: Context, bitmap: Bitmap) {
             putExtra(Intent.EXTRA_STREAM, uri)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
-        val chooser = Intent.createChooser(intent, "Bagikan via")
-        context.startActivity(chooser)
+        context.startActivity(Intent.createChooser(intent, "Bagikan via"))
     }
 }

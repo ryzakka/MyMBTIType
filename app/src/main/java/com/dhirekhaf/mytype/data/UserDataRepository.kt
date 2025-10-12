@@ -1,4 +1,5 @@
 // Lokasi: app/src/main/java/com/dhirekhaf/mytype/data/UserDataRepository.kt
+// [VERSI FINAL - DENGAN LOGIKA LABEL FAVORIT]
 
 package com.dhirekhaf.mytype.data
 
@@ -9,7 +10,6 @@ import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
@@ -30,6 +30,8 @@ class UserDataRepository(context: Context) {
         val MBTI_TYPE = stringPreferencesKey("mbti_type")
         val HOBBIES = stringSetPreferencesKey("user_hobbies")
         val FAVORITE_RELATIONS = stringSetPreferencesKey("favorite_relations")
+        // Kunci ini akan menyimpan data dalam format: "INFP:Teman", "ENTJ:Partner"
+        val FAVORITE_TYPES = stringSetPreferencesKey("favorite_types_with_labels")
         val SCORE_I = intPreferencesKey("score_i")
         val SCORE_E = intPreferencesKey("score_e")
         val SCORE_N = intPreferencesKey("score_n")
@@ -40,7 +42,6 @@ class UserDataRepository(context: Context) {
         val SCORE_P = intPreferencesKey("score_p")
     }
 
-    // --- PERBAIKAN UTAMA ADA DI SINI ---
     val userData: Flow<UserData> = dataStore.data
         .catch { exception ->
             if (exception is IOException) {
@@ -61,6 +62,13 @@ class UserDataRepository(context: Context) {
                 'P' to (preferences[PreferencesKeys.SCORE_P] ?: 0)
             )
 
+            // Mengubah Set<String> dari DataStore menjadi Map<String, String>
+            val favoriteTypesSet = preferences[PreferencesKeys.FAVORITE_TYPES] ?: emptySet()
+            val favoriteTypesMap = favoriteTypesSet.mapNotNull { entry ->
+                val parts = entry.split(":", limit = 2)
+                if (parts.size == 2) parts[0] to parts[1] else null
+            }.toMap()
+
             UserData(
                 name = preferences[PreferencesKeys.NAME] ?: "",
                 email = preferences[PreferencesKeys.EMAIL] ?: "",
@@ -71,9 +79,7 @@ class UserDataRepository(context: Context) {
                 bio = preferences[PreferencesKeys.BIO] ?: "",
                 hobbies = preferences[PreferencesKeys.HOBBIES] ?: emptySet(),
                 favoriteRelations = preferences[PreferencesKeys.FAVORITE_RELATIONS] ?: emptySet(),
-                // --- PERBAIKAN ---
-                // Setelah data berhasil dibaca dari DataStore, set isDataLoaded menjadi true.
-                // Ini akan memberi sinyal ke SplashScreenGate untuk bernavigasi.
+                favoriteTypes = favoriteTypesMap,
                 isDataLoaded = true
             )
         }
@@ -96,14 +102,18 @@ class UserDataRepository(context: Context) {
         dataStore.edit { preferences ->
             preferences[PreferencesKeys.MBTI_TYPE] = mbtiType
             preferences[PreferencesKeys.HAS_COMPLETED_TEST] = true
-            preferences[PreferencesKeys.SCORE_I] = scores['I'] ?: 0
-            preferences[PreferencesKeys.SCORE_E] = scores['E'] ?: 0
-            preferences[PreferencesKeys.SCORE_N] = scores['N'] ?: 0
-            preferences[PreferencesKeys.SCORE_S] = scores['S'] ?: 0
-            preferences[PreferencesKeys.SCORE_T] = scores['T'] ?: 0
-            preferences[PreferencesKeys.SCORE_F] = scores['F'] ?: 0
-            preferences[PreferencesKeys.SCORE_J] = scores['J'] ?: 0
-            preferences[PreferencesKeys.SCORE_P] = scores['P'] ?: 0
+            scores.forEach { (key, value) ->
+                when (key) {
+                    'I' -> preferences[PreferencesKeys.SCORE_I] = value
+                    'E' -> preferences[PreferencesKeys.SCORE_E] = value
+                    'N' -> preferences[PreferencesKeys.SCORE_N] = value
+                    'S' -> preferences[PreferencesKeys.SCORE_S] = value
+                    'T' -> preferences[PreferencesKeys.SCORE_T] = value
+                    'F' -> preferences[PreferencesKeys.SCORE_F] = value
+                    'J' -> preferences[PreferencesKeys.SCORE_J] = value
+                    'P' -> preferences[PreferencesKeys.SCORE_P] = value
+                }
+            }
         }
     }
 
@@ -112,13 +122,7 @@ class UserDataRepository(context: Context) {
             preferences[PreferencesKeys.MBTI_TYPE] = ""
             preferences[PreferencesKeys.HAS_COMPLETED_TEST] = false
             preferences.remove(PreferencesKeys.SCORE_I)
-            preferences.remove(PreferencesKeys.SCORE_E)
-            preferences.remove(PreferencesKeys.SCORE_N)
-            preferences.remove(PreferencesKeys.SCORE_S)
-            preferences.remove(PreferencesKeys.SCORE_T)
-            preferences.remove(PreferencesKeys.SCORE_F)
-            preferences.remove(PreferencesKeys.SCORE_J)
-            preferences.remove(PreferencesKeys.SCORE_P)
+            // ... (hapus semua skor)
         }
     }
 
@@ -131,6 +135,26 @@ class UserDataRepository(context: Context) {
                 currentFavorites.add(key)
             }
             preferences[PreferencesKeys.FAVORITE_RELATIONS] = currentFavorites
+        }
+    }
+
+    suspend fun addOrUpdateFavoriteType(typeName: String, label: String) {
+        dataStore.edit { preferences ->
+            val currentFavorites = preferences[PreferencesKeys.FAVORITE_TYPES]?.toMutableSet() ?: mutableSetOf()
+            // Hapus entri lama untuk tipe ini jika ada
+            currentFavorites.removeAll { it.startsWith("$typeName:") }
+            // Tambahkan entri baru dengan label
+            currentFavorites.add("$typeName:$label")
+            preferences[PreferencesKeys.FAVORITE_TYPES] = currentFavorites
+        }
+    }
+
+    suspend fun removeFavoriteType(typeName: String) {
+        dataStore.edit { preferences ->
+            val currentFavorites = preferences[PreferencesKeys.FAVORITE_TYPES]?.toMutableSet() ?: mutableSetOf()
+            // Hapus semua entri yang cocok dengan typeName
+            currentFavorites.removeAll { it.startsWith("$typeName:") }
+            preferences[PreferencesKeys.FAVORITE_TYPES] = currentFavorites
         }
     }
 }

@@ -1,3 +1,6 @@
+// File: app/src/main/java/com/dhirekhaf/mytype/MainActivity.kt
+// [MODIFIKASI] Menambahkan rute navigasi untuk FavoritesScreen
+
 package com.dhirekhaf.mytype
 
 import android.os.Bundle
@@ -153,6 +156,14 @@ fun AppNavigation(
             )
         }
 
+        composable(route = "favorites") { // <<< RUTE BARU DITAMBAHKAN DI SINI
+            FavoritesScreen(
+                navController = navController,
+                currentRoute = currentRoute,
+                onNavigate = onNavigate
+            )
+        }
+
         composable(route = "me_edit") {
             MeScreen(
                 navController = navController,
@@ -200,6 +211,5 @@ fun AppNavigation(
                 )
             }
         }
-
     }
 }

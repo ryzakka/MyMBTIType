@@ -1,5 +1,5 @@
 // File: app/src/main/java/com/dhirekhaf/mytype/CommonUI.kt
-// [PERBAIKAN FINAL] - Mengembalikan Navbar asli & Gemstone yang benar.
+// [MODIFIKASI] Menambahkan item "Favorites" di Bottom Navigation Bar
 
 package com.dhirekhaf.mytype
 
@@ -15,11 +15,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.List
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.StarBorder
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -189,7 +193,6 @@ fun DimensionDetailSheet(dimension: Pair<Char, String>) {
     }
 }
 
-// [KEMBALI] Mengembalikan Navigasi Bawah ke desain asli Anda.
 data class BottomNavItem(
     val title: String,
     val selectedIcon: ImageVector,
@@ -215,6 +218,12 @@ fun ModernBottomNavBar(
             selectedIcon = Icons.Filled.List,
             unselectedIcon = Icons.Outlined.List,
             route = "personalities"
+        ),
+        BottomNavItem( // <<< ITEM BARU DITAMBAHKAN DI SINI
+            title = "Favorites",
+            selectedIcon = Icons.Filled.Star,
+            unselectedIcon = Icons.Outlined.StarBorder,
+            route = "favorites"
         ),
         BottomNavItem(
             title = "Me",
@@ -257,4 +266,44 @@ fun ModernBottomNavBar(
             }
         }
     }
+}
+
+// ... (tambahkan di bagian paling bawah dari CommonUI.kt)
+
+@Composable
+fun AddFavoriteLabelDialog(
+    currentLabel: String,
+    onConfirm: (String) -> Unit,
+    onDismiss: () -> Unit
+) {
+    var label by remember { mutableStateOf(currentLabel) }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("Beri Label Favorit", fontWeight = FontWeight.Bold) },
+        text = {
+            Column {
+                Text("Beri nama untuk menandai hubungan Anda dengan tipe ini (Contoh: Teman Baik, Ibu, Partner).")
+                Spacer(Modifier.height(16.dp))
+                OutlinedTextField(
+                    value = label,
+                    onValueChange = { label = it },
+                    label = { Text("Label") },
+                    singleLine = true
+                )
+            }
+        },
+        confirmButton = {
+            TextButton(
+                onClick = { onConfirm(label.ifBlank { "Favorit" }) },
+            ) {
+                Text("Simpan", fontWeight = FontWeight.Bold)
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Batal")
+            }
+        }
+    )
 }

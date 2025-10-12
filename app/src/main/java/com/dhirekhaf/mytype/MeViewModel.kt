@@ -1,4 +1,5 @@
 // Lokasi: app/src/main/java/com/dhirekhaf/mytype/MeViewModel.kt
+// [VERSI FINAL - DENGAN FUNGSI LABEL FAVORIT]
 
 package com.dhirekhaf.mytype
 
@@ -18,8 +19,19 @@ class MeViewModel(private val userDataRepository: UserDataRepository) : ViewMode
     val userData: StateFlow<UserData> = userDataRepository.userData.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
-        // PERBAIKAN: Nilai awal sekarang cocok dengan definisi UserData
-        initialValue = UserData("", "", null, emptyMap(), false, "", "", emptySet(), emptySet())
+        initialValue = UserData(
+            name = "",
+            email = "",
+            imageUri = null,
+            dimensionScores = emptyMap(),
+            hasCompletedTest = false,
+            mbtiType = "",
+            bio = "",
+            hobbies = emptySet(),
+            favoriteRelations = emptySet(),
+            favoriteTypes = emptyMap(), // Tipe data diubah menjadi Map kosong
+            isDataLoaded = false
+        )
     )
 
     fun saveUserProfile(
@@ -27,7 +39,6 @@ class MeViewModel(private val userDataRepository: UserDataRepository) : ViewMode
         email: String,
         bio: String,
         hobbies: List<String>,
-        // PERBAIKAN: Parameter imageUri adalah Uri?, bukan String?
         imageUri: Uri?
     ) {
         viewModelScope.launch {
@@ -51,6 +62,18 @@ class MeViewModel(private val userDataRepository: UserDataRepository) : ViewMode
         val key = listOf(type1, type2).sorted().joinToString("-")
         viewModelScope.launch {
             userDataRepository.toggleFavoriteRelation(key)
+        }
+    }
+
+    fun addOrUpdateFavorite(typeName: String, label: String) {
+        viewModelScope.launch {
+            userDataRepository.addOrUpdateFavoriteType(typeName, label)
+        }
+    }
+
+    fun removeFavorite(typeName: String) {
+        viewModelScope.launch {
+            userDataRepository.removeFavoriteType(typeName)
         }
     }
 }

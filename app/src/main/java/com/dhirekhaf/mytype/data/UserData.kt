@@ -18,14 +18,13 @@ package com.dhirekhaf.mytype.data
 data class UserData(
     val name: String,
     val email: String,
-    // PERBAIKAN: Tipe diubah menjadi String? (nullable String)
     val imageUri: String?,
     val dimensionScores: Map<Char, Int>,
     val hasCompletedTest: Boolean,
     val mbtiType: String,
     val bio: String,
-    // Menggunakan Set untuk konsistensi dengan DataStore
     val hobbies: Set<String>,
     val favoriteRelations: Set<String>,
+    val favoriteTypes: Map<String, String>,
     val isDataLoaded: Boolean = false
 )

@@ -1,5 +1,5 @@
 // Lokasi: app/src/main/java/com/dhirekhaf/mytype/PersonalityData.kt
-// [VERSI FINAL - DUPLIKASI DIHAPUS]
+// [VERSI FINAL - MENYESUAIKAN DENGAN KODE ANDA YANG SUDAH ADA]
 
 package com.dhirekhaf.mytype
 
@@ -737,7 +737,6 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
                     "Gunakan visi bersama untuk membangun sistem yang seimbang antara refleksi dan aksi."
                 )
             ),
-
             RelationshipDetail("INTP",
                 strengths = listOf(
                     "INTP memberikan ide-ide konseptual, ENTJ membawa mereka ke kenyataan.",
@@ -755,8 +754,6 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
                     "Bangun komunikasi dua arah yang menyeimbangkan dorongan dan kedalaman."
                 )
             ),
-
-
             RelationshipDetail("ENTP",
                 strengths = listOf(
                     "Pertemuan dua pemikir dinamis yang penuh ide dan ambisi.",
@@ -774,7 +771,6 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
                     "Gunakan perdebatan sebagai alat membangun, bukan mengalahkan."
                 )
             ),
-
             RelationshipDetail("INFJ",
                 strengths = listOf(
                     "INFJ membawa empati dan intuisi manusiawi, ENTJ membawa arah dan ketegasan.",
@@ -792,7 +788,6 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
                     "Gunakan visi bersama untuk menyeimbangkan kekuatan dan kelembutan."
                 )
             ),
-
             RelationshipDetail("INFP",
                 strengths = listOf(
                     "INFP membawa nilai dan idealisme, ENTJ membawa struktur dan arah.",
@@ -810,7 +805,6 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
                     "Temukan makna bersama antara pencapaian dan kesejahteraan batin."
                 )
             ),
-
             RelationshipDetail("ENFP",
                 strengths = listOf(
                     "Keduanya energik, penuh ide, dan menularkan semangat pada dunia.",
@@ -828,7 +822,6 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
                     "Bangun ritme bersama antara imajinasi dan implementasi."
                 )
             ),
-
             RelationshipDetail("ENFJ",
                 strengths = listOf(
                     "Dua pemimpin karismatik yang bisa saling memperkuat.",
@@ -846,7 +839,6 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
                     "Gunakan kekuatan kepemimpinan untuk membangun, bukan mendominasi."
                 )
             ),
-
             RelationshipDetail("ISTJ",
                 strengths = listOf(
                     "Sama-sama logis, disiplin, dan berorientasi hasil.",
@@ -864,7 +856,6 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
                     "Bangun sistem yang menggabungkan kecepatan dan ketepatan."
                 )
             ),
-
             RelationshipDetail("ISFJ",
                 strengths = listOf(
                     "ISFJ membawa ketenangan dan kepedulian, ENTJ membawa arah dan dorongan.",
@@ -882,7 +873,6 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
                     "Gunakan kekuatan stabilitas dan visi untuk menciptakan keseimbangan kerja dan hati."
                 )
             ),
-
             RelationshipDetail("ESTJ",
                 strengths = listOf(
                     "Dua tipe eksekutif yang efisien dan berorientasi prestasi.",
@@ -900,7 +890,6 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
                     "Fokus pada tujuan bersama daripada siapa yang memimpin."
                 )
             ),
-
             RelationshipDetail("ESFJ",
                 strengths = listOf(
                     "ESFJ membawa kehangatan dan harmoni sosial, ENTJ membawa struktur dan visi.",
@@ -918,7 +907,6 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
                     "Bangun komunikasi yang menjaga keseimbangan antara rasa dan logika."
                 )
             ),
-
             RelationshipDetail("ISTP",
                 strengths = listOf(
                     "Keduanya logis, mandiri, dan fokus pada efisiensi.",
@@ -936,7 +924,6 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
                     "Fokus pada hasil nyata tanpa menekan proses alami masing-masing."
                 )
             ),
-
             RelationshipDetail("ISFP",
                 strengths = listOf(
                     "ISFP membawa kelembutan dan keindahan pada dunia ENTJ yang logis.",
@@ -954,7 +941,6 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
                     "Gunakan perbedaan ini untuk membangun rasa aman dan saling percaya."
                 )
             ),
-
             RelationshipDetail("ESTP",
                 strengths = listOf(
                     "Dua pribadi energik dan berani yang menyukai tantangan.",
@@ -972,7 +958,6 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
                     "Gunakan energi dan logika untuk menciptakan petualangan yang bermakna."
                 )
             ),
-
             RelationshipDetail("ESFP",
                 strengths = listOf(
                     "ESFP membawa kegembiraan dan empati, ENTJ membawa tujuan dan fokus.",
@@ -990,285 +975,233 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
                     "Bangun ritme hidup yang memadukan kerja keras dan kegembiraan."
                 )
             )
-                    )
+        )
+    ),
+    "ENTP" to PersonalityDetails(
+        typeName = "ENTP - Sang Pendebat",
+        description = "Ia seorang pencari kemungkinan yang senang memutar argumen demi menguji gagasan. Ia menyukai stimulasi intelektual dan tantangan mental.",
+        strengths = listOf("Cepat berpikir", "Pandai menghubungkan gagasan", "Karismatik", "Berani menantang"),
+        weaknesses = listOf("Sulit menyelesaikan proyek", "Mudah bosan", "Terlihat provokatif", "Tidak sabaran"),
+        careerPaths = listOf("Pengusaha inovatif", "Konsultan kreatif", "Pengacara", "Jurnalis"),
+        relationships = "Dalam relasi, ia menyukai pasangan yang dapat terlibat dalam percakapan tajam dan humor intelektual. Ia menunjukkan kasih lewat stimulasi mental dan ide bersama.",
+        developmentTips = listOf("Selesaikan satu ide menjadi bentuk nyata.", "Perhatikan bahasa tubuh saat berdebat.", "Latih komitmen kecil."),
+        detailImages = listOf(R.drawable.entpmain, R.drawable.entpdesc1, R.drawable.entpdesc2),
+        viewsFromOthers = listOf(
+            OtherTypeView("INTJ", "Menikmati diskusi intelektualnya, tapi berharap mereka lebih fokus pada satu kesimpulan."),
+            OtherTypeView("INTP", "Merasa mereka adalah 'partner in crime' dalam eksplorasi ide, meski kadang terlalu suka pamer."),
+            OtherTypeView("ENTJ", "Melihatnya sebagai sumber ide brilian, tapi perlu diikat agar tetap di jalur."),
+            OtherTypeView("INFJ", "Tertarik dengan ide-ide mereka yang tak ada habisnya, namun lelah dengan kecenderungan mereka untuk berdebat."),
+            OtherTypeView("INFP", "Menganggap ide-idenya menarik, tapi merasa diserang saat mereka mulai berdebat."),
+            OtherTypeView("ENFJ", "Menyukai energi kreatif mereka, tapi berharap mereka lebih sensitif secara sosial."),
+            OtherTypeView("ENFP", "Merasa seperti versi yang lebih logis dari diri sendiri, teman brainstorming yang hebat."),
+            OtherTypeView("ISTJ", "Menganggap mereka tidak praktis dan tidak terorganisir, tetapi mengakui kreativitas mereka."),
+            OtherTypeView("ISFJ", "Merasa cara mereka berdebat itu kasar, tapi kadang terhibur oleh humornya."),
+            OtherTypeView("ESTJ", "Melihatnya sebagai pembuat onar yang cerdas, bisa jadi aset atau masalah."),
+            OtherTypeView("ESFJ", "Khawatir mereka akan mempermalukan diri sendiri di depan umum, tapi mengakui pesonanya."),
+            OtherTypeView("ISTP", "Suka beradu argumen teknis dengan mereka, tapi tidak suka debat filosofisnya."),
+            OtherTypeView("ISFP", "Merasa energi mereka terlalu kacau dan tidak menenangkan."),
+            OtherTypeView("ESTP", "Melihatnya sebagai rival yang menyenangkan dalam hal kecerdasan dan kecepatan berpikir."),
+            OtherTypeView("ESFP", "Menganggap mereka lucu dan menghibur, selama perdebatan tidak menjadi terlalu serius.")
         ),
-        "ENTP" to PersonalityDetails(
-            typeName = "ENTP - Sang Pendebat",
-            description = "Ia seorang pencari kemungkinan yang senang memutar argumen demi menguji gagasan. Ia menyukai stimulasi intelektual dan tantangan mental.",
-            strengths = listOf("Cepat berpikir", "Pandai menghubungkan gagasan", "Karismatik", "Berani menantang"),
-            weaknesses = listOf("Sulit menyelesaikan proyek", "Mudah bosan", "Terlihat provokatif", "Tidak sabaran"),
-            careerPaths = listOf("Pengusaha inovatif", "Konsultan kreatif", "Pengacara", "Jurnalis"),
-            relationships = "Dalam relasi, ia menyukai pasangan yang dapat terlibat dalam percakapan tajam dan humor intelektual. Ia menunjukkan kasih lewat stimulasi mental dan ide bersama.",
-            developmentTips = listOf("Selesaikan satu ide menjadi bentuk nyata.", "Perhatikan bahasa tubuh saat berdebat.", "Latih komitmen kecil."),
-            detailImages = listOf(R.drawable.entpmain, R.drawable.entpdesc1, R.drawable.entpdesc2),
-            viewsFromOthers = listOf(
-                OtherTypeView("INTJ", "Menikmati diskusi intelektualnya, tapi berharap mereka lebih fokus pada satu kesimpulan."),
-                OtherTypeView("INTP", "Merasa mereka adalah 'partner in crime' dalam eksplorasi ide, meski kadang terlalu suka pamer."),
-                OtherTypeView("ENTJ", "Melihatnya sebagai sumber ide brilian, tapi perlu diikat agar tetap di jalur."),
-                OtherTypeView("INFJ", "Tertarik dengan ide-ide mereka yang tak ada habisnya, namun lelah dengan kecenderungan mereka untuk berdebat."),
-                OtherTypeView("INFP", "Menganggap ide-idenya menarik, tapi merasa diserang saat mereka mulai berdebat."),
-                OtherTypeView("ENFJ", "Menyukai energi kreatif mereka, tapi berharap mereka lebih sensitif secara sosial."),
-                OtherTypeView("ENFP", "Merasa seperti versi yang lebih logis dari diri sendiri, teman brainstorming yang hebat."),
-                OtherTypeView("ISTJ", "Menganggap mereka tidak praktis dan tidak terorganisir, tetapi mengakui kreativitas mereka."),
-                OtherTypeView("ISFJ", "Merasa cara mereka berdebat itu kasar, tapi kadang terhibur oleh humornya."),
-                OtherTypeView("ESTJ", "Melihatnya sebagai pembuat onar yang cerdas, bisa jadi aset atau masalah."),
-                OtherTypeView("ESFJ", "Khawatir mereka akan mempermalukan diri sendiri di depan umum, tapi mengakui pesonanya."),
-                OtherTypeView("ISTP", "Suka beradu argumen teknis dengan mereka, tapi tidak suka debat filosofisnya."),
-                OtherTypeView("ISFP", "Merasa energi mereka terlalu kacau dan tidak menenangkan."),
-                OtherTypeView("ESTP", "Melihatnya sebagai rival yang menyenangkan dalam hal kecerdasan dan kecepatan berpikir."),
-                OtherTypeView("ESFP", "Menganggap mereka lucu dan menghibur, selama perdebatan tidak menjadi terlalu serius.")
+        relationshipDetails = listOf(
+            RelationshipDetail("INTJ",
+                strengths = listOf("Keduanya analitis dan suka membedah konsep mendalam.", "INTJ membawa fokus strategis, ENTP membawa perspektif baru yang segar.", "Diskusi mereka sering mengarah pada ide-ide visioner yang konkret."),
+                challenges = listOf("ENTP bisa tampak tidak konsisten bagi INTJ.", "INTJ bisa menilai ENTP terlalu impulsif.", "Perbedaan dalam kebutuhan struktur vs eksplorasi bisa memicu gesekan."),
+                advice = listOf("ENTP: Hargai kedisiplinan dan keheningan INTJ.", "INTJ: Biarkan ENTP menjelajah tanpa langsung menilai chaos-nya.", "Gunakan gabungan visi dan fleksibilitas untuk membangun sesuatu yang besar.")
             ),
-            relationshipDetails = listOf(
-                RelationshipDetail("INTJ",
-                    strengths = listOf("Keduanya analitis dan suka membedah konsep mendalam.", "INTJ membawa fokus strategis, ENTP membawa perspektif baru yang segar.", "Diskusi mereka sering mengarah pada ide-ide visioner yang konkret."),
-                    challenges = listOf("ENTP bisa tampak tidak konsisten bagi INTJ.", "INTJ bisa menilai ENTP terlalu impulsif.", "Perbedaan dalam kebutuhan struktur vs eksplorasi bisa memicu gesekan."),
-                    advice = listOf("ENTP: Hargai kedisiplinan dan keheningan INTJ.", "INTJ: Biarkan ENTP menjelajah tanpa langsung menilai chaos-nya.", "Gunakan gabungan visi dan fleksibilitas untuk membangun sesuatu yang besar.")
-                ),
-                RelationshipDetail("INTP",
-                    strengths = listOf("Keduanya pemikir bebas yang haus pengetahuan.", "Saling mendorong eksplorasi ide secara mendalam.", "Percakapan terasa seperti laboratorium intelektual yang tak ada ujungnya."),
-                    challenges = listOf("Kurangnya arah konkret bisa membuat hubungan stagnan.", "ENTP bisa bosan bila INTP terlalu lama di teori.", "INTP bisa jenuh bila ENTP terlalu dominan secara sosial."),
-                    advice = listOf("ENTP: Belajar menahan dorongan debat demi mendengar kedalaman logika INTP.", "INTP: Sampaikan batasan agar diskusi tetap sehat.", "Tentukan tujuan bersama agar intelektualitas berbuah nyata.")
-                ),
-                RelationshipDetail("ENTJ",
-                    strengths = listOf("Keduanya energik, logis, dan sangat berorientasi ide besar.", "ENTJ menghargai kreativitas ENTP, ENTP menghargai ketegasan ENTJ.", "Potensi luar biasa dalam kerja sama strategis dan inovatif."),
-                    challenges = listOf("ENTP bisa merasa ditekan oleh kebutuhan struktur ENTJ.", "ENTJ bisa jengkel pada fleksibilitas ENTP yang tampak berantakan.", "Perselisihan bisa muncul bila keduanya ingin memimpin arah."),
-                    advice = listOf("ENTP: Hargai kejelasan visi ENTJ sebagai jangkar ide-ide liar.", "ENTJ: Biarkan sedikit kekacauan untuk memberi ruang kreativitas.", "Gunakan kombinasi imajinasi dan strategi untuk menggerakkan dunia.")
-                ),
-                RelationshipDetail("INFJ",
-                    strengths = listOf("INFJ membawa kedalaman jiwa, ENTP membawa pandangan luas dan segar.", "Keduanya sama-sama tertarik memahami pola manusia dan makna di baliknya.", "Bila terjalin kepercayaan, kombinasi ini bisa sangat mendalam dan menumbuhkan."),
-                    challenges = listOf("ENTP bisa tampak tidak peka terhadap sensitivitas INFJ.", "INFJ bisa menilai ENTP terlalu bermain-main dengan perasaan.", "Perbedaan besar antara spontanitas dan kehati-hatian."),
-                    advice = listOf("ENTP: Tahan godaan untuk mengubah arah pembicaraan hanya demi tantangan intelektual.", "INFJ: Lihat rasa ingin tahu ENTP sebagai bentuk perhatian, bukan gangguan.", "Temukan ritme antara visi batin dan petualangan luar.")
-                ),
-                RelationshipDetail("INFP",
-                    strengths = listOf("INFP memberi idealisme lembut, ENTP memberi semangat eksplorasi.", "Keduanya suka membicarakan makna dan kemungkinan hidup.", "Saling menumbuhkan sisi imajinatif dan empatik."),
-                    challenges = listOf("ENTP bisa tanpa sadar menertawakan hal yang INFP anggap sakral.", "INFP bisa menarik diri bila merasa diabaikan secara emosional.", "Perbedaan gaya komunikasi bisa menciptakan salah paham."),
-                    advice = listOf("ENTP: Perlambat ritme saat membahas hal yang penting bagi INFP.", "INFP: Jangan takut menyuarakan kebutuhan emosional secara langsung.", "Gunakan imajinasi bersama untuk menyulam makna dan petualangan.")
-                ),
-                RelationshipDetail("ENFP",
-                    strengths = listOf("Dua jiwa bebas penuh tawa, ide, dan rasa ingin tahu tak terbatas.", "Kreativitas mereka menular dan menyegarkan lingkungan.", "Hubungan ini penuh spontanitas dan pemikiran out-of-the-box."),
-                    challenges = listOf("Keduanya bisa terlalu sibuk berimajinasi tanpa realisasi.", "Rentan pada ketidakkonsistenan dan perubahan arah mendadak.", "Bisa saling bersaing dalam hal perhatian dan karisma."),
-                    advice = listOf("ENTP: Jaga agar percakapan tetap memiliki arah dan makna.", "ENFP: Biarkan logika ENTP menyeimbangkan emosimu tanpa menguranginya.", "Bangun sistem sederhana agar mimpi bisa hidup di dunia nyata.")
-                ),
-                RelationshipDetail("ENFJ",
-                    strengths = listOf("ENFJ membawa kehangatan dan struktur sosial, ENTP membawa ide dan dinamika.", "Saling melengkapi antara visi emosional dan logika kreatif.", "Keduanya komunikatif, energik, dan saling menstimulasi."),
-                    challenges = listOf("ENTP bisa tampak tidak serius bagi ENFJ yang terencana.", "ENFJ bisa menilai ENTP terlalu egois atau tidak konsisten.", "Risiko salah paham dalam membaca niat satu sama lain."),
-                    advice = listOf("ENTP: Tunjukkan komitmen kecil tapi nyata untuk membangun kepercayaan.", "ENFJ: Biarkan ENTP berimprovisasi tanpa langsung dikoreksi.", "Gunakan empati dan humor untuk menjaga keseimbangan dialog.")
-                )
-            )
-        ),
-
-        // --- DIPLOMAT ---
-        "INFJ" to PersonalityDetails(
-            typeName = "INFJ - Sang Advokat",
-            description = "Ia seorang yang menatap jauh melampaui permukaan. Dalam dirinya mengalir hasrat untuk memahami makna di balik setiap peristiwa, serta kerinduan untuk membawa kebaikan yang sunyi namun nyata.",
-            strengths = listOf("Empati mendalam", "Visi jangka panjang", "Setia & berkomitmen", "Membimbing dengan tenang"),
-            weaknesses = listOf("Mudah terbebani emosi", "Menyembunyikan beban", "Perfeksionis", "Enggan berkonfrontasi"),
-            careerPaths = listOf("Konselor/Terapis", "Penulis", "Pekerja nirlaba", "Psikolog"),
-            relationships = "Ia mencari hubungan yang mendalam dan bermakna. Cinta baginya adalah ruang untuk berbagi nilai, mimpi, dan ketakutan terdalam. Ia butuh pasangan yang sabar dan konsisten.",
-            developmentTips = listOf("Izinkan dirimu berbagi beban.", "Terima bahwa dunia tidak ideal.", "Jadwalkan waktu untuk pulih."),
-            detailImages = listOf(R.drawable.infjmain, R.drawable.infjdesc1, R.drawable.infjdesc2),
-            viewsFromOthers = listOf(
-                OtherTypeView("INTJ", "Menghargai kedalaman wawasan mereka, meski kadang merasa pendekatan mereka kurang logis."),
-                OtherTypeView("INTP", "Bingung dengan cara mereka mengambil kesimpulan 'mistis', tapi menghormati intuisi mereka."),
-                OtherTypeView("ENTJ", "Melihatnya sebagai penasihat yang bijaksana, berguna untuk melihat 'sisi manusia' dari sebuah rencana."),
-                OtherTypeView("ENTP", "Tertarik dengan kompleksitas pikiran mereka, suka mencoba 'membedah' logikanya."),
-                OtherTypeView("INFP", "Merasa menemukan 'saudara', seseorang yang benar-benar mengerti kedalaman perasaan."),
-                OtherTypeView("ENFJ", "Melihatnya sebagai versi diri yang lebih tenang dan reflektif, merasa ada ikatan kuat."),
-                OtherTypeView("ENFP", "Merasa memiliki koneksi mendalam dengan mereka, menganggapnya sebagai jiwa yang bijaksana dan tua."),
-                OtherTypeView("ISTJ", "Merasa mereka terlalu abstrak dan sulit ditebak."),
-                OtherTypeView("ISFJ", "Mengagumi kebaikan dan empati mereka, sering menjadi pendengar setia."),
-                OtherTypeView("ESTJ", "Menghargai integritas mereka, tetapi berpikir mereka terlalu idealis dan kurang praktis."),
-                OtherTypeView("ESFJ", "Melihatnya sebagai teman curhat yang hebat, meski kadang terlalu banyak berpikir."),
-                OtherTypeView("ISTP", "Merasa mereka terlalu rumit dan sulit dipahami."),
-                OtherTypeView("ISFP", "Menghargai kelembutan dan sisi artistik mereka."),
-                OtherTypeView("ESTP", "Bingung dengan sifat mereka yang tenang dan penuh teka-teki."),
-                OtherTypeView("ESFP", "Menikmati energi positif mereka, tetapi merasa lelah jika terlalu lama bersama mereka.")
+            RelationshipDetail("INTP",
+                strengths = listOf("Keduanya pemikir bebas yang haus pengetahuan.", "Saling mendorong eksplorasi ide secara mendalam.", "Percakapan terasa seperti laboratorium intelektual yang tak ada ujungnya."),
+                challenges = listOf("Kurangnya arah konkret bisa membuat hubungan stagnan.", "ENTP bisa bosan bila INTP terlalu lama di teori.", "INTP bisa jenuh bila ENTP terlalu dominan secara sosial."),
+                advice = listOf("ENTP: Belajar menahan dorongan debat demi mendengar kedalaman logika INTP.", "INTP: Sampaikan batasan agar diskusi tetap sehat.", "Tentukan tujuan bersama agar intelektualitas berbuah nyata.")
             ),
-            relationshipDetails = listOf(
-                // ... (semua detail hubungan INFJ)
-            )
-        ),
-        "INFP" to PersonalityDetails(
-            typeName = "INFP - Sang Mediator",
-            description = "Ia seorang yang hatinya penuh ideal dan kasih sayang; ia hidup untuk prinsip dan makna. Dunia batinnya kaya akan imajinasi.",
-            strengths = listOf("Sangat peduli & empati", "Kreatif & imajinatif", "Setia pada nilai", "Melihat potensi baik"),
-            weaknesses = listOf("Terlalu idealis", "Sangat sensitif pada kritik", "Sulit bertindak", "Menghindari konfrontasi"),
-            careerPaths = listOf("Penulis/Seniman", "Psikolog/Konselor", "Desainer", "Pekerja nirlaba"),
-            relationships = "Dalam cinta, ia mencari keaslian—hubungan yang membiarkan kedua jiwa tumbuh. Ia memberi perhatian dengan cara yang lembut. Pasangan terbaik adalah yang menghormati kedalaman hatinya.",
-            developmentTips = listOf("Ubah ideal menjadi langkah kecil.", "Lihat kritik sebagai peluang.", "Suarakan kebutuhanmu secara langsung."),
-            detailImages = listOf(R.drawable.infpmain, R.drawable.infpdesc1, R.drawable.infpdesc2),
-            viewsFromOthers = listOf(
-                // ... (semua viewsFromOthers INFP)
+            RelationshipDetail("ENTJ",
+                strengths = listOf("Keduanya energik, logis, dan sangat berorientasi ide besar.", "ENTJ menghargai kreativitas ENTP, ENTP menghargai ketegasan ENTJ.", "Potensi luar biasa dalam kerja sama strategis dan inovatif."),
+                challenges = listOf("ENTP bisa merasa ditekan oleh kebutuhan struktur ENTJ.", "ENTJ bisa jengkel pada fleksibilitas ENTP yang tampak berantakan.", "Perselisihan bisa muncul bila keduanya ingin memimpin arah."),
+                advice = listOf("ENTP: Hargai kejelasan visi ENTJ sebagai jangkar ide-ide liar.", "ENTJ: Biarkan sedikit kekacauan untuk memberi ruang kreativitas.", "Gunakan kombinasi imajinasi dan strategi untuk menggerakkan dunia.")
             ),
-            relationshipDetails = listOf(
-                // ... (semua detail hubungan INFP)
-            )
-        ),
-        "ENFJ" to PersonalityDetails(
-            typeName = "ENFJ - Sang Protagonis",
-            description = "Ia seorang yang memancarkan kehangatan dan dorongan untuk menggerakkan orang lain ke arah kebaikan. Kepeduliannya terasa nyata; ia sering menjadi katalis bagi perubahan positif.",
-            strengths = listOf("Karismatik", "Sangat peka emosional", "Komunikatif", "Pemimpin suportif"),
-            weaknesses = listOf("Mudah kelelahan karena orang lain", "Mencari validasi", "Menekan kebutuhan pribadi", "Sulit menerima konflik"),
-            careerPaths = listOf("Guru/Mentor", "Manajer SDM", "Diplomat", "Konselor"),
-            relationships = "Ia mencintai dengan keterlibatan penuh—mendengarkan, memotivasi, dan membantu pasangannya tumbuh. Ia memberi dukungan emosional yang kuat, namun kadang lupa merawat diri.",
-            developmentTips = listOf("Sisihkan waktu untuk dirimu sendiri.", "Terima ketidaksempurnaan orang lain.", "Belajarlah meminta bantuan."),
-            detailImages = listOf(R.drawable.enfjmain, R.drawable.enfjdesc1, R.drawable.enfjdesc2),
-            viewsFromOthers = listOf(
-                // ... (semua viewsFromOthers ENFJ)
+            RelationshipDetail("INFJ",
+                strengths = listOf("INFJ membawa kedalaman jiwa, ENTP membawa pandangan luas dan segar.", "Keduanya sama-sama tertarik memahami pola manusia dan makna di baliknya.", "Bila terjalin kepercayaan, kombinasi ini bisa sangat mendalam dan menumbuhkan."),
+                challenges = listOf("ENTP bisa tampak tidak peka terhadap sensitivitas INFJ.", "INFJ bisa menilai ENTP terlalu bermain-main dengan perasaan.", "Perbedaan besar antara spontanitas dan kehati-hatian."),
+                advice = listOf("ENTP: Tahan godaan untuk mengubah arah pembicaraan hanya demi tantangan intelektual.", "INFJ: Lihat rasa ingin tahu ENTP sebagai bentuk perhatian, bukan gangguan.", "Temukan ritme antara visi batin dan petualangan luar.")
             ),
-            relationshipDetails = listOf(
-                // ... (semua detail hubungan ENFJ)
-            )
-        ),
-        "ENFP" to PersonalityDetails(
-            typeName = "ENFP - Sang Juru Kampanye",
-            description = "Ia seorang yang berdenyut penuh antusiasme dan rasa ingin tahu. Segala hal mengandung kemungkinan; ia menikmati menjelajahi hubungan, ide, dan pengalaman baru.",
-            strengths = listOf("Energi tinggi", "Sangat kreatif", "Komunikatif & hangat", "Mudah beradaptasi"),
-            weaknesses = listOf("Sulit fokus", "Rentan stres oleh rutinitas", "Menunda-nunda", "Terbawa emosi"),
-            careerPaths = listOf("Kreator konten", "Aktivis", "Konsultan kreativitas", "Aktor/Presenter"),
-            relationships = "Ia mencintai dengan antusiasme: penuh perhatian, spontan, dan ingin berbagi pengalaman. Ia mencari pasangan yang bisa menjadi sahabat sekaligus pendukung ide.",
-            developmentTips = listOf("Belajar menyelesaikan sedikit demi sedikit.", "Praktikkan rutinitas kecil.", "Berikan batas pada energimu."),
-            detailImages = listOf(R.drawable.enfpmain, R.drawable.enfpdesc1, R.drawable.enfpdesc2),
-            viewsFromOthers = listOf(
-                // ... (semua viewsFromOthers ENFP)
+            RelationshipDetail("INFP",
+                strengths = listOf("INFP memberi idealisme lembut, ENTP memberi semangat eksplorasi.", "Keduanya suka membicarakan makna dan kemungkinan hidup.", "Saling menumbuhkan sisi imajinatif dan empatik."),
+                challenges = listOf("ENTP bisa tanpa sadar menertawakan hal yang INFP anggap sakral.", "INFP bisa menarik diri bila merasa diabaikan secara emosional.", "Perbedaan gaya komunikasi bisa menciptakan salah paham."),
+                advice = listOf("ENTP: Perlambat ritme saat membahas hal yang penting bagi INFP.", "INFP: Jangan takut menyuarakan kebutuhan emosional secara langsung.", "Gunakan imajinasi bersama untuk menyulam makna dan petualangan.")
             ),
-            relationshipDetails = listOf(
-                // ... (semua detail hubungan ENFP)
-            )
-        ),
-
-        // --- PENJAGA ---
-        "ISTJ" to PersonalityDetails(
-            typeName = "ISTJ - Sang Ahli Logistik",
-            description = "Ia seorang yang menepati janji dan menghargai struktur. Ketelitian dan rasa tanggung jawab adalah wataknya; dunia yang teratur memberinya rasa aman.",
-            strengths = listOf("Sangat bertanggung jawab", "Teliti & detail", "Konsisten", "Etika kerja kuat"),
-            weaknesses = listOf("Kurang fleksibel", "Kaku dalam berpikir", "Sulit ekspresi emosi", "Terlalu keras pada diri sendiri"),
-            careerPaths = listOf("Akuntan/Auditor", "Manajer operasi", "Profesional logistik", "Analis data"),
-            relationships = "Ia menunjukkan cinta lewat keandalan: hadir tepat waktu, menyelesaikan tanggung jawab, dan menyediakan dukungan praktis. Keteguhannya memberi rasa aman.",
-            developmentTips = listOf("Beri ruang untuk fleksibilitas.", "Latih komunikasi kebutuhan emosional.", "Beri kesempatan ide baru."),
-            detailImages = listOf(R.drawable.istjmain, R.drawable.istjdesc1, R.drawable.istjdesc2),
-            viewsFromOthers = listOf(
-                // ... (semua viewsFromOthers ISTJ)
+            RelationshipDetail("ENFP",
+                strengths = listOf("Dua jiwa bebas penuh tawa, ide, dan rasa ingin tahu tak terbatas.", "Kreativitas mereka menular dan menyegarkan lingkungan.", "Hubungan ini penuh spontanitas dan pemikiran out-of-the-box."),
+                challenges = listOf("Keduanya bisa terlalu sibuk berimajinasi tanpa realisasi.", "Rentan pada ketidakkonsistenan dan perubahan arah mendadak.", "Bisa saling bersaing dalam hal perhatian dan karisma."),
+                advice = listOf("ENTP: Jaga agar percakapan tetap memiliki arah dan makna.", "ENFP: Biarkan logika ENTP menyeimbangkan emosimu tanpa menguranginya.", "Bangun sistem sederhana agar mimpi bisa hidup di dunia nyata.")
             ),
-            relationshipDetails = listOf(
-                // ... (semua detail hubungan ISTJ)
-            )
-        ),
-        "ISFJ" to PersonalityDetails(
-            typeName = "ISFJ - Sang Pembela",
-            description = "Ia seorang yang hangat, penuh perhatian, dan berdedikasi pada orang-orang yang ia sayangi. Ia melihat kebutuhan praktis serta emosional orang lain.",
-            strengths = listOf("Sangat suportif & setia", "Peka kebutuhan orang lain", "Teliti & konsisten", "Sabar"),
-            weaknesses = listOf("Mengorbankan diri", "Tidak nyaman dengan perubahan", "Menahan keluhan", "Sulit menetapkan batas"),
-            careerPaths = listOf("Perawat/Bidan", "Guru sekolah dasar", "Pekerja sosial", "Desainer interior"),
-            relationships = "Ia mencintai lewat tindakan: perhatian kecil, ingatan pada detail, dan usaha praktis untuk membuat pasangan merasa nyaman. Ia mencari stabilitas emosional.",
-            developmentTips = listOf("Belajar mengatakan 'tidak'.", "Sisihkan waktu untuk kebutuhan pribadi.", "Terima pujian."),
-            detailImages = listOf(R.drawable.isfjmain, R.drawable.isfjdesc1, R.drawable.isfjdesc2),
-            viewsFromOthers = listOf(
-                // ... (semua viewsFromOthers ISFJ)
-            ),
-            relationshipDetails = listOf(
-                // ... (semua detail hubungan ISFJ)
-            )
-        ),
-        "ESTJ" to PersonalityDetails(
-            typeName = "ESTJ - Sang Eksekutif",
-            description = "Ia seorang yang tangguh, terorganisir, dan mengutamakan praktik yang terbukti. Ia menemukan kenyamanan dalam struktur dan kepastian, dan sering menjadi penggerak yang memastikan segala sesuatunya berjalan sesuai rencana.",
-            strengths = listOf("Kemampuan manajerial kuat", "Tegas & konsisten", "Sangat bertanggung jawab", "Pragmatis & fokus hasil"),
-            weaknesses = listOf("Kurang fleksibel", "Cenderung menghakimi", "Sulit ekspresi emosi", "Mengabaikan perasaan individu"),
-            careerPaths = listOf("Manajer operasional", "Hakim/Pengacara", "Manajer proyek", "Perwira militer"),
-            relationships = "Ia menunjukkan cinta dengan stabilitas: komitmen yang jelas, perencanaan masa depan, dan tanggung jawab yang konsisten. Ia perlu belajar menampilkan kelembutan agar hubungan tak terasa semata kontrak.",
-            developmentTips = listOf("Beri ruang pada emosi.", "Ekspresikan apresiasi dengan kata-kata.", "Rilekskan kendali pada hal kecil.", "Pelajari perspektif lain."),
-            detailImages = listOf(R.drawable.estjmain, R.drawable.estjdesc1, R.drawable.estjdesc2),
-            viewsFromOthers = listOf(
-                // ... (semua viewsFromOthers ESTJ)
-            ),
-            relationshipDetails = listOf(
-                // ... (semua detail hubungan ESTJ)
-            )
-        ),
-        "ESFJ" to PersonalityDetails(
-            typeName = "ESFJ - Sang Konsul",
-            description = "Ia seorang yang ramah, peduli, dan terampil menjaga keharmonisan sosial. Ia mendapat kepuasan ketika membantu orang lain merasa diterima dan nyaman. Perhatiannya kepada detail hubungan membuatnya mudah menjadi pusat dukungan sosial.",
-            strengths = listOf("Sangat sosial & perhatian", "Sangat setia", "Terorganisir dalam hubungan", "Peka norma sosial"),
-            weaknesses = listOf("Mencari persetujuan eksternal", "Mengorbankan diri", "Mudah tersinggung oleh kritik", "Tidak nyaman dengan perubahan"),
-            careerPaths = listOf("Event planner", "Perawat/Guru", "Manajer SDM", "Pekerja komunitas"),
-            relationships = "Ia memberi cinta lewat perhatian dan pelayanan: merawat, mengingat tanggal penting, dan menyiapkan hal-hal kecil. Ia membutuhkan penghargaan yang jelas; bila diabaikan, ia mudah merasa terluka.",
-            developmentTips = listOf("Belajar menetapkan batas.", "Terima bahwa penolakan itu sehat.", "Luangkan waktu untuk diri sendiri.", "Terima kritik sebagai alat berkembang."),
-            detailImages = listOf(R.drawable.esfjmain, R.drawable.esfjdesc1, R.drawable.esfjdesc2),
-            viewsFromOthers = listOf(
-                // ... (semua viewsFromOthers ESFJ)
-            ),
-            relationshipDetails = listOf(
-                // ... (semua detail hubungan ESFJ)
-            )
-        ),
-
-        // --- PERAJIN ---
-        "ISTP" to PersonalityDetails(
-            typeName = "ISTP - Sang Virtuoso",
-            description = "Ia seorang yang tangkas dengan dunia konkret: memecahkan masalah praktis, mengutak-atik alat, dan beradaptasi cepat saat situasi berubah. Ia menikmati keterampilan tangan dan kebebasan untuk bereksperimen.",
-            strengths = listOf("Keterampilan praktis", "Tenang dalam krisis", "Adaptif & spontan", "Berani mencoba"),
-            weaknesses = listOf("Kurang sabar dengan struktur", "Sulit berkomitmen jangka panjang", "Menahan emosi", "Mengambil risiko berlebihan"),
-            careerPaths = listOf("Mekanik/Pilot", "Insinyur lapangan", "Paramedis", "Programmer"),
-            relationships = "Ia mendekati hubungan dengan praktikalitas: memberi dukungan lewat tindakan nyata. Ia menyukai pasangan yang memberinya kebebasan. Ketika merasa aman, ia sangat setia dan protektif.",
-            developmentTips = listOf("Ekspresikan kebutuhan emosional.", "Pertimbangkan risiko jangka panjang.", "Latih konsistensi.", "Ngobrol tanpa agenda praktis."),
-            detailImages = listOf(R.drawable.istpmain, R.drawable.istpdesc1, R.drawable.istpdesc2),
-            viewsFromOthers = listOf(
-                // ... (semua viewsFromOthers ISTP)
-            ),
-            relationshipDetails = listOf(
-                // ... (semua detail hubungan ISTP)
-            )
-        ),
-        "ISFP" to PersonalityDetails(
-            typeName = "ISFP - Sang Petualang",
-            description = "Ia seorang yang hidup dalam kepekaan terhadap pengalaman indrawi dan keindahan. Ia memilih menjalani hidup lewat perasaan dan ekspresi estetis, menghargai momen dan kebebasan untuk menjadi otentik.",
-            strengths = listOf("Berjiwa artistik", "Hangat & nyaman", "Fleksibel", "Ekspresif"),
-            weaknesses = listOf("Menghindari konflik", "Sulit berkomitmen jangka panjang", "Rentan stres oleh rutinitas", "Mudah terluka oleh kritik"),
-            careerPaths = listOf("Seniman/Musisi", "Fotografer", "Koki", "Desainer fesyen"),
-            relationships = "Ia mencintai lewat kehadiran yang lembut: sentuhan, perhatian pada detail kecil, dan berbagi pengalaman. Ia menghargai pasangan yang memberi ruang berekspresi. Ketika tertekan, ia cenderung mundur.",
-            developmentTips = listOf("Sampaikan kebutuhan dengan kata-kata.", "Bangun rutinitas kecil.", "Hadapi konflik kecil.", "Sediakan waktu pribadi untuk emosi."),
-            detailImages = listOf(R.drawable.isfpmain, R.drawable.isfpdesc1, R.drawable.isfpdesc2),
-            viewsFromOthers = listOf(
-                // ... (semua viewsFromOthers ISFP)
-            ),
-            relationshipDetails = listOf(
-                // ... (semua detail hubungan ISFP)
-            )
-        ),
-        "ESTP" to PersonalityDetails(
-            typeName = "ESTP - Sang Pengusaha",
-            description = "Ia seorang yang berani hidup di garis depan pengalaman—lari dari teori berlebih dan memilih aksi cepat. Ia gesit, pragmatis, dan menikmati tantangan langsung; dunia baginya adalah arena untuk bereaksi dan menangkap peluang.",
-            strengths = listOf("Cepat bertindak", "Sangat adaptif", "Karismatik & persuasif", "Berani ambil keputusan"),
-            weaknesses = listOf("Impulsif", "Kurang sabar dengan teori", "Mudah bosan", "Mengabaikan perasaan"),
-            careerPaths = listOf("Pengusaha", "Sales", "Paramedis", "Atlet profesional"),
-            relationships = "Ia memaknai hubungan lewat dinamika, aksi, dan pengalaman bersama. Ia menyukai pasangan yang spontan. Ia perlu belajar merencanakan dan konsisten pada komitmen yang tak selalu seru.",
-            developmentTips = listOf("Nilai konsekuensi jangka panjang.", "Nikmati rutinitas kecil.", "Latih komunikasi perasaan.", "Buat rencana finansial."),
-            detailImages = listOf(R.drawable.estpmain, R.drawable.estpdesc1, R.drawable.estpdesc2),
-            viewsFromOthers = listOf(
-                // ... (semua viewsFromOthers ESTP)
-            ),
-            relationshipDetails = listOf(
-                // ... (semua detail hubungan ESTP)
-            )
-        ),
-        "ESFP" to PersonalityDetails(
-            typeName = "ESFP - Sang Penghibur",
-            description = "Ia seorang yang hidup untuk berbagi kegembiraan. Kehadirannya membuat suasana lebih ringan dan hangat; ia pandai menemukan kesenangan di hal-hal sederhana dan membuat orang lain merasa diikutsertakan.",
-            strengths = listOf("Membawa energi positif", "Mudah berbaur", "Peka estetika", "Cepat bertindak"),
-            weaknesses = listOf("Kurang sabar dengan rencana", "Mudah terganggu", "Menghindari masalah serius", "Butuh validasi sosial"),
-            careerPaths = listOf("Aktor/Entertainer", "Event planner", "Pemandu wisata", "Desainer visual"),
-            relationships = "Ia memberi cinta lewat kehadiran riang: merencanakan kejutan, membawa keceriaan, dan membuat momen spesial. Ia butuh pasangan yang mencintai keaktifan dan tak kaku pada rencana.",
-            developmentTips = listOf("Bangun komitmen kecil.", "Sediakan waktu refleksi.", "Hadapi percakapan serius.", "Pelihara keuangan."),
-            detailImages = listOf(R.drawable.esfpmain, R.drawable.esfpdesc1, R.drawable.esfpdesc2),
-            viewsFromOthers = listOf(
-                // ... (semua viewsFromOthers ESFP)
-            ),
-            relationshipDetails = listOf(
-                // ... (semua detail hubungan ESFP)
+            RelationshipDetail("ENFJ",
+                strengths = listOf("ENFJ membawa kehangatan dan struktur sosial, ENTP membawa ide dan dinamika.", "Saling melengkapi antara visi emosional dan logika kreatif.", "Keduanya komunikatif, energik, dan saling menstimulasi."),
+                challenges = listOf("ENTP bisa tampak tidak serius bagi ENFJ yang terencana.", "ENFJ bisa menilai ENTP terlalu egois atau tidak konsisten.", "Risiko salah paham dalam membaca niat satu sama lain."),
+                advice = listOf("ENTP: Tunjukkan komitmen kecil tapi nyata untuk membangun kepercayaan.", "ENFJ: Biarkan ENTP berimprovisasi tanpa langsung dikoreksi.", "Gunakan empati dan humor untuk menjaga keseimbangan dialog.")
             )
         )
+    ),
+    "INFJ" to PersonalityDetails(
+        typeName = "INFJ - Sang Advokat",
+        description = "Ia seorang yang menatap jauh melampaui permukaan. Dalam dirinya mengalir hasrat untuk memahami makna di balik setiap peristiwa, serta kerinduan untuk membawa kebaikan yang sunyi namun nyata.",
+        strengths = listOf("Empati mendalam", "Visi jangka panjang", "Setia & berkomitmen", "Membimbing dengan tenang"),
+        weaknesses = listOf("Mudah terbebani emosi", "Menyembunyikan beban", "Perfeksionis", "Enggan berkonfrontasi"),
+        careerPaths = listOf("Konselor/Terapis", "Penulis", "Pekerja nirlaba", "Psikolog"),
+        relationships = "Ia mencari hubungan yang mendalam dan bermakna. Cinta baginya adalah ruang untuk berbagi nilai, mimpi, dan ketakutan terdalam. Ia butuh pasangan yang sabar dan konsisten.",
+        developmentTips = listOf("Izinkan dirimu berbagi beban.", "Terima bahwa dunia tidak ideal.", "Jadwalkan waktu untuk pulih."),
+        detailImages = listOf(R.drawable.infjmain, R.drawable.infjdesc1, R.drawable.infjdesc2),
+        viewsFromOthers = listOf(
+            OtherTypeView("INTJ", "Menghargai kedalaman wawasan mereka, meski kadang merasa pendekatan mereka kurang logis."),
+            OtherTypeView("INTP", "Bingung dengan cara mereka mengambil kesimpulan 'mistis', tapi menghormati intuisi mereka."),
+            OtherTypeView("ENTJ", "Melihatnya sebagai penasihat yang bijaksana, berguna untuk melihat 'sisi manusia' dari sebuah rencana."),
+            OtherTypeView("ENTP", "Tertarik dengan kompleksitas pikiran mereka, suka mencoba 'membedah' logikanya."),
+            OtherTypeView("INFP", "Merasa menemukan 'saudara', seseorang yang benar-benar mengerti kedalaman perasaan."),
+            OtherTypeView("ENFJ", "Melihatnya sebagai versi diri yang lebih tenang dan reflektif, merasa ada ikatan kuat."),
+            OtherTypeView("ENFP", "Merasa memiliki koneksi mendalam dengan mereka, menganggapnya sebagai jiwa yang bijaksana dan tua."),
+            OtherTypeView("ISTJ", "Merasa mereka terlalu abstrak dan sulit ditebak."),
+            OtherTypeView("ISFJ", "Mengagumi kebaikan dan empati mereka, sering menjadi pendengar setia."),
+            OtherTypeView("ESTJ", "Menghargai integritas mereka, tetapi berpikir mereka terlalu idealis dan kurang praktis."),
+            OtherTypeView("ESFJ", "Melihatnya sebagai teman curhat yang hebat, meski kadang terlalu banyak berpikir."),
+            OtherTypeView("ISTP", "Merasa mereka terlalu rumit dan sulit dipahami."),
+            OtherTypeView("ISFP", "Menghargai kelembutan dan sisi artistik mereka."),
+            OtherTypeView("ESTP", "Bingung dengan sifat mereka yang tenang dan penuh teka-teki."),
+            OtherTypeView("ESFP", "Menikmati energi positif mereka, tetapi merasa lelah jika terlalu lama bersama mereka.")
+        ),
+        relationshipDetails = listOf( /* Lengkapi di sini */ )
+    ),
+    "INFP" to PersonalityDetails(
+        typeName = "INFP - Sang Mediator",
+        description = "Ia seorang yang hatinya penuh ideal dan kasih sayang; ia hidup untuk prinsip dan makna. Dunia batinnya kaya akan imajinasi.",
+        strengths = listOf("Sangat peduli & empati", "Kreatif & imajinatif", "Setia pada nilai", "Melihat potensi baik"),
+        weaknesses = listOf("Terlalu idealis", "Sangat sensitif pada kritik", "Sulit bertindak", "Menghindari konfrontasi"),
+        careerPaths = listOf("Penulis/Seniman", "Psikolog/Konselor", "Desainer", "Pekerja nirlaba"),
+        relationships = "Dalam cinta, ia mencari keaslian—hubungan yang membiarkan kedua jiwa tumbuh. Ia memberi perhatian dengan cara yang lembut. Pasangan terbaik adalah yang menghormati kedalaman hatinya.",
+        developmentTips = listOf("Ubah ideal menjadi langkah kecil.", "Lihat kritik sebagai peluang.", "Suarakan kebutuhanmu secara langsung."),
+        detailImages = listOf(R.drawable.infpmain, R.drawable.infpdesc1, R.drawable.infpdesc2),
+        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
+        relationshipDetails = listOf( /* Lengkapi di sini */ )
+    ),
+    "ENFJ" to PersonalityDetails(
+        typeName = "ENFJ - Sang Protagonis",
+        description = "Ia seorang yang memancarkan kehangatan dan dorongan untuk menggerakkan orang lain ke arah kebaikan. Kepeduliannya terasa nyata; ia sering menjadi katalis bagi perubahan positif.",
+        strengths = listOf("Karismatik", "Sangat peka emosional", "Komunikatif", "Pemimpin suportif"),
+        weaknesses = listOf("Mudah kelelahan karena orang lain", "Mencari validasi", "Menekan kebutuhan pribadi", "Sulit menerima konflik"),
+        careerPaths = listOf("Guru/Mentor", "Manajer SDM", "Diplomat", "Konselor"),
+        relationships = "Ia mencintai dengan keterlibatan penuh—mendengarkan, memotivasi, dan membantu pasangannya tumbuh. Ia memberi dukungan emosional yang kuat, namun kadang lupa merawat diri.",
+        developmentTips = listOf("Sisihkan waktu untuk dirimu sendiri.", "Terima ketidaksempurnaan orang lain.", "Belajarlah meminta bantuan."),
+        detailImages = listOf(R.drawable.enfjmain, R.drawable.enfjdesc1, R.drawable.enfjdesc2),
+        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
+        relationshipDetails = listOf( /* Lengkapi di sini */ )
+    ),
+    "ENFP" to PersonalityDetails(
+        typeName = "ENFP - Sang Juru Kampanye",
+        description = "Ia seorang yang berdenyut penuh antusiasme dan rasa ingin tahu. Segala hal mengandung kemungkinan; ia menikmati menjelajahi hubungan, ide, dan pengalaman baru.",
+        strengths = listOf("Energi tinggi", "Sangat kreatif", "Komunikatif & hangat", "Mudah beradaptasi"),
+        weaknesses = listOf("Sulit fokus", "Rentan stres oleh rutinitas", "Menunda-nunda", "Terbawa emosi"),
+        careerPaths = listOf("Kreator konten", "Aktivis", "Konsultan kreativitas", "Aktor/Presenter"),
+        relationships = "Ia mencintai dengan antusiasme: penuh perhatian, spontan, dan ingin berbagi pengalaman. Ia mencari pasangan yang bisa menjadi sahabat sekaligus pendukung ide.",
+        developmentTips = listOf("Belajar menyelesaikan sedikit demi sedikit.", "Praktikkan rutinitas kecil.", "Berikan batas pada energimu."),
+        detailImages = listOf(R.drawable.enfpmain, R.drawable.enfpdesc1, R.drawable.enfpdesc2),
+        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
+        relationshipDetails = listOf( /* Lengkapi di sini */ )
+    ),
+    "ISTJ" to PersonalityDetails(
+        typeName = "ISTJ - Sang Ahli Logistik",
+        description = "Ia seorang yang menepati janji dan menghargai struktur. Ketelitian dan rasa tanggung jawab adalah wataknya; dunia yang teratur memberinya rasa aman.",
+        strengths = listOf("Sangat bertanggung jawab", "Teliti & detail", "Konsisten", "Etika kerja kuat"),
+        weaknesses = listOf("Kurang fleksibel", "Kaku dalam berpikir", "Sulit ekspresi emosi", "Terlalu keras pada diri sendiri"),
+        careerPaths = listOf("Akuntan/Auditor", "Manajer operasi", "Profesional logistik", "Analis data"),
+        relationships = "Ia menunjukkan cinta lewat keandalan: hadir tepat waktu, menyelesaikan tanggung jawab, dan menyediakan dukungan praktis. Keteguhannya memberi rasa aman.",
+        developmentTips = listOf("Beri ruang untuk fleksibilitas.", "Latih komunikasi kebutuhan emosional.", "Beri kesempatan ide baru."),
+        detailImages = listOf(R.drawable.istjmain, R.drawable.istjdesc1, R.drawable.istjdesc2),
+        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
+        relationshipDetails = listOf( /* Lengkapi di sini */ )
+    ),
+    "ISFJ" to PersonalityDetails(
+        typeName = "ISFJ - Sang Pembela",
+        description = "Ia seorang yang hangat, penuh perhatian, dan berdedikasi pada orang-orang yang ia sayangi. Ia melihat kebutuhan praktis serta emosional orang lain.",
+        strengths = listOf("Sangat suportif & setia", "Peka kebutuhan orang lain", "Teliti & konsisten", "Sabar"),
+        weaknesses = listOf("Mengorbankan diri", "Tidak nyaman dengan perubahan", "Menahan keluhan", "Sulit menetapkan batas"),
+        careerPaths = listOf("Perawat/Bidan", "Guru sekolah dasar", "Pekerja sosial", "Desainer interior"),
+        relationships = "Ia mencintai lewat tindakan: perhatian kecil, ingatan pada detail, dan usaha praktis untuk membuat pasangan merasa nyaman. Ia mencari stabilitas emosional.",
+        developmentTips = listOf("Belajar mengatakan 'tidak'.", "Sisihkan waktu untuk kebutuhan pribadi.", "Terima pujian."),
+        detailImages = listOf(R.drawable.isfjmain, R.drawable.isfjdesc1, R.drawable.isfjdesc2),
+        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
+        relationshipDetails = listOf( /* Lengkapi di sini */ )
+    ),
+    "ESTJ" to PersonalityDetails(
+        typeName = "ESTJ - Sang Eksekutif",
+        description = "Ia seorang yang tangguh, terorganisir, dan mengutamakan praktik yang terbukti. Ia menemukan kenyamanan dalam struktur dan kepastian, dan sering menjadi penggerak yang memastikan segala sesuatunya berjalan sesuai rencana.",
+        strengths = listOf("Kemampuan manajerial kuat", "Tegas & konsisten", "Sangat bertanggung jawab", "Pragmatis & fokus hasil"),
+        weaknesses = listOf("Kurang fleksibel", "Cenderung menghakimi", "Sulit ekspresi emosi", "Mengabaikan perasaan individu"),
+        careerPaths = listOf("Manajer operasional", "Hakim/Pengacara", "Manajer proyek", "Perwira militer"),
+        relationships = "Ia menunjukkan cinta dengan stabilitas: komitmen yang jelas, perencanaan masa depan, dan tanggung jawab yang konsisten. Ia perlu belajar menampilkan kelembutan agar hubungan tak terasa semata kontrak.",
+        developmentTips = listOf("Beri ruang pada emosi.", "Ekspresikan apresiasi dengan kata-kata.", "Rilekskan kendali pada hal kecil.", "Pelajari perspektif lain."),
+        detailImages = listOf(R.drawable.estjmain, R.drawable.estjdesc1, R.drawable.estjdesc2),
+        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
+        relationshipDetails = listOf( /* Lengkapi di sini */ )
+    ),
+    "ESFJ" to PersonalityDetails(
+        typeName = "ESFJ - Sang Konsul",
+        description = "Ia seorang yang ramah, peduli, dan terampil menjaga keharmonisan sosial. Ia mendapat kepuasan ketika membantu orang lain merasa diterima dan nyaman. Perhatiannya kepada detail hubungan membuatnya mudah menjadi pusat dukungan sosial.",
+        strengths = listOf("Sangat sosial & perhatian", "Sangat setia", "Terorganisir dalam hubungan", "Peka norma sosial"),
+        weaknesses = listOf("Mencari persetujuan eksternal", "Mengorbankan diri", "Mudah tersinggung oleh kritik", "Tidak nyaman dengan perubahan"),
+        careerPaths = listOf("Event planner", "Perawat/Guru", "Manajer SDM", "Pekerja komunitas"),
+        relationships = "Ia memberi cinta lewat perhatian dan pelayanan: merawat, mengingat tanggal penting, dan menyiapkan hal-hal kecil. Ia membutuhkan penghargaan yang jelas; bila diabaikan, ia mudah merasa terluka.",
+        developmentTips = listOf("Belajar menetapkan batas.", "Terima bahwa penolakan itu sehat.", "Luangkan waktu untuk diri sendiri.", "Terima kritik sebagai alat berkembang."),
+        detailImages = listOf(R.drawable.esfjmain, R.drawable.esfjdesc1, R.drawable.esfjdesc2),
+        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
+        relationshipDetails = listOf( /* Lengkapi di sini */ )
+    ),
+    "ISTP" to PersonalityDetails(
+        typeName = "ISTP - Sang Virtuoso",
+        description = "Ia seorang yang tangkas dengan dunia konkret: memecahkan masalah praktis, mengutak-atik alat, dan beradaptasi cepat saat situasi berubah. Ia menikmati keterampilan tangan dan kebebasan untuk bereksperimen.",
+        strengths = listOf("Keterampilan praktis", "Tenang dalam krisis", "Adaptif & spontan", "Berani mencoba"),
+        weaknesses = listOf("Kurang sabar dengan struktur", "Sulit berkomitmen jangka panjang", "Menahan emosi", "Mengambil risiko berlebihan"),
+        careerPaths = listOf("Mekanik/Pilot", "Insinyur lapangan", "Paramedis", "Programmer"),
+        relationships = "Ia mendekati hubungan dengan praktikalitas: memberi dukungan lewat tindakan nyata. Ia menyukai pasangan yang memberinya kebebasan. Ketika merasa aman, ia sangat setia dan protektif.",
+        developmentTips = listOf("Ekspresikan kebutuhan emosional.", "Pertimbangkan risiko jangka panjang.", "Latih konsistensi.", "Ngobrol tanpa agenda praktis."),
+        detailImages = listOf(R.drawable.istpmain, R.drawable.istpdesc1, R.drawable.istpdesc2),
+        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
+        relationshipDetails = listOf( /* Lengkapi di sini */ )
+    ),
+    "ISFP" to PersonalityDetails(
+        typeName = "ISFP - Sang Petualang",
+        description = "Ia seorang yang hidup dalam kepekaan terhadap pengalaman indrawi dan keindahan. Ia memilih menjalani hidup lewat perasaan dan ekspresi estetis, menghargai momen dan kebebasan untuk menjadi otentik.",
+        strengths = listOf("Berjiwa artistik", "Hangat & nyaman", "Fleksibel", "Ekspresif"),
+        weaknesses = listOf("Menghindari konflik", "Sulit berkomitmen jangka panjang", "Rentan stres oleh rutinitas", "Mudah terluka oleh kritik"),
+        careerPaths = listOf("Seniman/Musisi", "Fotografer", "Koki", "Desainer fesyen"),
+        relationships = "Ia mencintai lewat kehadiran yang lembut: sentuhan, perhatian pada detail kecil, dan berbagi pengalaman. Ia menghargai pasangan yang memberi ruang berekspresi. Ketika tertekan, ia cenderung mundur.",
+        developmentTips = listOf("Sampaikan kebutuhan dengan kata-kata.", "Bangun rutinitas kecil.", "Hadapi konflik kecil.", "Sediakan waktu pribadi untuk emosi."),
+        detailImages = listOf(R.drawable.isfpmain, R.drawable.isfpdesc1, R.drawable.isfpdesc2),
+        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
+        relationshipDetails = listOf( /* Lengkapi di sini */ )
+    ),
+    "ESTP" to PersonalityDetails(
+        typeName = "ESTP - Sang Pengusaha",
+        description = "Ia seorang yang berani hidup di garis depan pengalaman—lari dari teori berlebih dan memilih aksi cepat. Ia gesit, pragmatis, dan menikmati tantangan langsung; dunia baginya adalah arena untuk bereaksi dan menangkap peluang.",
+        strengths = listOf("Cepat bertindak", "Sangat adaptif", "Karismatik & persuasif", "Berani ambil keputusan"),
+        weaknesses = listOf("Impulsif", "Kurang sabar dengan teori", "Mudah bosan", "Mengabaikan perasaan"),
+        careerPaths = listOf("Pengusaha", "Sales", "Paramedis", "Atlet profesional"),
+        relationships = "Ia memaknai hubungan lewat dinamika, aksi, dan pengalaman bersama. Ia menyukai pasangan yang spontan. Ia perlu belajar merencanakan dan konsisten pada komitmen yang tak selalu seru.",
+        developmentTips = listOf("Nilai konsekuensi jangka panjang.", "Nikmati rutinitas kecil.", "Latih komunikasi perasaan.", "Buat rencana finansial."),
+        detailImages = listOf(R.drawable.estpmain, R.drawable.estpdesc1, R.drawable.estpdesc2),
+        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
+        relationshipDetails = listOf( /* Lengkapi di sini */ )
+    ),
+    "ESFP" to PersonalityDetails(
+        typeName = "ESFP - Sang Penghibur",
+        description = "Ia seorang yang hidup untuk berbagi kegembiraan. Kehadirannya membuat suasana lebih ringan dan hangat; ia pandai menemukan kesenangan di hal-hal sederhana dan membuat orang lain merasa diikutsertakan.",
+        strengths = listOf("Membawa energi positif", "Mudah berbaur", "Peka estetika", "Cepat bertindak"),
+        weaknesses = listOf("Kurang sabar dengan rencana", "Mudah terganggu", "Menghindari masalah serius", "Butuh validasi sosial"),
+        careerPaths = listOf("Aktor/Entertainer", "Event planner", "Pemandu wisata", "Desainer visual"),
+        relationships = "Ia memberi cinta lewat kehadiran riang: merencanakan kejutan, membawa keceriaan, dan membuat momen spesial. Ia butuh pasangan yang mencintai keaktifan dan tak kaku pada rencana.",
+        developmentTips = listOf("Bangun komitmen kecil.", "Sediakan waktu refleksi.", "Hadapi percakapan serius.", "Pelihara keuangan."),
+        detailImages = listOf(R.drawable.esfpmain, R.drawable.esfpdesc1, R.drawable.esfpdesc2),
+        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
+        relationshipDetails = listOf( /* Lengkapi di sini */ )
     )
+)
 
 // 4. DATA UNTUK BINGO CARD
 val personalityBingoMap: Map<String, List<BingoTrait>> = mapOf(
@@ -1490,15 +1423,15 @@ val personalityBingoMap: Map<String, List<BingoTrait>> = mapOf(
 
 
 // --- FUNGSI UTILITAS ---
-    /**
-     * Fungsi untuk mendapatkan tema warna berdasarkan nama grup.
-     */
-    fun getThemeForMbtiGroup(groupTitle: String): GroupTheme {
-        return when (groupTitle) {
-            "Para Analis" -> analystTheme
-            "Para Diplomat" -> diplomatTheme
-            "Para Penjaga" -> sentinelTheme
-            "Para Perajin" -> explorerTheme
-            else -> diplomatTheme // Default theme
-        }
+/**
+ * Fungsi untuk mendapatkan tema warna berdasarkan nama grup.
+ */
+fun getThemeForMbtiGroup(groupTitle: String): GroupTheme {
+    return when (groupTitle) {
+        "Para Analis" -> analystTheme
+        "Para Diplomat" -> diplomatTheme
+        "Para Penjaga" -> sentinelTheme
+        "Para Perajin" -> explorerTheme
+        else -> diplomatTheme // Default theme
     }
+}

@@ -26,5 +26,6 @@ data class UserData(
     val hobbies: Set<String>,
     val favoriteRelations: Set<String>,
     val favoriteTypes: Map<String, String>,
-    val isDataLoaded: Boolean = false
+    val isDataLoaded: Boolean = false,
+    val scores: MbtiScores = MbtiScores()
 )

@@ -156,7 +156,7 @@ fun AppNavigation(
             )
         }
 
-        composable(route = "favorites") { // <<< RUTE BARU DITAMBAHKAN DI SINI
+        composable(route = "favorites") {
             FavoritesScreen(
                 navController = navController,
                 currentRoute = currentRoute,
@@ -176,10 +176,13 @@ fun AppNavigation(
         composable(route = "settings") {
             SettingsScreen(
                 navController = navController,
-                onNavigateToEdit = {
-                    navController.navigate("me_edit")
-                }
+                onNavigateToEdit = { navController.navigate("me_edit")},
+                onNavigateToAbout = { navController.navigate("about_screen")}
             )
+        }
+
+        composable(route = "about_screen") {
+            AboutScreen(navController = navController)
         }
 
         composable(route = "personality_test") {

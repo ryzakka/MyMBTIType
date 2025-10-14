@@ -114,7 +114,7 @@ fun SharePreviewScreen(navController: NavController) {
     val captureController = rememberCaptureController()
     val coroutineScope = rememberCoroutineScope()
     var isSharing by remember { mutableStateOf(false) }
-    val tabs = listOf("Kartu Bingo", "Kartu Aura")
+    val tabs = listOf("Kartu Bingo", "Kartu Aura", "Bagan Persentase")
     val pagerState = rememberPagerState(pageCount = { tabs.size })
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -163,10 +163,19 @@ fun SharePreviewScreen(navController: NavController) {
                     modifier = Modifier.padding(horizontal = 24.dp)
                 ) {
                     if (personalityInfo != null) {
-                        if (pagerState.currentPage == 0) {
-                            BingoShareCard(userData, personalityInfo, bingoTraits, theme, selectedBingoItems)
-                        } else {
-                            AuraShareCard(userData, personalityInfo, theme)
+                        when (pagerState.currentPage) {
+                            0 -> BingoShareCard(
+                                userData = userData,
+                                personalityInfo = personalityInfo,
+                                traits = bingoTraits,
+                                theme = theme,
+                                selectedItems = selectedBingoItems,
+                                onItemClick = { trait ->
+                                    selectedBingoItems[trait] = !(selectedBingoItems[trait] ?: false)
+                                }
+                            )
+                            1 -> AuraShareCard(userData, personalityInfo, theme)
+                            2 -> ChartShareCard(userData, personalityInfo, theme)
                         }
                     }
                 }
@@ -204,13 +213,9 @@ fun SharePreviewScreen(navController: NavController) {
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         when (page) {
-                            0 -> BingoControls(
-                                bingoTraits = bingoTraits,
-                                selectedItems = selectedBingoItems,
-                                onItemClick = { trait -> selectedBingoItems[trait] = !(selectedBingoItems[trait] ?: false) },
-                                theme = theme
-                            )
+                            0 -> BingoControls()
                             1 -> AuraControls()
+                            2 -> ChartControls()
                         }
                     }
                 }
@@ -224,14 +229,18 @@ fun SharePreviewScreen(navController: NavController) {
                     },
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp).height(52.dp),
                     shape = RoundedCornerShape(16.dp),
-                    enabled = !isSharing && (pagerState.currentPage == 1 || (pagerState.currentPage == 0 && bingoSelectionCount > 0)),
+                    enabled = !isSharing && (pagerState.currentPage != 0 || bingoSelectionCount > 0),
                     colors = ButtonDefaults.buttonColors(containerColor = Color.White)
                 ) {
                     if (isSharing) {
                         CircularProgressIndicator(color = Color.Black, modifier = Modifier.size(24.dp), strokeWidth = 2.dp)
                     } else {
                         Icon(Icons.Filled.Share, "Bagikan", tint = Color.Black, modifier = Modifier.padding(end = 8.dp))
-                        val buttonText = if (pagerState.currentPage == 0) "Bagikan Kartu Bingo ($bingoSelectionCount terpilih)" else "Bagikan Kartu Aura"
+                        val buttonText = when (pagerState.currentPage) {
+                            0 -> "Bagikan Kartu Bingo ($bingoSelectionCount terpilih)"
+                            1 -> "Bagikan Kartu Aura"
+                            else -> "Bagikan Bagan Persentase"
+                        }
                         Text(buttonText, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = Color.Black)
                     }
                 }
@@ -286,23 +295,12 @@ private fun shareBitmap(context: Context, bitmap: Bitmap) {
 }
 
 @Composable
-private fun BingoControls(
-    bingoTraits: List<BingoTrait>,
-    selectedItems: Map<BingoTrait, Boolean>,
-    onItemClick: (BingoTrait) -> Unit,
-    theme: GroupTheme
-) {
+private fun BingoControls() {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        modifier = Modifier.padding(16.dp)
     ) {
-        Text("Pilih kotak yang paling 'kamu banget'!", style = MaterialTheme.typography.titleMedium, textAlign = TextAlign.Center, color = Color.White)
-        InteractiveBingoGrid(
-            traits = bingoTraits,
-            theme = theme,
-            selectedItems = selectedItems,
-            onItemClick = onItemClick
-        )
+        Text("Klik langsung pada kartu bingo di atas untuk memilih kotak.", style = MaterialTheme.typography.titleMedium, textAlign = TextAlign.Center, color = Color.White)
     }
 }
 
@@ -314,18 +312,34 @@ private fun AuraControls() {
 }
 
 @Composable
+private fun ChartControls() {
+    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(16.dp)) {
+        Text("Bagan ini menunjukkan detail persentase setiap dimensi kepribadianmu.", style = MaterialTheme.typography.titleMedium, textAlign = TextAlign.Center, color = Color.White)
+    }
+}
+
+
+@Composable
 fun AuraShareCard(
     userData: UserData,
     personalityInfo: PersonalityInfo,
     theme: GroupTheme
 ) {
-    Card(
-        shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFF1C1C1E)),
+    val backgroundColor = theme.primaryColor.copy(alpha = 0.9f)
+
+    Box(
         modifier = Modifier
             .fillMaxWidth()
             .aspectRatio(9f / 16f)
-            .border(1.dp, theme.primaryColor.copy(alpha = 0.5f), RoundedCornerShape(20.dp))
+            .clip(RoundedCornerShape(20.dp))
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(
+                        theme.primaryColor,
+                        backgroundColor
+                    )
+                )
+            )
     ) {
         Column(
             modifier = Modifier
@@ -337,7 +351,48 @@ fun AuraShareCard(
             Spacer(Modifier.weight(1f))
             PersonalityAura(scores = userData.dimensionScores, theme = theme)
             Spacer(Modifier.weight(1f))
-            Text("Lihat Aura Kepribadianku di MyType App", color = Color.White.copy(alpha = 0.8f), fontSize = 12.sp)
+            Text("Lihat Aura Kepribadianku di https://bit.ly/4okGLQo", color = Color.White.copy(alpha = 0.8f), fontSize = 12.sp)
+        }
+    }
+}
+
+@Composable
+fun ChartShareCard(
+    userData: UserData,
+    personalityInfo: PersonalityInfo,
+    theme: GroupTheme
+) {
+    val backgroundColor = theme.primaryColor.copy(alpha = 0.9f)
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .aspectRatio(9f / 16f)
+            .clip(RoundedCornerShape(20.dp))
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(
+                        theme.primaryColor,
+                        backgroundColor
+                    )
+                )
+            )
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            BingoHeader(personalityInfo = personalityInfo, userData = userData, textColor = Color.White)
+            Spacer(Modifier.height(24.dp))
+            DimensionChart(
+                mbtiType = userData.mbtiType,
+                scores = userData.dimensionScores,
+                theme = theme
+            )
+            Spacer(Modifier.weight(1f))
+            Text("Lihat Detail Kepribadianku https://bit.ly/4okGLQo", color = Color.White.copy(alpha = 0.8f), fontSize = 12.sp)
         }
     }
 }
@@ -348,7 +403,8 @@ fun BingoShareCard(
     personalityInfo: PersonalityInfo,
     traits: List<BingoTrait>,
     theme: GroupTheme,
-    selectedItems: Map<BingoTrait, Boolean>
+    selectedItems: Map<BingoTrait, Boolean>,
+    onItemClick: (BingoTrait) -> Unit
 ) {
     val backgroundColor = theme.primaryColor.copy(alpha = 0.9f)
     val textColor = Color.White
@@ -376,10 +432,10 @@ fun BingoShareCard(
             Spacer(modifier = Modifier.height(20.dp))
             Text("MY PERSONALITY BINGO", color = textColor, fontWeight = FontWeight.Black, fontSize = 16.sp)
             Spacer(modifier = Modifier.height(16.dp))
-            StaticBingoGrid(traits = traits, theme = theme, selectedItems = selectedItems)
+            InteractiveBingoGrid(traits = traits, theme = theme, selectedItems = selectedItems, onItemClick = onItemClick)
             Spacer(modifier = Modifier.weight(1f))
             Text("Tes kepribadian-mu di", color = textColor.copy(alpha = 0.8f), fontSize = 12.sp)
-            Text("MyType App", color = textColor, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+            Text("https://bit.ly/4okGLQo", color = textColor, fontWeight = FontWeight.Bold, fontSize = 14.sp)
         }
     }
 }
@@ -433,10 +489,10 @@ fun InteractiveBingoGrid(
     val gridItems = traits.take(16)
     Column(
         modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(0.dp)
     ) {
         gridItems.chunked(4).forEach { rowItems ->
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(0.dp)) {
                 rowItems.forEach { trait ->
                     val isSelected = selectedItems[trait] ?: false
                     InteractiveBingoCell(
@@ -462,12 +518,12 @@ fun RowScope.InteractiveBingoCell(
 ) {
     val backgroundColor by animateColorAsState(if (isSelected) theme.primaryColor else Color.White.copy(alpha = 0.6f), label = "bingoCellBg")
     val textColor by animateColorAsState(if (isSelected) Color.White else Color.Black.copy(alpha = 0.8f), label = "bingoCellText")
-    val border = if (isSelected) BorderStroke(2.dp, theme.primaryColor) else BorderStroke(1.dp, Color.White.copy(alpha = 0.8f))
+    val border = if (isSelected) BorderStroke(0.dp, theme.primaryColor) else BorderStroke(0.dp, Color.White.copy(alpha = 0.8f))
     Card(
         modifier = modifier
             .aspectRatio(1f)
             .clickable(onClick = onClick),
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(0.dp),
         colors = CardDefaults.cardColors(containerColor = backgroundColor),
         border = border,
         elevation = CardDefaults.cardElevation(if (isSelected) 8.dp else 2.dp)
@@ -477,8 +533,8 @@ fun RowScope.InteractiveBingoCell(
                 text = text,
                 color = textColor,
                 textAlign = TextAlign.Center,
-                fontSize = 11.sp,
-                lineHeight = 14.sp,
+                fontSize = 9.sp,
+                lineHeight = 12.sp,
                 fontWeight = FontWeight.SemiBold
             )
         }

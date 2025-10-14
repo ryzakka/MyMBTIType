@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -23,6 +25,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -31,7 +34,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AboutScreen(navController: NavController) {
@@ -90,7 +92,8 @@ fun AboutScreen(navController: NavController) {
                 Image(
                     painter = painterResource(id = R.drawable.logomytypeteks),
                     contentDescription = "Logo MyType",
-                    modifier = Modifier.fillMaxWidth(1f)
+                    modifier = Modifier
+                        .fillMaxWidth(1f)
                         .padding(start = 70.dp)
                 )
 
@@ -103,7 +106,25 @@ fun AboutScreen(navController: NavController) {
                     textAlign = TextAlign.Center,
                     color = Color.White.copy(alpha = 0.9f) // Teks putih
                 )
-                Spacer(Modifier.weight(1f))
+                Spacer(Modifier.height(32.dp))
+                Text(
+                    "Bagikan Aplikasi",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
+                )
+                Spacer(Modifier.height(8.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.qrimage),
+                    contentDescription = "Kode QR Unduh Aplikasi",
+                    modifier = Modifier
+                        .size(160.dp)
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(Color.White)
+                        .padding(8.dp)
+                )
+
+                Spacer(Modifier.weight(1f)) // Spacer untuk mendorong info ke bawah
 
                 // 3. Info Versi
                 InfoItem(label = "Versi Aplikasi", value = getAppVersion())

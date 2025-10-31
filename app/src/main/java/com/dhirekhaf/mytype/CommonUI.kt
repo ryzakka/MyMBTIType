@@ -1,5 +1,4 @@
 // File: app/src/main/java/com/dhirekhaf/mytype/CommonUI.kt
-// [MODIFIKASI] Menambahkan item "Favorites" di Bottom Navigation Bar
 
 package com.dhirekhaf.mytype
 
@@ -41,7 +40,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlin.random.Random
 
-// --- BAGIAN 1: STRUKTUR DATA & TEMA BERSAMA ---
 
 data class PersonalityTheme(
     @DrawableRes val background: Int,
@@ -102,7 +100,7 @@ fun FloatingParticles(particleColor: Color) {
     }
 }
 
-// [KEMBALI] Gemstone dengan bentuk permata dan animasi denyut.
+// Gemstone/citra
 @Composable
 fun Gemstone(label: Char, colors: List<Color>, onClick: () -> Unit) {
     val infiniteTransition = rememberInfiniteTransition(label = "gem_glow_${label}")
@@ -128,7 +126,7 @@ fun Gemstone(label: Char, colors: List<Color>, onClick: () -> Unit) {
             .size(64.dp)
             .scale(scale)
             .alpha(alpha)
-            .clip(RoundedCornerShape(30)) // Bentuk permata
+            .clip(RoundedCornerShape(30))
             .background(Brush.radialGradient(colors))
             .border(1.dp, Color.White.copy(alpha = 0.4f), RoundedCornerShape(30))
             .clickable(onClick = onClick),
@@ -152,8 +150,6 @@ fun Gemstone(label: Char, colors: List<Color>, onClick: () -> Unit) {
 
 
 // --- BAGIAN 3: BOTTOM SHEET & NAVIGASI ---
-
-// [BARU] Data untuk penjelasan dimensi, dibutuhkan oleh BottomSheet.
 private val dimensionDetails = mapOf(
     'I' to "Introvert (I) berfokus pada dunia internal pikiran dan ide. Mereka mendapatkan energi dari waktu sendiri dan refleksi.",
     'E' to "Ekstrovert (E) berfokus pada dunia eksternal, orang, dan aktivitas. Mereka mendapatkan energi dari interaksi sosial.",
@@ -165,7 +161,7 @@ private val dimensionDetails = mapOf(
     'J' to "Judging (J) lebih suka gaya hidup yang terstruktur, terorganisir, dan berorientasi pada keputusan."
 )
 
-// [BARU] Composable untuk konten BottomSheet.
+//Composable BottomSheet.
 @Composable
 fun DimensionDetailSheet(dimension: Pair<Char, String>) {
     val (char, title) = dimension
@@ -175,7 +171,7 @@ fun DimensionDetailSheet(dimension: Pair<Char, String>) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(24.dp)
-            .padding(bottom = 32.dp), // Beri jarak dari bawah
+            .padding(bottom = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -219,7 +215,7 @@ fun ModernBottomNavBar(
             unselectedIcon = Icons.Outlined.List,
             route = "personalities"
         ),
-        BottomNavItem( // <<< ITEM BARU DITAMBAHKAN DI SINI
+        BottomNavItem(
             title = "Favorites",
             selectedIcon = Icons.Filled.Star,
             unselectedIcon = Icons.Outlined.StarBorder,
@@ -237,7 +233,7 @@ fun ModernBottomNavBar(
         NavigationBar(
             modifier = modifier,
             containerColor = Color.White,
-            contentColor = Color(0xff3f414e) // Warna konten asli Anda
+            contentColor = Color(0xff3f414e)
         ) {
             items.forEach { item ->
                 val isSelected = currentRoute == item.route
@@ -256,19 +252,17 @@ fun ModernBottomNavBar(
                         )
                     },
                     colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = Color(0xff47AD82),  // Warna ikon terpilih asli Anda
-                        selectedTextColor = Color(0xff47AD82),    // Warna teks terpilih asli Anda
-                        indicatorColor = Color(0xff47AD82).copy(alpha = 0.1f), // Warna indikator asli Anda
-                        unselectedIconColor = Color.Gray,          // Warna ikon tidak terpilih asli Anda
-                        unselectedTextColor = Color.Gray           // Warna teks tidak terpilih asli Anda
+                        selectedIconColor = Color(0xff47AD82),
+                        selectedTextColor = Color(0xff47AD82),
+                        indicatorColor = Color(0xff47AD82).copy(alpha = 0.1f),
+                        unselectedIconColor = Color.Gray,
+                        unselectedTextColor = Color.Gray
                     )
                 )
             }
         }
     }
 }
-
-// ... (tambahkan di bagian paling bawah dari CommonUI.kt)
 
 @Composable
 fun AddFavoriteLabelDialog(

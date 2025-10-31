@@ -8,8 +8,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-// Definisikan set tipografi Material Design yang akan digunakan di seluruh aplikasi.
-// Variabel ini bernama 'Typography' dan akan dipanggil dari Theme.kt.
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,
@@ -32,5 +30,4 @@ val Typography = Typography(
         lineHeight = 16.sp,
         letterSpacing = 0.5.sp
     )
-    /* Anda bisa menambahkan gaya teks kustom lainnya di sini jika diperlukan */
 )

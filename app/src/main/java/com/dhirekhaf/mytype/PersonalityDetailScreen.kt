@@ -1,5 +1,4 @@
 // Lokasi: app/src/main/java/com/dhirekhaf/mytype/PersonalityDetailScreen.kt
-// [VERSI PERBAIKAN - KEMBALI NORMAL DENGAN BINGO]
 
 package com.dhirekhaf.mytype
 

@@ -1,5 +1,4 @@
 // File: app/src/main/java/com/dhirekhaf/mytype/MainActivity.kt
-// [MODIFIKASI] Menambahkan rute navigasi untuk FavoritesScreen
 
 package com.dhirekhaf.mytype
 

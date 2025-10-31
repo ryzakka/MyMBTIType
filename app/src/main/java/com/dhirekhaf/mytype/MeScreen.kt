@@ -1,5 +1,4 @@
 // File: app/src/main/java/com/dhirekhaf/mytype/MeScreen.kt
-// [PERBAIKAN FINAL] Menambahkan padding bawah yang signifikan untuk mengangkat konten dasbor.
 
 package com.dhirekhaf.mytype
 
@@ -191,8 +190,6 @@ fun PersonalizedDashboard(
                 NoTestResultCard(onTakeTestClick = onTakeTestClick)
             }
 
-            // [PERBAIKAN UTAMA] Nilai Spacer dinaikkan menjadi 120.dp
-            // Ini akan mendorong semua konten ke atas, memberikan ruang untuk navbar.
             Spacer(modifier = Modifier.height(160.dp))
         }
     }

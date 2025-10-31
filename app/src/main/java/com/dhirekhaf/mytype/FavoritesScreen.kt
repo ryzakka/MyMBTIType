@@ -1,5 +1,4 @@
 // Lokasi: app/src/main/java/com/dhirekhaf/mytype/FavoritesScreen.kt
-// [VERSI PERBAIKAN - LENGKAP DENGAN SEMUA AKSI FAVORIT]
 
 package com.dhirekhaf.mytype
 

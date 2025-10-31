@@ -1,5 +1,4 @@
 // File: app/src/main/java/com/dhirekhaf/mytype/DashboardComponents.kt
-// [KODE FINAL v3.2 - MEMPERBAIKI FORCE CLOSE SAAT NAVIGASI DETAIL]
 
 package com.dhirekhaf.mytype
 
@@ -55,8 +54,6 @@ fun ResultDashboard(
 
     DimensionChart(mbtiType = userData.mbtiType, scores = userData.dimensionScores, theme = theme)
     DynamicLearnMoreButton(theme = theme) {
-        // [PERBAIKAN] Langsung gunakan properti hexColor yang sudah aman dari GroupTheme.
-        // Tidak ada lagi konversi yang berisiko.
         onNavigateToDetail(userData.mbtiType, theme.hexColor)
     }
     RelationshipCard(groupData) { onNavigateToRelation(userData.mbtiType, it) }

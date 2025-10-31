@@ -1,5 +1,4 @@
 // File: app/src/main/java/com/dhirekhaf/mytype/PersonalityTestScreen.kt
-// [PERBAIKAN] Menambahkan gulir otomatis ke atas saat grup pertanyaan berganti.
 
 package com.dhirekhaf.mytype
 
@@ -136,14 +135,10 @@ fun QuestionGroupView(
     )
     val allQuestionsAnswered = uiState.currentQuestionGroup.all { uiState.userAnswers.containsKey(it.id) }
 
-    // [PERBAIKAN 1] Buat state untuk LazyColumn dan CoroutineScope
     val lazyListState: LazyListState = rememberLazyListState()
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
 
-    // [PERBAIKAN 2] Gunakan LaunchedEffect untuk menggulir ke atas saat grup pertanyaan berubah.
-    // Kita menggunakan `uiState.progressText` sebagai 'key' karena nilainya unik untuk setiap grup.
     LaunchedEffect(key1 = uiState.progressText) {
-        // Gulir ke item paling atas (indeks 0) dengan animasi.
         lazyListState.animateScrollToItem(0)
     }
 
@@ -152,7 +147,6 @@ fun QuestionGroupView(
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        // Progress Bar
         Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
             LinearProgressIndicator(
                 progress = { animatedProgress },
@@ -169,8 +163,6 @@ fun QuestionGroupView(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Daftar Pertanyaan
-        // [PERBAIKAN 3] Sambungkan `lazyListState` ke `LazyColumn`.
         LazyColumn(
             modifier = Modifier.weight(1f),
             state = lazyListState
@@ -189,7 +181,6 @@ fun QuestionGroupView(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Tombol "Next" tidak perlu diubah, karena logika gulir sudah ditangani oleh LaunchedEffect
         Button(
             onClick = onNextClicked,
             enabled = allQuestionsAnswered,
@@ -207,7 +198,6 @@ fun QuestionGroupView(
     }
 }
 
-// ... (QuestionCard dan TestResultView tidak perlu diubah) ...
 @Composable
 fun QuestionCard(
     question: Question,

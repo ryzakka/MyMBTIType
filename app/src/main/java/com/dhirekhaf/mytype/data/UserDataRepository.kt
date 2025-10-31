@@ -1,5 +1,4 @@
 // Lokasi: app/src/main/java/com/dhirekhaf/mytype/data/UserDataRepository.kt
-// [VERSI FINAL - DENGAN LOGIKA LABEL FAVORIT]
 
 package com.dhirekhaf.mytype.data
 
@@ -13,14 +12,11 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
-// Inisialisasi DataStore
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_profile")
 
 class UserDataRepository(context: Context) {
 
     private val dataStore = context.dataStore
-
-    // Definisikan semua kunci (keys) untuk DataStore
     private object PreferencesKeys {
         val NAME = stringPreferencesKey("user_name")
         val EMAIL = stringPreferencesKey("user_email")
@@ -30,7 +26,6 @@ class UserDataRepository(context: Context) {
         val MBTI_TYPE = stringPreferencesKey("mbti_type")
         val HOBBIES = stringSetPreferencesKey("user_hobbies")
         val FAVORITE_RELATIONS = stringSetPreferencesKey("favorite_relations")
-        // Kunci ini akan menyimpan data dalam format: "INFP:Teman", "ENTJ:Partner"
         val FAVORITE_TYPES = stringSetPreferencesKey("favorite_types_with_labels")
         val SCORE_I = intPreferencesKey("score_i")
         val SCORE_E = intPreferencesKey("score_e")
@@ -62,7 +57,6 @@ class UserDataRepository(context: Context) {
                 'P' to (preferences[PreferencesKeys.SCORE_P] ?: 0)
             )
 
-            // Mengubah Set<String> dari DataStore menjadi Map<String, String>
             val favoriteTypesSet = preferences[PreferencesKeys.FAVORITE_TYPES] ?: emptySet()
             val favoriteTypesMap = favoriteTypesSet.mapNotNull { entry ->
                 val parts = entry.split(":", limit = 2)
@@ -122,7 +116,6 @@ class UserDataRepository(context: Context) {
             preferences[PreferencesKeys.MBTI_TYPE] = ""
             preferences[PreferencesKeys.HAS_COMPLETED_TEST] = false
             preferences.remove(PreferencesKeys.SCORE_I)
-            // ... (hapus semua skor)
         }
     }
 
@@ -141,9 +134,7 @@ class UserDataRepository(context: Context) {
     suspend fun addOrUpdateFavoriteType(typeName: String, label: String) {
         dataStore.edit { preferences ->
             val currentFavorites = preferences[PreferencesKeys.FAVORITE_TYPES]?.toMutableSet() ?: mutableSetOf()
-            // Hapus entri lama untuk tipe ini jika ada
             currentFavorites.removeAll { it.startsWith("$typeName:") }
-            // Tambahkan entri baru dengan label
             currentFavorites.add("$typeName:$label")
             preferences[PreferencesKeys.FAVORITE_TYPES] = currentFavorites
         }
@@ -152,7 +143,6 @@ class UserDataRepository(context: Context) {
     suspend fun removeFavoriteType(typeName: String) {
         dataStore.edit { preferences ->
             val currentFavorites = preferences[PreferencesKeys.FAVORITE_TYPES]?.toMutableSet() ?: mutableSetOf()
-            // Hapus semua entri yang cocok dengan typeName
             currentFavorites.removeAll { it.startsWith("$typeName:") }
             preferences[PreferencesKeys.FAVORITE_TYPES] = currentFavorites
         }

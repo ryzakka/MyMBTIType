@@ -1,5 +1,4 @@
 // Lokasi: app/src/main/java/com/dhirekhaf/mytype/ProfileShareCard.kt
-// [VERSI FINAL - FORMAT 1:1 PADAT & KAYA INFORMASI]
 
 package com.dhirekhaf.mytype
 
@@ -42,16 +41,14 @@ fun ProfileShareCard(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(20.dp), // Sedikit kurangi padding agar lebih padat
+                .padding(20.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Baris 1: Deskripsi Tipe (lebih besar) dan Bio Pengguna
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 verticalAlignment = Alignment.Top,
                 modifier = Modifier.weight(0.4f) // Beri bobot lebih untuk bagian ini
             ) {
-                // Kolom Kiri: Deskripsi Tipe
                 Column(modifier = Modifier.weight(1f)) {
                     if (personalityDetails != null) {
                         InfoCard(useFullHeight = true) {
@@ -59,34 +56,27 @@ fun ProfileShareCard(
                         }
                     }
                 }
-                // Kolom Kanan: Bio Pengguna
                 Column(modifier = Modifier.weight(1f)) {
                     InfoCard(useFullHeight = true) {
                         UserBioSection(userData = userData, theme = theme)
                     }
                 }
             }
-
-            // Baris 2: Bagan Skor (Full Width)
             Row(modifier = Modifier.weight(0.35f)) {
                 InfoCard(useFullHeight = true) {
                     ChartSection(userData)
                 }
             }
-
-            // Baris 3: Koneksi & Hobi
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 verticalAlignment = Alignment.Top,
                 modifier = Modifier.weight(0.25f) // Bobot lebih kecil
             ) {
-                // Kolom Kiri: Koneksi
                 Column(modifier = Modifier.weight(1f)) {
                     InfoCard(useFullHeight = true) {
                         RelationsSection(groupData)
                     }
                 }
-                // Kolom Kanan: Hobi (dengan footer)
                 Column(modifier = Modifier.weight(1f)) {
                     InfoCard(useFullHeight = true) {
                         HobbiesSection(
@@ -101,7 +91,6 @@ fun ProfileShareCard(
     }
 }
 
-// Wrapper Card dengan opsi tinggi penuh
 @Composable
 private fun InfoCard(
     useFullHeight: Boolean = false,
@@ -122,9 +111,6 @@ private fun InfoCard(
     }
 }
 
-
-// --- BAGIAN-BAGIAN KONTEN (Beberapa disederhanakan) ---
-
 @Composable
 private fun ChartSection(userData: UserData) {
     SectionHeader(icon = { Icon(Icons.Outlined.Analytics, contentDescription = null, tint = Color.Gray) }, title = "Skor Dimensi")
@@ -139,7 +125,6 @@ private fun ChartSection(userData: UserData) {
 private fun RelationsSection(groupData: PersonalityGroup) {
     SectionHeader(icon = { Icon(Icons.Outlined.FavoriteBorder, contentDescription = null, tint = Color(0xFFE91E63)) }, title = "Koneksi")
     Spacer(modifier = Modifier.height(8.dp))
-    // Gunakan Column agar lebih rapi di ruang sempit
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         InfoChip(label = "Ideal", value = groupData.idealPartner ?: "N/A")
         InfoChip(label = "Baik", value = groupData.goodPartner ?: "N/A")
@@ -163,7 +148,6 @@ private fun HobbiesSection(
                     mainAxisSpacing = 6.dp,
                     crossAxisSpacing = 6.dp,
                 ) {
-                    // Tampilkan lebih banyak hobi
                     userData.hobbies.take(5).forEach { hobby ->
                         HobbyChip(hobby = hobby, theme = theme)
                     }
@@ -184,13 +168,12 @@ private fun GroupDescriptionSection(details: PersonalityDetails, theme: GroupThe
         text = details.description,
         style = MaterialTheme.typography.bodySmall,
         color = Color.DarkGray,
-        lineHeight = 15.sp, // Rapatkan sedikit line height
-        maxLines = 5, // Sesuaikan jumlah baris
+        lineHeight = 15.sp,
+        maxLines = 5,
         overflow = TextOverflow.Ellipsis
     )
 }
 
-// [COMPOSABLE BARU] untuk menampilkan bio pengguna
 @Composable
 private fun UserBioSection(userData: UserData, theme: GroupTheme) {
     SectionHeader(icon = { Icon(Icons.Outlined.PersonOutline, contentDescription = null, tint = theme.primaryColor) }, title = "Bio")
@@ -210,13 +193,12 @@ private fun UserBioSection(userData: UserData, theme: GroupTheme) {
 private fun PersonalFooter(userData: UserData) {
     Text(
         text = userData.name.ifEmpty { "Pengguna" },
-        fontSize = 9.sp, // Kecilkan sedikit
+        fontSize = 9.sp,
         color = Color.LightGray,
         textAlign = TextAlign.End
     )
 }
 
-// --- KOMPONEN KECIL LAINNYA ---
 
 @Composable
 private fun SectionHeader(icon: @Composable () -> Unit, title: String) {
@@ -241,7 +223,7 @@ private fun SmallDimensionChart(scores: Map<Char, Int>, mbtiType: String) {
     val dimensions = listOf('E', 'S', 'T', 'J')
     val labels = mapOf('E' to Pair("E", "I"), 'S' to Pair("S", "N"), 'T' to Pair("T", "F"), 'J' to Pair("J", "P"))
 
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) { // Rapatkan jarak antar bar
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         dimensions.forEach { key ->
             val score = scores[key] ?: 50
             val progress = score / 100f

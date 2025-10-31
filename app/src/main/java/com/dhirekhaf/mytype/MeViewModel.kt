@@ -1,5 +1,4 @@
 // Lokasi: app/src/main/java/com/dhirekhaf/mytype/MeViewModel.kt
-// [VERSI FINAL - DENGAN FUNGSI LABEL FAVORIT]
 
 package com.dhirekhaf.mytype
 

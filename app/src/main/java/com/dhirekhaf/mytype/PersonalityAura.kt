@@ -80,9 +80,6 @@ data class PersonalitySpectrum(
     fun pulsePeriod() = lerp(4200f, 2400f, 1f - j).toInt()
 }
 
-
-
-// Fungsi utama Card (tidak berubah)
 @Composable
 fun AuraCard(scores: Map<Char, Int>, theme: GroupTheme) {
     Card(
@@ -119,12 +116,9 @@ fun AuraCard(scores: Map<Char, Int>, theme: GroupTheme) {
     }
 }
 
-// Composable inti yang menggambar Aura
 
 @Composable
 fun PersonalityAura(scores: Map<Char, Int>, theme: GroupTheme) {
-    // Normalisasi skor 0..1 (dari skor 0..100)
-    // Gunakan model baru untuk menurunkan parameter
     val spectrum = PersonalitySpectrum.fromScores(scores)
 
     val baseScale = spectrum.glowScale()
@@ -136,16 +130,13 @@ fun PersonalityAura(scores: Map<Char, Int>, theme: GroupTheme) {
     val rotationPeriod = spectrum.rotationPeriod()
     val pulsePeriod = spectrum.pulsePeriod()
 
-    // Warna dasar dari theme (tetap gunakan theme agar konsisten)
     val primaryColor = theme.primaryColor
     val secondaryColor = theme.secondaryColor
 
-    // Seed untuk variasi bentuk & partikel, tetap stabil selama pointsCount tidak berubah
     val shapeSeeds = remember(pointsCount) { List(pointsCount) { Random.nextFloat() } }
     val sparkleSeedCount = 28
     val sparkleSeeds = remember { List(sparkleSeedCount) { Random.nextFloat() } }
 
-    // Animasi
     val infinite = rememberInfiniteTransition(label = "aura_enhanced_transition")
     val rotation by infinite.animateFloat(
         initialValue = 0f,
@@ -159,7 +150,6 @@ fun PersonalityAura(scores: Map<Char, Int>, theme: GroupTheme) {
         animationSpec = infiniteRepeatable(tween(pulsePeriod, easing = FastOutSlowInEasing), RepeatMode.Reverse),
         label = "pulse"
     )
-    // Wobble: perlahan mengubah fase variasi radius untuk kesan "bernafas" dan deformasi
     val wobblePhase by infinite.animateFloat(
         initialValue = 0f,
         targetValue = (2 * PI).toFloat(),
@@ -167,7 +157,6 @@ fun PersonalityAura(scores: Map<Char, Int>, theme: GroupTheme) {
         label = "wobble"
     )
 
-    // Sparkle animation driver (0..1 sin wave)
     val sparkleDriver by infinite.animateFloat(
         initialValue = 0f,
         targetValue = 1f,
@@ -177,13 +166,11 @@ fun PersonalityAura(scores: Map<Char, Int>, theme: GroupTheme) {
         label = "sparkle"
     )
 
-    // Draw on Canvas
     Canvas(modifier = Modifier.fillMaxSize()) {
         val center = this.center
         val minDim = size.minDimension
         val radius = (minDim / 2f) * baseScale
 
-        // Layer A: Outer soft glow (besar, blur-like radial)
         drawAuraShape(
             drawScope = this,
             points = (pointsCount * 0.7f).toInt().coerceAtLeast(6),
@@ -202,7 +189,6 @@ fun PersonalityAura(scores: Map<Char, Int>, theme: GroupTheme) {
             blendMode = BlendMode.Plus
         )
 
-        // Layer B: Main cell membrane (inti — bentuk organik yang dipengaruhi tiap dimensi)
         rotate(degrees = rotation) {
             drawAuraShape(
                 drawScope = this,
@@ -227,7 +213,6 @@ fun PersonalityAura(scores: Map<Char, Int>, theme: GroupTheme) {
             )
         }
 
-        // Layer C: Inner glow / nucleus hint (lebih kecil, memberi kedalaman)
         drawCircle(
             brush = Brush.radialGradient(
                 // 🔥 Baris 229
@@ -243,7 +228,6 @@ fun PersonalityAura(scores: Map<Char, Int>, theme: GroupTheme) {
             alpha = 1f
         )
 
-        // Layer D: Sparkles / particle kecil yang hidup (dipengaruhi oleh E/P & F/T)
         drawSparkles(
             drawScope = this,
             center = center,
@@ -257,7 +241,6 @@ fun PersonalityAura(scores: Map<Char, Int>, theme: GroupTheme) {
             color = Color.White.copy(alpha = 0.9f)
         )
 
-        // Optional subtle rim to make membrane terlihat (mengikuti symmetry / sharpness)
         drawAuraShape(
             drawScope = this,
             points = pointsCount,
@@ -277,20 +260,6 @@ fun PersonalityAura(scores: Map<Char, Int>, theme: GroupTheme) {
         )
     }
 }
-
-/**
- * Flexible draw function that produces an organic, cell-like closed shape.
- *
- * - drawScope: the DrawScope (pass "this" from Canvas)
- * - points: number of vertices
- * - center/baseRadius: defines size & position
- * - seeds: list of [0..1] floats used to vary radii
- * - symmetry: 0..1 -> higher = more symmetric; lower = more freeform
- * - sharpness: 0..1 -> how pointed are the bezier control influences
- * - irregularity: 0..1 -> scale of random radius deviation
- * - wobblePhase: optional animated phase (radians) to animate radius over time
- * - strokeOnly: if true, draw only a soft translucent stroke (no fill)
- */
 private fun drawAuraShape(
     drawScope: DrawScope,
     points: Int,
@@ -310,16 +279,13 @@ private fun drawAuraShape(
         val path = Path()
         val angleStep = (2 * PI / points).toFloat()
 
-        // Build vertex list with controlled irregularity & symmetry
         val vertices = List(points) { i ->
             val angle = angleStep * i
             val seed = seeds.getOrElse(i) { 0.5f }
-            // Symmetry reduces the effective randomization by blending with mirrored seed
             val mirroredIndex = (points - i) % points
             val mirroredSeed = seeds.getOrElse(mirroredIndex) { 0.5f }
             val combinedSeed = lerp(seed, mirroredSeed, symmetry)
 
-            // Wobble introduces slow-time deformation
             val wobble = 1f + (0.08f * kotlin.math.sin(wobblePhase + i * 0.6f))
 
             val varied = baseRadius * (1f - irregularity * combinedSeed) * wobble
@@ -329,7 +295,6 @@ private fun drawAuraShape(
             )
         }
 
-        // Start at midpoint between last and first for smooth curve
         val start = Offset(
             (vertices.last().x + vertices.first().x) / 2f,
             (vertices.last().y + vertices.first().y) / 2f
@@ -340,7 +305,6 @@ private fun drawAuraShape(
             val cur = vertices[i]
             val next = vertices[(i + 1) % vertices.size]
 
-            // Control point leans toward midpoint between cur and next based on sharpness
             val midX = (cur.x + next.x) / 2f
             val midY = (cur.y + next.y) / 2f
 
@@ -353,25 +317,19 @@ private fun drawAuraShape(
         path.close()
 
         if (strokeOnly) {
-            // Soft stroke: drawPath with blurred-like thin fill (alpha low)
             drawPath(path = path, brush = brush, style = androidx.compose.ui.graphics.drawscope.Fill, blendMode = blendMode)
         } else {
             drawPath(path = path, brush = brush, blendMode = blendMode)
         }
     }
 }
-
-/**
- * Draw sparkles / particles around the membrane.
- * Uses seed positions around the circle and applies small radial jitter.
- */
 private fun drawSparkles(
     drawScope: DrawScope,
     center: androidx.compose.ui.geometry.Offset,
     radius: Float,
     seeds: List<Float>,
-    driver: Float, // 0..1 animation driver
-    intensity: Float, // overall multiplier
+    driver: Float,
+    intensity: Float,
     irregularity: Float,
     sharpnessInfluence: Float,
     color: Color
@@ -381,20 +339,16 @@ private fun drawSparkles(
         val minDim = size.minDimension
         for (i in 0 until count) {
             val seed = seeds[i]
-            // Base angle around circle + some spread
             val angle = (2 * PI * seed).toFloat() + (driver * 2f * PI.toFloat() * (0.2f + seed))
-            // Radial distance slightly beyond the membrane, modulated by irregularity and driver
             val spread = lerp(0.06f, 0.22f, irregularity) * radius
             val radialJitter = spread * (0.4f + seed * 0.8f) * (0.6f + 0.4f * driver)
             val px = center.x + kotlin.math.cos(angle) * (radius + radialJitter)
             val py = center.y + kotlin.math.sin(angle) * (radius + radialJitter)
 
-            // Sparkle size & alpha depend on driver and intensity and a little on sharpnessInfluence
             val baseSize = lerp(minDim * 0.0045f, minDim * 0.018f, seed)
             val size = baseSize * (0.6f + 0.8f * intensity * (0.3f + driver))
             val alpha = (0.12f + 0.7f * intensity * driver * (0.5f + seed * 0.5f)) * (0.5f + 0.5f * sharpnessInfluence)
 
-            // Draw small glow (two concentric circles for subtle bloom)
             drawCircle(
                 color = color.copy(alpha = alpha.coerceIn(0f, 1f)),
                 radius = size,

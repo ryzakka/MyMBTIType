@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
-// --- GAYA TULISAN ---
 private val PersonalitiesGayaHeader = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.White)
 private val PersonalitiesGayaJudulGrup = TextStyle(fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color.White)
 private val PersonalitiesGayaTipeNama = TextStyle(fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color.Black)
@@ -175,7 +174,7 @@ private fun SharedTransitionScope.PersonalityCard(
             .fillMaxWidth()
             .clickable {
                 val colorHex = String.format("%08X", theme.primaryColor.toArgb())
-                // Mengirim tipe nama (INTJ, INFP, dll) sebagai kunci untuk map
+                // Mengirim tipe MBTI untuk pemetaan
                 navController.navigate("personality_detail/${personality.typeName}/${colorHex}")
             },
         shape = RoundedCornerShape(16.dp),

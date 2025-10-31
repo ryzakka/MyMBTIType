@@ -1,5 +1,4 @@
 // File: app/src/main/java/com/dhirekhaf/mytype/WelcomeScreen.kt
-// [VERSI FINAL - DENGAN LATAR GRADASI 4 WARNA BERGERAK]
 
 package com.dhirekhaf.mytype
 
@@ -46,10 +45,8 @@ fun WelcomeScreen(
     onGetInTouchClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    // --- [MODIFIKASI UTAMA 1: PERSIAPAN ANIMASI WARNA] ---
     val infiniteTransition = rememberInfiniteTransition(label = "welcome_bg_transition")
 
-    // Buat animasi untuk setiap warna, agar transisinya lebih halus
     val color1 by infiniteTransition.animateColor(
         initialValue = analystTheme.primaryColor,
         targetValue = diplomatTheme.primaryColor,
@@ -77,21 +74,17 @@ fun WelcomeScreen(
         end = Offset.Infinite
     )
 
-    // State untuk animasi fade-in konten
     var visibleContent by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) {
         delay(500)
         visibleContent = true
     }
 
-    // --- [MODIFIKASI UTAMA 2: STRUKTUR TAMPILAN] ---
     Box(
         modifier = modifier
             .fillMaxSize()
-            // Terapkan Brush yang sudah dianimasikan sebagai latar belakang
             .background(animatedBrush)
     ) {
-        // Lapisan gradien hitam untuk kontras
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -106,7 +99,6 @@ fun WelcomeScreen(
                 )
         )
 
-        // Gunakan AnimatedVisibility untuk semua konten agar muncul dengan anggun
         AnimatedVisibility(
             visible = visibleContent,
             enter = fadeIn(animationSpec = tween(1500)),
@@ -150,10 +142,8 @@ fun WelcomeScreen(
                     )
                 )
 
-                // Spacer untuk mendorong tombol ke bawah
                 Spacer(modifier = Modifier.weight(1f))
 
-                // Tombol Aksi Utama
                 Column(
                     modifier = Modifier.padding(bottom = 80.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,

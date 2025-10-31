@@ -2,8 +2,6 @@
 
 package com.dhirekhaf.mytype.data
 
-// --- [PERUBAHAN UTAMA] ---
-// Struktur diubah menjadi Map<String, List<String>> untuk menampung banyak kutipan.
 val mbtiQuotes: Map<String, List<String>> = mapOf(
     "INTJ" to listOf(
         "Imajinasi adalah awal dari penciptaan.",
@@ -87,7 +85,6 @@ val mbtiQuotes: Map<String, List<String>> = mapOf(
     )
 )
 
-// Bank kata mutiara umum (tidak berubah)
 val generalQuotes = listOf(
     "Percaya kamu bisa dan kamu sudah setengah jalan.",
     "Masa depan adalah milik mereka yang percaya pada keindahan mimpi mereka.",

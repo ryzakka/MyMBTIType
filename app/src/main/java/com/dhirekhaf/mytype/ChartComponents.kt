@@ -1,5 +1,4 @@
 // File: app/src/main/java/ com/dhirekhaf/mytype/ChartComponents.kt
-// [BERKAS BARU - SUMBER KEBENARAN UNTUK BAGAN]
 
 package com.dhirekhaf.mytype
 
@@ -25,7 +24,6 @@ private data class DimensionInfo(
     val rightTraitLetter: Char
 )
 
-// PASTIKAN FUNGSI INI TIDAK PRIVATE
 @Composable
 fun DimensionChart(
     mbtiType: String,

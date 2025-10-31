@@ -1,5 +1,4 @@
 // File: app/src/main/java/com/dhirekhaf/mytype/EditProfileScreen.kt
-// [VERSI FINAL - DESAIN SELARAS DENGAN TEMA UTAMA]
 
 package com.dhirekhaf.mytype
 
@@ -31,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.google.accompanist.flowlayout.FlowRow
 
-// List hobi tetap sama
 val availableHobbies = listOf(
     "Membaca", "Olahraga", "Musik", "Film", "Game", "Traveling", "Memasak", "Seni"
 )
@@ -56,10 +54,7 @@ fun EditProfileScreen(
 ) {
     val accentColor = theme.primaryColor
 
-    // --- [MODIFIKASI UTAMA] ---
-    // Gunakan Box sebagai root untuk menumpuk latar belakang dan konten
     Box(modifier = Modifier.fillMaxSize()) {
-        // 1. Latar Belakang Gradien Warna Tema
         val backgroundBrush = Brush.verticalGradient(
             colors = listOf(
                 accentColor.copy(alpha = 0.5f),
@@ -68,7 +63,6 @@ fun EditProfileScreen(
         )
         Box(modifier = Modifier.fillMaxSize().background(backgroundBrush))
 
-        // 2. Scaffold dengan background transparan
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -82,7 +76,7 @@ fun EditProfileScreen(
                     }
                 )
             },
-            containerColor = Color.Transparent // Scaffold dibuat transparan
+            containerColor = Color.Transparent
         ) { paddingValues ->
             Column(
                 modifier = modifier
@@ -94,7 +88,6 @@ fun EditProfileScreen(
             ) {
                 Spacer(modifier = Modifier.height(24.dp))
 
-                // --- Bagian Foto Profil (tidak banyak berubah) ---
                 Box(
                     modifier = Modifier
                         .size(140.dp)
@@ -138,7 +131,6 @@ fun EditProfileScreen(
 
                 Spacer(modifier = Modifier.height(32.dp))
 
-                // --- Bagian Input Form dengan Gaya Baru ---
                 val textFieldColors = TextFieldDefaults.colors(
                     focusedContainerColor = Color.White.copy(alpha = 0.15f),
                     unfocusedContainerColor = Color.White.copy(alpha = 0.1f),
@@ -219,7 +211,6 @@ fun EditProfileScreen(
     }
 }
 
-// Mengubah gaya chip agar sesuai dengan tema gelap
 @Composable
 private fun HobbyChipSelector(
     text: String,

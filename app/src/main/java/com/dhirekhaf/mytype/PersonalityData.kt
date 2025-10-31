@@ -1,23 +1,18 @@
 // Lokasi: app/src/main/java/com/dhirekhaf/mytype/PersonalityData.kt
-// [VERSI FINAL - MENYESUAIKAN DENGAN KODE ANDA YANG SUDAH ADA]
 
 package com.dhirekhaf.mytype
 
 import androidx.compose.ui.graphics.Color
 import androidx.annotation.DrawableRes
 
-// --- DATA KONTEN AKTUAL ---
 
 data class BingoTrait(val text: String, val span: Int = 1)
 
-
-// 1. DATA UNTUK TEMA WARNA GRUP
 val analystTheme = GroupTheme(Color(0xff735283), Color(0xFFD0BCFF), "735283")
 val diplomatTheme = GroupTheme(Color(0xFF3B7A57), Color(0xFFC3F3D0), "3B7A57")
 val sentinelTheme = GroupTheme(Color(0xFF004A7F), Color(0xFFA5D8FF), "004A7F")
 val explorerTheme = GroupTheme(Color(0xFFB8860B), Color(0xFFFFE082), "B8860B")
 
-// 2. DATA UNTUK TAMPILAN DAFTAR (SATU-SATUNYA DEKLARASI YANG BENAR)
 val personalityGroupsForList: List<PersonalityGroup> = listOf(
     PersonalityGroup(
         groupTitle = "Para Analis",
@@ -77,7 +72,6 @@ val personalityGroupsForList: List<PersonalityGroup> = listOf(
     )
 )
 
-// 3. DATA UNTUK TAMPILAN DETAIL (digunakan di PersonalityDetailScreen)
 val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
     // --- ANALIS ---
     "INTJ" to PersonalityDetails(
@@ -1067,7 +1061,7 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
             OtherTypeView("ESTP", "Bingung dengan sifat mereka yang tenang dan penuh teka-teki."),
             OtherTypeView("ESFP", "Menikmati energi positif mereka, tetapi merasa lelah jika terlalu lama bersama mereka.")
         ),
-        relationshipDetails = listOf( /* Lengkapi di sini */ )
+        relationshipDetails = listOf(  )
     ),
     "INFP" to PersonalityDetails(
         typeName = "INFP - Sang Mediator",
@@ -1078,8 +1072,8 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
         relationships = "Dalam cinta, ia mencari keaslian—hubungan yang membiarkan kedua jiwa tumbuh. Ia memberi perhatian dengan cara yang lembut. Pasangan terbaik adalah yang menghormati kedalaman hatinya.",
         developmentTips = listOf("Ubah ideal menjadi langkah kecil.", "Lihat kritik sebagai peluang.", "Suarakan kebutuhanmu secara langsung."),
         detailImages = listOf(R.drawable.infpmain, R.drawable.infpdesc1, R.drawable.infpdesc2),
-        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
-        relationshipDetails = listOf( /* Lengkapi di sini */ )
+        viewsFromOthers = listOf( ),
+        relationshipDetails = listOf(  )
     ),
     "ENFJ" to PersonalityDetails(
         typeName = "ENFJ - Sang Protagonis",
@@ -1090,8 +1084,8 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
         relationships = "Ia mencintai dengan keterlibatan penuh—mendengarkan, memotivasi, dan membantu pasangannya tumbuh. Ia memberi dukungan emosional yang kuat, namun kadang lupa merawat diri.",
         developmentTips = listOf("Sisihkan waktu untuk dirimu sendiri.", "Terima ketidaksempurnaan orang lain.", "Belajarlah meminta bantuan."),
         detailImages = listOf(R.drawable.enfjmain, R.drawable.enfjdesc1, R.drawable.enfjdesc2),
-        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
-        relationshipDetails = listOf( /* Lengkapi di sini */ )
+        viewsFromOthers = listOf(  ),
+        relationshipDetails = listOf(  )
     ),
     "ENFP" to PersonalityDetails(
         typeName = "ENFP - Sang Juru Kampanye",
@@ -1102,8 +1096,8 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
         relationships = "Ia mencintai dengan antusiasme: penuh perhatian, spontan, dan ingin berbagi pengalaman. Ia mencari pasangan yang bisa menjadi sahabat sekaligus pendukung ide.",
         developmentTips = listOf("Belajar menyelesaikan sedikit demi sedikit.", "Praktikkan rutinitas kecil.", "Berikan batas pada energimu."),
         detailImages = listOf(R.drawable.enfpmain, R.drawable.enfpdesc1, R.drawable.enfpdesc2),
-        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
-        relationshipDetails = listOf( /* Lengkapi di sini */ )
+        viewsFromOthers = listOf(  ),
+        relationshipDetails = listOf(  )
     ),
     "ISTJ" to PersonalityDetails(
         typeName = "ISTJ - Sang Ahli Logistik",
@@ -1114,8 +1108,8 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
         relationships = "Ia menunjukkan cinta lewat keandalan: hadir tepat waktu, menyelesaikan tanggung jawab, dan menyediakan dukungan praktis. Keteguhannya memberi rasa aman.",
         developmentTips = listOf("Beri ruang untuk fleksibilitas.", "Latih komunikasi kebutuhan emosional.", "Beri kesempatan ide baru."),
         detailImages = listOf(R.drawable.istjmain, R.drawable.istjdesc1, R.drawable.istjdesc2),
-        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
-        relationshipDetails = listOf( /* Lengkapi di sini */ )
+        viewsFromOthers = listOf(  ),
+        relationshipDetails = listOf(  )
     ),
     "ISFJ" to PersonalityDetails(
         typeName = "ISFJ - Sang Pembela",
@@ -1126,8 +1120,8 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
         relationships = "Ia mencintai lewat tindakan: perhatian kecil, ingatan pada detail, dan usaha praktis untuk membuat pasangan merasa nyaman. Ia mencari stabilitas emosional.",
         developmentTips = listOf("Belajar mengatakan 'tidak'.", "Sisihkan waktu untuk kebutuhan pribadi.", "Terima pujian."),
         detailImages = listOf(R.drawable.isfjmain, R.drawable.isfjdesc1, R.drawable.isfjdesc2),
-        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
-        relationshipDetails = listOf( /* Lengkapi di sini */ )
+        viewsFromOthers = listOf(  ),
+        relationshipDetails = listOf(  )
     ),
     "ESTJ" to PersonalityDetails(
         typeName = "ESTJ - Sang Eksekutif",
@@ -1138,8 +1132,8 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
         relationships = "Ia menunjukkan cinta dengan stabilitas: komitmen yang jelas, perencanaan masa depan, dan tanggung jawab yang konsisten. Ia perlu belajar menampilkan kelembutan agar hubungan tak terasa semata kontrak.",
         developmentTips = listOf("Beri ruang pada emosi.", "Ekspresikan apresiasi dengan kata-kata.", "Rilekskan kendali pada hal kecil.", "Pelajari perspektif lain."),
         detailImages = listOf(R.drawable.estjmain, R.drawable.estjdesc1, R.drawable.estjdesc2),
-        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
-        relationshipDetails = listOf( /* Lengkapi di sini */ )
+        viewsFromOthers = listOf( ),
+        relationshipDetails = listOf( )
     ),
     "ESFJ" to PersonalityDetails(
         typeName = "ESFJ - Sang Konsul",
@@ -1150,8 +1144,8 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
         relationships = "Ia memberi cinta lewat perhatian dan pelayanan: merawat, mengingat tanggal penting, dan menyiapkan hal-hal kecil. Ia membutuhkan penghargaan yang jelas; bila diabaikan, ia mudah merasa terluka.",
         developmentTips = listOf("Belajar menetapkan batas.", "Terima bahwa penolakan itu sehat.", "Luangkan waktu untuk diri sendiri.", "Terima kritik sebagai alat berkembang."),
         detailImages = listOf(R.drawable.esfjmain, R.drawable.esfjdesc1, R.drawable.esfjdesc2),
-        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
-        relationshipDetails = listOf( /* Lengkapi di sini */ )
+        viewsFromOthers = listOf( ),
+        relationshipDetails = listOf( )
     ),
     "ISTP" to PersonalityDetails(
         typeName = "ISTP - Sang Virtuoso",
@@ -1162,8 +1156,8 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
         relationships = "Ia mendekati hubungan dengan praktikalitas: memberi dukungan lewat tindakan nyata. Ia menyukai pasangan yang memberinya kebebasan. Ketika merasa aman, ia sangat setia dan protektif.",
         developmentTips = listOf("Ekspresikan kebutuhan emosional.", "Pertimbangkan risiko jangka panjang.", "Latih konsistensi.", "Ngobrol tanpa agenda praktis."),
         detailImages = listOf(R.drawable.istpmain, R.drawable.istpdesc1, R.drawable.istpdesc2),
-        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
-        relationshipDetails = listOf( /* Lengkapi di sini */ )
+        viewsFromOthers = listOf(  ),
+        relationshipDetails = listOf(  )
     ),
     "ISFP" to PersonalityDetails(
         typeName = "ISFP - Sang Petualang",
@@ -1174,8 +1168,8 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
         relationships = "Ia mencintai lewat kehadiran yang lembut: sentuhan, perhatian pada detail kecil, dan berbagi pengalaman. Ia menghargai pasangan yang memberi ruang berekspresi. Ketika tertekan, ia cenderung mundur.",
         developmentTips = listOf("Sampaikan kebutuhan dengan kata-kata.", "Bangun rutinitas kecil.", "Hadapi konflik kecil.", "Sediakan waktu pribadi untuk emosi."),
         detailImages = listOf(R.drawable.isfpmain, R.drawable.isfpdesc1, R.drawable.isfpdesc2),
-        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
-        relationshipDetails = listOf( /* Lengkapi di sini */ )
+        viewsFromOthers = listOf(  ),
+        relationshipDetails = listOf(  )
     ),
     "ESTP" to PersonalityDetails(
         typeName = "ESTP - Sang Pengusaha",
@@ -1186,8 +1180,8 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
         relationships = "Ia memaknai hubungan lewat dinamika, aksi, dan pengalaman bersama. Ia menyukai pasangan yang spontan. Ia perlu belajar merencanakan dan konsisten pada komitmen yang tak selalu seru.",
         developmentTips = listOf("Nilai konsekuensi jangka panjang.", "Nikmati rutinitas kecil.", "Latih komunikasi perasaan.", "Buat rencana finansial."),
         detailImages = listOf(R.drawable.estpmain, R.drawable.estpdesc1, R.drawable.estpdesc2),
-        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
-        relationshipDetails = listOf( /* Lengkapi di sini */ )
+        viewsFromOthers = listOf(  ),
+        relationshipDetails = listOf(  )
     ),
     "ESFP" to PersonalityDetails(
         typeName = "ESFP - Sang Penghibur",
@@ -1198,12 +1192,12 @@ val personalityDetailsMap: Map<String, PersonalityDetails> = mapOf(
         relationships = "Ia memberi cinta lewat kehadiran riang: merencanakan kejutan, membawa keceriaan, dan membuat momen spesial. Ia butuh pasangan yang mencintai keaktifan dan tak kaku pada rencana.",
         developmentTips = listOf("Bangun komitmen kecil.", "Sediakan waktu refleksi.", "Hadapi percakapan serius.", "Pelihara keuangan."),
         detailImages = listOf(R.drawable.esfpmain, R.drawable.esfpdesc1, R.drawable.esfpdesc2),
-        viewsFromOthers = listOf( /* Lengkapi di sini */ ),
-        relationshipDetails = listOf( /* Lengkapi di sini */ )
+        viewsFromOthers = listOf(  ),
+        relationshipDetails = listOf( )
     )
 )
 
-// 4. DATA UNTUK BINGO CARD
+//DATA BINGO CARD
 val personalityBingoMap: Map<String, List<BingoTrait>> = mapOf(
     "INTJ" to listOf(
         BingoTrait("SEMUANYA HARUS EFISIEN!", 2),
@@ -1422,16 +1416,13 @@ val personalityBingoMap: Map<String, List<BingoTrait>> = mapOf(
 )
 
 
-// --- FUNGSI UTILITAS ---
-/**
- * Fungsi untuk mendapatkan tema warna berdasarkan nama grup.
- */
+
 fun getThemeForMbtiGroup(groupTitle: String): GroupTheme {
     return when (groupTitle) {
         "Para Analis" -> analystTheme
         "Para Diplomat" -> diplomatTheme
         "Para Penjaga" -> sentinelTheme
         "Para Perajin" -> explorerTheme
-        else -> diplomatTheme // Default theme
+        else -> diplomatTheme
     }
 }

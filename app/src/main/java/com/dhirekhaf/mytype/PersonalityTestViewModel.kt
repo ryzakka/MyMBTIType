@@ -1,5 +1,4 @@
 // File: app/src/main/java/com/dhirekhaf/mytype/PersonalityTestViewModel.kt
-// [KODE LENGKAP - LOGIKA SKOR BIPOLAR]
 
 package com.dhirekhaf.mytype
 
@@ -34,8 +33,6 @@ class PersonalityTestViewModel(application: Application) : AndroidViewModel(appl
 
     private val _uiState = MutableStateFlow(PersonalityTestUiState())
     val uiState: StateFlow<PersonalityTestUiState> = _uiState.asStateFlow()
-
-    // Properti ini sekarang hanya untuk internal ViewModel
     private var finalScores: Map<Char, Int>? = null
 
     init {
@@ -111,28 +108,22 @@ class PersonalityTestViewModel(application: Application) : AndroidViewModel(appl
         val dimensions = mapOf('E' to "EI", 'S' to "SN", 'T' to "TF", 'J' to "JP")
 
         dimensions.forEach { (mainTrait, dimString) ->
-            // 1. Dapatkan semua pertanyaan untuk dimensi ini (misal: "EI")
             val relevantQuestions = _uiState.value.allQuestions.filter { question ->
                 question.options.any { it.dimension == dimString }
             }
             val maxScorePerDimension = relevantQuestions.size
-
-            // 2. Hitung skor bipolar berdasarkan jawaban pengguna
             var bipolarScore = 0
             relevantQuestions.forEach { question ->
                 val userAnswerId = _uiState.value.userAnswers[question.id]
                 val selectedOption = question.options.find { it.option_id == userAnswerId }
                 if (selectedOption != null) {
-                    // direction > 0 (misal: E, S, T, J), direction < 0 (misal: I, N, F, P)
                     bipolarScore += selectedOption.direction
                 }
             }
 
-            // 3. Konversi skor bipolar (misal: -12 s/d +12) ke rentang 0-100
             val finalScore = ((bipolarScore.toFloat() / maxScorePerDimension) * 50 + 50).toInt()
             calculatedScores[mainTrait] = finalScore.coerceIn(0, 100)
 
-            // 4. Tentukan huruf untuk tipe MBTI
             mbtiResult += when (mainTrait) {
                 'E' -> if (finalScore >= 50) "E" else "I"
                 'S' -> if (finalScore >= 50) "S" else "N"
@@ -142,12 +133,10 @@ class PersonalityTestViewModel(application: Application) : AndroidViewModel(appl
             }
         }
 
-        // Simpan hasil internal
         finalScores = calculatedScores
         _uiState.update { it.copy(testResult = mbtiResult, isLoading = false) }
     }
 
-    // Fungsi ini akan dipanggil dari luar (misal: dari Screen) setelah hasil tes muncul
     fun getFinalScoresForSaving(): Map<Char, Int>? {
         return finalScores
     }

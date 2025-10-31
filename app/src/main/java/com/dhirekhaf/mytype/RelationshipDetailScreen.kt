@@ -41,11 +41,9 @@ fun RelationshipDetailScreen(
     type2: String,
     navController: NavController
 ) {
-    // vvv TAMBAHKAN BAGIAN INI UNTUK MENGAMBIL VIEWMODEL & USERDATA vvv
     val context = LocalContext.current
     val meViewModel: MeViewModel = viewModel(factory = MeViewModelFactory(UserDataRepository(context)))
     val userData by meViewModel.userData.collectAsState()
-    // ^^^ AKHIR BAGIAN BARU ^^^
 
     val details1 = personalityDetailsMap[type1]
     val details2 = personalityDetailsMap[type2]
@@ -66,15 +64,11 @@ fun RelationshipDetailScreen(
     val view1on2 = details1?.viewsFromOthers?.find { it.typeName == type2 }?.view ?: "Pandangan tidak tersedia."
     val view2on1 = details2?.viewsFromOthers?.find { it.typeName == type1 }?.view ?: "Pandangan tidak tersedia."
 
-    // vvv TAMBAHKAN LOGIKA UNTUK FAVORIT vvv
-    // Buat kunci yang konsisten untuk memeriksa status favorit
     val relationKey = listOf(type1, type2).sorted().joinToString("-")
     val isFavorite = userData.favoriteRelations.contains(relationKey)
-    // ^^^ AKHIR BAGIAN BARU ^^^
 
     Scaffold(
         topBar = {
-            // [MODIFIKASI] TopAppBar sekarang berada di dalam Scaffold
             TopAppBar(
                 title = { Text("$type1 & $type2", fontWeight = FontWeight.Bold, color = Color.White) },
                 navigationIcon = {
@@ -83,7 +77,6 @@ fun RelationshipDetailScreen(
                     }
                 },
                 actions = {
-                    // vvv INI TOMBOL FAVORIT BARU KITA vvv
                     IconButton(onClick = {
                         meViewModel.toggleFavoriteRelation(type1, type2)
                     }) {
@@ -95,18 +88,16 @@ fun RelationshipDetailScreen(
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.Transparent // Membuat TopAppBar transparan
+                    containerColor = Color.Transparent
                 )
             )
         },
         containerColor = Color(0xFFF2F3F7)
     ) { paddingValues ->
-        // [MODIFIKASI] Kita bungkus LazyColumn dengan Box agar TopAppBar bisa menumpuk di atasnya
         Box(modifier = Modifier.fillMaxSize()) {
             if (relation1to2 != null && personalityInfo1 != null && personalityInfo2 != null) {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
-                    // Hapus paddingValues, karena header akan mengisi area di bawah status bar
                     contentPadding = PaddingValues(bottom = 32.dp)
                 ) {
                     item {
@@ -117,8 +108,6 @@ fun RelationshipDetailScreen(
                             theme2 = theme2,
                         )
                     }
-
-                    // ... (Sisa item di LazyColumn tetap sama)
                     item {
                         Column(Modifier.padding(top = 24.dp, start = 16.dp, end = 16.dp)) {
                             PerspectiveCard(
@@ -160,7 +149,6 @@ fun RelationshipDetailScreen(
                     }
                 }
             } else {
-                // Tampilan fallback tidak berubah
                 Box(Modifier
                     .fillMaxSize()
                     .padding(paddingValues), contentAlignment = Alignment.Center) {
@@ -172,13 +160,10 @@ fun RelationshipDetailScreen(
                     }
                 }
             }
-            // [MODIFIKASI] TopAppBar dipindahkan ke luar Box agar posisinya tetap di atas
         }
     }
 }
 
-
-// [MODIFIKASI] Hilangkan parameter onBackClick karena sudah ditangani TopAppBar
 @Composable
 fun RelationshipHeader(
     typeInfo1: PersonalityInfo,
@@ -197,13 +182,11 @@ fun RelationshipHeader(
             )
             .padding(top = 24.dp, start = 16.dp, end = 16.dp)
     ) {
-        // Tombol kembali sudah tidak ada di sini lagi
         Row(
             modifier = Modifier.align(Alignment.Center),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Tipe 1
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 AsyncImage(
                     model = typeInfo1.cardImageRes,
@@ -223,10 +206,8 @@ fun RelationshipHeader(
                 Text(typeInfo1.typeName, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
             }
 
-            // Simbol '&'
             Text("&", color = Color.White.copy(alpha = 0.9f), fontSize = 48.sp, fontWeight = FontWeight.Light)
 
-            // Tipe 2
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 AsyncImage(
                     model = typeInfo2.cardImageRes,
@@ -250,7 +231,6 @@ fun RelationshipHeader(
 }
 
 
-// ... Sisa Composable (PerspectiveCard, RelationshipAspectCard) tidak perlu diubah ...
 @Composable
 fun PerspectiveCard(title: String, perspective: String, themeColor: Color) {
     Column {
@@ -260,7 +240,7 @@ fun PerspectiveCard(title: String, perspective: String, themeColor: Color) {
             Box(
                 Modifier
                     .width(4.dp)
-                    .height(50.dp) // Sesuaikan tinggi sesuai kebutuhan
+                    .height(50.dp)
                     .background(themeColor, shape = RoundedCornerShape(2.dp))
             )
             Spacer(Modifier.width(12.dp))

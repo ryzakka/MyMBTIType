@@ -1,5 +1,4 @@
 // Lokasi: app/src/main/java/com/dhirekhaf/mytype/DataModels.kt
-// [PERBAIKAN - Tambahkan properti hexColor]
 
 package com.dhirekhaf.mytype
 
@@ -51,13 +50,12 @@ data class PersonalityDetails(
 )
 
 /**
- * Data class untuk tema warna grup (Versi yang lebih sederhana).
- * [PERBAIKAN] Tambahkan properti hexColor untuk pengiriman data yang aman.
+ * Data class untuk tema warna grup.
  */
 data class GroupTheme(
     val primaryColor: Color,
     val secondaryColor: Color,
-    val hexColor: String // String heksadesimal yang aman untuk dikirim
+    val hexColor: String
 )
 
 data class MbtiTheme(

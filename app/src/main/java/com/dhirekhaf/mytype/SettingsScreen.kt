@@ -1,5 +1,4 @@
 // File: app/src/main/java/com/dhirekhaf/mytype/SettingsScreen.kt
-// [VERSI FINAL - DESAIN SELARAS DENGAN TEMA UTAMA]
 
 package com.dhirekhaf.mytype
 
@@ -55,13 +54,8 @@ fun SettingsScreen(
     val meViewModel: MeViewModel = viewModel(factory = MeViewModelFactory(UserDataRepository(context)))
     val userData by meViewModel.userData.collectAsState()
 
-    // Ambil tema visual berdasarkan tipe MBTI pengguna
     val personalityTheme = getThemeForMbti(userData.mbtiType)
-
-    // --- [MODIFIKASI UTAMA] ---
-    // Gunakan Box sebagai root untuk menumpuk latar belakang dan konten
     Box(modifier = Modifier.fillMaxSize()) {
-        // 1. Latar Belakang Dinamis
         val infiniteTransition = rememberInfiniteTransition("ken_burns_settings")
         val scale by infiniteTransition.animateFloat(
             1.0f,
@@ -83,7 +77,6 @@ fun SettingsScreen(
                 .background(Brush.verticalGradient(listOf(Color.Black.copy(0.4f), Color.Black.copy(0.8f))))
         )
 
-        // 2. Scaffold dengan background transparan
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -96,7 +89,7 @@ fun SettingsScreen(
                     colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent)
                 )
             },
-            containerColor = Color.Transparent // Scaffold dibuat transparan
+            containerColor = Color.Transparent
         ) { paddingValues ->
             Column(
                 modifier = Modifier
@@ -106,7 +99,6 @@ fun SettingsScreen(
                     .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                // Gunakan Composable baru untuk grup pengaturan dengan gaya glassmorphism
                 SettingsGroup(title = "ACCOUNT") {
                     SettingsItem(
                         icon = Icons.Default.Person,
@@ -147,7 +139,6 @@ fun SettingsScreen(
     }
 }
 
-// Composable untuk grup dengan gaya baru
 @Composable
 private fun SettingsGroup(title: String, content: @Composable ColumnScope.() -> Unit) {
     Column {
@@ -159,7 +150,6 @@ private fun SettingsGroup(title: String, content: @Composable ColumnScope.() -> 
             fontSize = 12.sp,
             letterSpacing = 1.sp
         )
-        // Card dengan efek glassmorphism
         Card(
             shape = MaterialTheme.shapes.large,
             colors = CardDefaults.cardColors(containerColor = Color.White.copy(alpha = 0.1f)),
@@ -170,7 +160,6 @@ private fun SettingsGroup(title: String, content: @Composable ColumnScope.() -> 
     }
 }
 
-// Composable untuk item dengan gaya baru
 @Composable
 private fun SettingsItem(
     icon: ImageVector,
@@ -188,7 +177,7 @@ private fun SettingsItem(
         Icon(
             imageVector = icon,
             contentDescription = title,
-            tint = Color.White, // Ikon berwarna putih
+            tint = Color.White,
             modifier = Modifier.size(24.dp)
         )
         Spacer(modifier = Modifier.width(16.dp))
